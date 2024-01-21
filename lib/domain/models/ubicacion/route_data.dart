@@ -1,5 +1,5 @@
-import 'package:minegociomenu/domain/models/coordinate.dart';
-import 'package:minegociomenu/domain/models/location_model.dart';
+import 'package:minegociomenu/domain/models/ubicacion/coordinate.dart';
+import 'package:minegociomenu/domain/models/ubicacion/location_model.dart';
 
 class RouteData {
   bool? tracking = true;

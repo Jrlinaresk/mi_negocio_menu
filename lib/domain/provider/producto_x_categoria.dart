@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:minegociomenu/domain/models/dto_producto.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
 
 final categoriaIdProvider = StateProvider<int>((ref) {
   return -1;
@@ -82,7 +82,7 @@ final plastView = StateNotifierProvider<LastViewNotifier, Producto>((ref) {
 
 // StateNotifier para el último producto seleccionado
 class LastViewNotifier extends StateNotifier<Producto> {
-  LastViewNotifier() : super(Producto());
+  LastViewNotifier() : super(Producto(nombre: 'a'));
 
   void setLastView(Producto producto) {
     state = producto;

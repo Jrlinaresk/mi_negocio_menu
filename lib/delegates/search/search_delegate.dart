@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/domain/models/dto_producto.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
 import 'package:minegociomenu/domain/provider/producto_x_categoria.dart';
 
 // import 'package:auto_size_text/auto_size_text.dart';
@@ -116,7 +116,7 @@ class _SuggestionItemProducto extends StatelessWidget {
       leading: FadeInImage(
         image: const NetworkImage('https://via.placeholder.com/300x300'),
         placeholder:
-            AssetImage(itemProducto.image1 ?? "assets/identidad/icono.jpg"),
+            AssetImage(itemProducto.imageurl ?? "assets/identidad/icono.jpg"),
         fit: BoxFit.contain,
         width: 50,
       ),

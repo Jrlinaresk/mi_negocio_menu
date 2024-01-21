@@ -3,7 +3,7 @@ import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/home
 import 'package:minegociomenu/presentation/widgets/shopping_cart/agregar_restar.dart/agregar_restar.dart';
 import 'package:minegociomenu/presentation/widgets/botones/itemTabCustom.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/product_list_item.dart';
-import 'package:minegociomenu/domain/models/coffee.dart';
+import 'package:minegociomenu/domain/models/producto/coffee.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

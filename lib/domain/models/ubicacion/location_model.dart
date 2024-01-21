@@ -1,10 +1,10 @@
+import 'package:minegociomenu/domain/models/ubicacion/coordinate.dart';
 import 'package:uuid/uuid.dart';
 
 class LocationModel {
   final String id = const Uuid().v4();
   final String? display_name = '';
-  final double lat;
-  final double lon;
+  final Coordinate coordinate;
   final String? city = '';
   final String? road = '';
   final String? country = '';
@@ -16,7 +16,7 @@ class LocationModel {
   final bool? favorito = false;
   final List<String>? types = [];
 
-  LocationModel({required this.lat, required this.lon});
+  LocationModel({required this.coordinate});
 
   // Puedes añadir métodos u otros constructores según tus necesidades
 }

@@ -1,4 +1,4 @@
-import 'package:minegociomenu/domain/models/client_model.dart';
+import 'package:minegociomenu/domain/models/user/client_model.dart';
 
 class PKTModel {
   int id;

@@ -2,34 +2,34 @@ import 'package:latlong2/latlong.dart';
 
 class Ubicacion {
   final int id;
-  final String? display_name;
-  final String longitud;
-  final String latitud;
-  final String city;
-  final String road;
-  final String country;
-  final String county;
+  String? display_name;
+  final double longitud;
+  final double latitud;
+  String? city;
+  String? road;
+  String? country;
+  String? county;
 /*   final String state; */
-  final String suburb;
-  final String postcode;
+  String? suburb;
+  String? postcode;
   //para control interno
-  final bool favorito;
-  final List<String> types;
+  bool? favorito;
+  List<String>? types;
 
   Ubicacion({
     required this.id,
-    required this.display_name,
+    this.display_name,
     required this.longitud,
     required this.latitud,
-    required this.city,
-    required this.road,
-    required this.country,
-    required this.county,
-/*     required this.state, */
-    required this.suburb,
-    required this.postcode,
-    required this.favorito,
-    required this.types,
+    this.city,
+    this.road,
+    this.country,
+    this.county,
+/*     this.state, */
+    this.suburb,
+    this.postcode,
+    this.favorito,
+    this.types,
   });
 
   factory Ubicacion.fromJson(Map<String, dynamic> json) {
@@ -69,8 +69,8 @@ class Ubicacion {
 
   Ubicacion copyWith(
       {int? id,
-      String? longitud,
-      String? latitud,
+      double? longitud,
+      double? latitud,
       String? display_name,
       String? city,
       String? road,
@@ -137,6 +137,23 @@ class Ubicacion {
 
   @override
   int get hashCode => Object.hash(display_name, longitud, longitud);
+
+  // Constructor de fábrica para crear un objeto a partir de una cadena generada por toString
+  factory Ubicacion.fromString(String str) {
+    List<String> partes = str.split('; ');
+    if (partes.length == 4) {
+      Ubicacion s = Ubicacion(
+        display_name: partes[0],
+        latitud: double.parse(partes[1]),
+        longitud: double.parse(partes[2]),
+        id: 0,
+      );
+      return s;
+    } else {
+      // Manejo de errores si la cadena no es válida
+      throw FormatException('Formato de cadena no válido para MiObjeto: $str');
+    }
+  }
 }
 
 /* class LatLong {

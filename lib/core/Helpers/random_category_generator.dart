@@ -1,20 +1,23 @@
 import 'dart:math';
-import 'package:minegociomenu/domain/models/categoria_model.dart';
+import 'package:flutter/material.dart';
+import 'package:minegociomenu/domain/models/categoria/categoria.dart';
 import 'package:uuid/uuid.dart';
 
 class RandomCategoryGenerator {
   static Categoria getRandomCategoria() {
-    final id = const Uuid().v4();
+    final uuid = const Uuid().v4();
+    final idAsInt = int.parse(uuid.substring(0, 8), radix: 16);
+    final id = idAsInt;
     final name = getRandomNameCategoria();
-    const image = 'assets/categoria.png';
+    const image = Icons.account_circle_outlined;
     const description = 'Descripción aleatoria del producto';
-    const costoxkilometro = '0.60usd';
+    const costoxkilometro = 0.60;
 
     return Categoria(
       id: id,
-      name: name,
-      image: image,
-      description: description,
+      nombre: name,
+      icono: image,
+      descripcion: description,
       costoxkilometro: costoxkilometro,
     );
   }

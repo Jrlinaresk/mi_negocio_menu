@@ -10,7 +10,7 @@ import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps/mapom/new_structura/mcustom_map.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps/mapom/providers/location_provider_lite.dart';
 import 'package:minegociomenu/presentation/Screens/globals/09drawer/SettingsScreen.dart';
-import 'package:minegociomenu/domain/models/ubicacion_tools/domain/ubicacion.dart';
+import 'package:minegociomenu/domain/models/ubicacion/ubicacion.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 class MapaScreen extends ConsumerStatefulWidget {
@@ -27,8 +27,8 @@ class MapaScreenState extends ConsumerState<MapaScreen> {
         ref.watch(updatedLocationProviderClient);
 
     //boorrar en la version final esto
-    double originalLat = double.parse(ubicacionProvider.value!.latitud);
-    double originalLng = double.parse(ubicacionProvider.value!.longitud);
+    double originalLat = ubicacionProvider.value!.latitud;
+    double originalLng = ubicacionProvider.value!.longitud;
 
     double desplazamientoMetros = 200;
 

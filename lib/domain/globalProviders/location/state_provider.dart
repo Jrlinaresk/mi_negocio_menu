@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:latlong2/latlong.dart';
-import 'package:minegociomenu/domain/models/ubicacion_tools/domain/ubicacion.dart';
+import 'package:minegociomenu/domain/models/ubicacion/ubicacion.dart';
 
 final updatedLocationProviderClient = FutureProvider<Ubicacion>((ref) async {
   Ubicacion ufinal;

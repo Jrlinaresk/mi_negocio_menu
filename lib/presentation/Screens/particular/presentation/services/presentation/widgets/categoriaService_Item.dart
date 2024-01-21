@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:minegociomenu/domain/data/remote/servicio/servicio_x_categoria/servicio_x_categoria.dart';
-import 'package:minegociomenu/domain/models/servicio_categoria.dart';
+import 'package:minegociomenu/domain/models/servicios/servicio_categoria.dart';
 import 'package:minegociomenu/domain/provider/servicios/state_provider.dart';
 import 'package:minegociomenu/core/utils/ui/tools.dart';
 

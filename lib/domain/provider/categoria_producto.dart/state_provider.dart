@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/domain/models/dto_categoria.dart';
+import 'package:minegociomenu/domain/models/categoria/categoria.dart';
 
 final lastView = StateProvider<Categoria>((ref) {
-  return Categoria();
+  return Categoria(id: 0, nombre: 'a', icono: Icons.account_circle_outlined);
 });

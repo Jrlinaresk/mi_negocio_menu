@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:minegociomenu/domain/models/service_dto.dart';
+import 'package:minegociomenu/domain/models/servicios/service_dto.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/services/domain/service_model.dart';
-import 'package:minegociomenu/domain/models/servicio_categoria.dart';
+import 'package:minegociomenu/domain/models/servicios/servicio_categoria.dart';
 
 final servicioIdProvider = StateProvider<int>((ref) {
   return -1;

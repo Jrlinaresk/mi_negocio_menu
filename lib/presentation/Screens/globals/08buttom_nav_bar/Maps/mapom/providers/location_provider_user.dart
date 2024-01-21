@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps/mapom/providers/location_provider_lite.dart';
-import 'package:minegociomenu/domain/models/ubicacion_tools/domain/ubicacion.dart';
+import 'package:minegociomenu/domain/models/ubicacion/ubicacion.dart';
 
 final UbicacionDelUsuario =
     StateNotifierProvider<LocationNotifierLite, AsyncValue<Ubicacion>>((ref) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/homeScreen/menu_detail.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/product_list_item.dart';
-import 'package:minegociomenu/domain/models/coffee.dart';
+import 'package:minegociomenu/domain/models/producto/coffee.dart';
 
 class ItemRvPopulares extends StatelessWidget {
   String? imageUrl;

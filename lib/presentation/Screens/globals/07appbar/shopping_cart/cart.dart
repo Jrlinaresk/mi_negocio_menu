@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/item_rv_populares.dart';
 import 'package:minegociomenu/presentation/widgets/shopping_cart/shopping_cart_item.dart';
-import 'package:minegociomenu/domain/models/coffee.dart';
+import 'package:minegociomenu/domain/models/producto/coffee.dart';
 
 class ShoppingCartScreen extends StatelessWidget {
   const ShoppingCartScreen({super.key});

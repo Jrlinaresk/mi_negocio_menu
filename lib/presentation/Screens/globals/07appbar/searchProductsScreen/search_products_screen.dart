@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/domain/models/dto_producto.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
 import 'package:minegociomenu/domain/provider/producto_x_categoria.dart';
 
 class SearchProductsScreen extends ConsumerStatefulWidget {

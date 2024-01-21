@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:minegociomenu/domain/models/servicio_categoria.dart';
+import 'package:minegociomenu/domain/models/servicios/servicio_categoria.dart';
 
 final serviciosProvider = FutureProvider<List<ServiceCategoria>>((ref) async {
   final response = await http

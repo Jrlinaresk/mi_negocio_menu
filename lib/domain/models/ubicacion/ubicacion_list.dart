@@ -1,7 +1,7 @@
-import 'package:minegociomenu/domain/models/ubicacion_tools/domain/ubicacion_lite.dart';
+import 'package:minegociomenu/domain/models/ubicacion/ubicacion.dart';
 
 class UbicacionList {
-  List<UbicacionLite> ubicaciones;
+  List<Ubicacion> ubicaciones;
 
   UbicacionList({
     required this.ubicaciones,
@@ -19,10 +19,10 @@ class UbicacionList {
 
   // Constructor de fábrica para crear un objeto a partir de una cadena generada por toString
   factory UbicacionList.fromString(String str) {
-    List<UbicacionLite> newubicaciones = [];
+    List<Ubicacion> newubicaciones = [];
     List<String> ubicacionesPart = str.split('::');
     for (var ubicacion in ubicacionesPart) {
-      newubicaciones.add(UbicacionLite.fromString(ubicacion));
+      newubicaciones.add(Ubicacion.fromString(ubicacion));
     }
     return UbicacionList(ubicaciones: newubicaciones);
   }

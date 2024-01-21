@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:minegociomenu/core/Helpers/random_category_generator.dart';
-import 'package:minegociomenu/domain/models/categoria_model.dart';
+import 'package:minegociomenu/domain/models/categoria/categoria.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -16,13 +17,7 @@ class CategoriaNotifier extends StateNotifier<List<Categoria>> {
   void addCategoria() {
     state = [
       ...state,
-      Categoria(
-        id: "id",
-        name: "name",
-        image: "image",
-        description: "description",
-        costoxkilometro: '0.50usd',
-      )
+      Categoria(id: 0, nombre: 'a', icono: Icons.account_circle_outlined)
     ];
   }
 }

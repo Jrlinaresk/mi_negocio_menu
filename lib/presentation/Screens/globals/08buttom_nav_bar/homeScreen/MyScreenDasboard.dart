@@ -13,7 +13,7 @@ import 'package:minegociomenu/presentation/Screens/particular/presentation/produ
 import 'package:minegociomenu/presentation/widgets/publicaciones/post_widget.dart';
 import 'package:minegociomenu/presentation/widgets/promos/simple_promo.dart';
 import 'package:minegociomenu/presentation/widgets/titles/title_de_lista.dart';
-import 'package:minegociomenu/domain/models/coffee.dart';
+import 'package:minegociomenu/domain/models/producto/coffee.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
 class MyScreen extends StatelessWidget {

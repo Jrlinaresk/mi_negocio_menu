@@ -1,17 +1,18 @@
 import 'package:flutter/foundation.dart';
+import 'package:minegociomenu/domain/models/ubicacion/municipio.dart';
 
-class Categoria with ChangeNotifier {
-  Categoria({
+class Provincia with ChangeNotifier {
+  Provincia({
     required this.id,
     required this.image,
     required this.name,
     required this.description,
-    required this.costoxkilometro,
+    required this.municipios,
   });
 
-  final String id;
+  final int id;
   final String image;
   final String name;
   final String description;
-    final String costoxkilometro;
+  final List<Municipio> municipios;
 }

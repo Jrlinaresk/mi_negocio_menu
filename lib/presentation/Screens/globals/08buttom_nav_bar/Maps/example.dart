@@ -9,9 +9,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps/mapom/providers/location_provider_lite.dart';
-import 'package:minegociomenu/domain/models/solicitud_de_envio.dart';
+import 'package:minegociomenu/domain/models/servicios/solicitud_de_envio.dart';
 import 'package:minegociomenu/presentation/widgets/ProgressIndicator.dart';
-import 'package:minegociomenu/domain/models/ubicacion_tools/domain/ubicacion.dart';
+import 'package:minegociomenu/domain/models/ubicacion/ubicacion.dart';
 import 'package:minegociomenu/core/utils/location_utils.dart';
 // osrm
 import 'package:osrm/osrm.dart';
@@ -503,8 +503,8 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
   }
 
   Future<void> realizarDesplazamiento(Ubicacion ubicacion) async {
-    double ulat = double.parse(ubicacion.latitud);
-    double ulon = double.parse(ubicacion.longitud);
+    double ulat = ubicacion.latitud;
+    double ulon = ubicacion.longitud;
 
     double desplazamientoMetros = 200;
 

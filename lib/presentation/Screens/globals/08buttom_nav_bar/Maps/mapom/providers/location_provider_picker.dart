@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:minegociomenu/domain/models/ubicacion_tools/domain/ubicacion.dart';
+import 'package:minegociomenu/domain/models/ubicacion/ubicacion.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 
@@ -52,17 +52,8 @@ final updatedLocationProviderClient = FutureProvider<Ubicacion>((ref) async {
         print('Error: La respuesta no es un mapa.');
         ufinal = Ubicacion(
           id: 0,
-          longitud: 'lon',
-          latitud: 'lat',
-          display_name: 'display_name',
-          city: 'city_district',
-          road: 'road',
-          country: 'country',
-          county: 'county',
-          suburb: 'suburb',
-          postcode: 'postcode',
-          favorito: false,
-          types: ['addresstype'],
+          longitud: 0,
+          latitud: 0,
         );
       }
 

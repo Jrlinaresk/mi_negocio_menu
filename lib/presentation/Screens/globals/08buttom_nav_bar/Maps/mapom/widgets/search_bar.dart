@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart' as intl;
 import 'package:latlong2/latlong.dart';
+import 'package:minegociomenu/domain/models/ubicacion/ubicacion.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps/mapom/providers/location_provider_lite.dart';
-import 'package:minegociomenu/domain/models/ubicacion_tools/domain/ubicacion.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -241,7 +241,7 @@ class _mSearchBarState extends ConsumerState<mSearchBar> {
                         TextStyle(color: Colors.grey.shade500, fontSize: 12.0),
                   ),
                   Text(
-                    _options[index].latitud,
+                    '${_options[index].latitud}',
                     style:
                         TextStyle(color: Colors.grey.shade500, fontSize: 12.0),
                   ),
@@ -255,7 +255,7 @@ class _mSearchBarState extends ConsumerState<mSearchBar> {
                         TextStyle(color: Colors.grey.shade500, fontSize: 12.0),
                   ),
                   Text(
-                    _options[index].longitud,
+                    '${_options[index].longitud}',
                     style:
                         TextStyle(color: Colors.grey.shade500, fontSize: 12.0),
                   ),
@@ -283,8 +283,8 @@ class _mSearchBarState extends ConsumerState<mSearchBar> {
                 .toList()[0]; */
             _searchController.text = '';
             _searchController.text = _options[index].display_name!;
-            LatLng center = LatLng(double.parse(_options[index].latitud),
-                double.parse(_options[index].longitud));
+            LatLng center =
+                LatLng(_options[index].latitud, _options[index].longitud);
 /*             _animatedMapMove(center.toLatLng(), 18.0);
             onLocationChanged(center); */
             _focusNode.unfocus();
