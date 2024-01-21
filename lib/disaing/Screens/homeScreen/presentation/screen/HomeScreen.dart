@@ -39,7 +39,7 @@ class _MyTabBarScreenState extends State<MyTabBarScreen> {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: const TabBar(
+            title: TabBar(
               indicator: BoxDecoration(
                 color: Colors.white,
               ),
@@ -48,10 +48,16 @@ class _MyTabBarScreenState extends State<MyTabBarScreen> {
               isScrollable: true,
               tabs: [
                 Center(
-                  child: ItemTab_Custom(title: "Clientes"),
+                  child: ItemTab_Custom(
+                    title: "Combos",
+                    assetPath: 'logo.png',
+                  ),
                 ),
                 Center(
-                  child: ItemTab_Custom(title: "Balones"),
+                  child: ItemTab_Custom(
+                    title: "Combos",
+                    assetPath: 'logo.png',
+                  ),
                 ),
                 // Center(
                 //   child: ItemTab_Custom( title: "Otros"),

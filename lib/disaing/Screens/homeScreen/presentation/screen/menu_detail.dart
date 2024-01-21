@@ -1,4 +1,8 @@
 import 'package:minegociomenu/const.dart';
+import 'package:minegociomenu/disaing/Screens/homeScreen/presentation/screen/HomeScreen.dart';
+import 'package:minegociomenu/disaing/widgets/agregar_restar.dart/agregar_restar.dart';
+import 'package:minegociomenu/disaing/widgets/itemTabCustom.dart';
+import 'package:minegociomenu/disaing/widgets/lists/item_clasic.dart';
 import 'package:minegociomenu/icons/my_flutter_app_icons.dart';
 import 'package:minegociomenu/models/coffee.dart';
 import 'package:flutter/material.dart';
@@ -7,239 +11,200 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class MenuDetail extends StatefulWidget {
   Coffee coffee;
 
-  MenuDetail({required this.coffee});
+  MenuDetail({super.key, required this.coffee});
 
   @override
-  _MenuDetailState createState() => _MenuDetailState();
+  MenuDetailState createState() => MenuDetailState();
 }
 
-class _MenuDetailState extends State<MenuDetail> {
+class MenuDetailState extends State<MenuDetail> {
+  final List<Widget> _tabViews = [
+    // Lista de widgets para mostrar en cada pestaña
+    const CategoriatListProductos(),
+    const CategoriatListProductos(),
+    const CategoriatListProductos(),
+  ];
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double appBarHeight = AppBar().preferredSize.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        leading: Icon(
-          Icons.keyboard_arrow_left,
-          color: Colors.brown,
-        ),
-        backgroundColor: Colors.white,
-        title: Text(
-          "Preferences",
-          style: TextStyle(fontFamily: 'Roboto', color: Colors.brown),
-        ),
-        centerTitle: true,
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 20),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 4,
-            color: lightBrown,
-            child: Icon(widget.coffee.coffeeIcon, size: 120, color: brown),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(widget.coffee.name,
-                        style: TextStyle(
-                            letterSpacing: 2,
-                            fontFamily: 'Roboto',
-                            fontSize: 20,
-                            color: Colors.brown.shade800,
-                            fontWeight: FontWeight.bold)),
-                    SizedBox(height: 5),
-                    Text(
-                      "${widget.coffee.price} Da",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Roboto',
-                          color: Colors.grey.shade700),
-                    ),
-                  ],
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              backgroundColor: Colors.white,
+              expandedHeight: 300.0, // Altura expandida de la appbar
+              pinned: true, // Permanece visible mientras se hace scroll
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text(
+                  widget.coffee.name,
+                  style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
-                Row(
-                  children: <Widget>[
-                    Text("1",
-                        style: TextStyle(
-                            color: Colors.brown.shade800,
-                            fontFamily: 'Roboto',
-                            fontSize: 26)),
-                    SizedBox(width: 20),
-                    ElevatedButton(
-/*                       borderSide: BorderSide(color: Colors.grey.shade600), */
-                      onPressed: () {},
-                      child: Icon(Icons.remove),
-/*                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              bottomLeft: Radius.circular(30))), */
-                    ),
-                    SizedBox(width: 7),
-                    ElevatedButton(
-/*                       padding: EdgeInsets.all(0), */
-                      onPressed: () {},
-                      child: Icon(Icons.add),
-/*                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(30),
-                              topRight: Radius.circular(30))),
-                      borderSide: BorderSide(color: Colors.grey.shade600), */
-                    ),
-                  ],
+                background: Image.network(
+                  'https://medias.treew.com/imgproducts/thumbs/142688.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    // Acción al presionar el icono de buscar
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.favorite_border),
+                  onPressed: () {
+                    // Acción al presionar el icono de favoritos
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.share),
+                  onPressed: () {
+                    // Acción al presionar el icono de compartir
+                  },
                 ),
               ],
             ),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Divider(height: 3),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: <Widget>[
-                Text("Size",
-                    style: TextStyle(
-                        fontFamily: 'Roboto', color: Colors.grey.shade700)),
-                SizedBox(width: 50),
-                Expanded(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Icon(widget.coffee.coffeeIcon, color: Colors.grey.shade400),
-                    SizedBox(width: 50),
-                    Icon(widget.coffee.coffeeIcon,
-                        color: Colors.brown.shade800, size: 30),
-                    SizedBox(width: 50),
-                    Icon(widget.coffee.coffeeIcon,
-                        color: Colors.grey.shade400, size: 36),
-                  ],
-                ))
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Divider(height: 3),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: <Widget>[
-                Text("Sugar",
-                    style: TextStyle(
-                        fontFamily: 'Roboto', color: Colors.grey.shade700)),
-                SizedBox(width: 40),
-                Expanded(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Icon(Icons.close, color: Colors.grey.shade400),
-                    SizedBox(width: 50),
-                    Icon(Icons.check_box_outline_blank,
-                        color: Colors.grey.shade400),
-                    SizedBox(width: 50),
-                    Row(
-                      children: <Widget>[
-                        Icon(Icons.check_box_outline_blank,
-                            color: Colors.brown.shade800),
-                        Icon(Icons.check_box_outline_blank,
-                            color: Colors.brown.shade800),
-                      ],
-                    ),
-                  ],
-                ))
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Divider(height: 3),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: <Widget>[
-                Text("Additions",
-                    style: TextStyle(
-                        fontFamily: 'Roboto', color: Colors.grey.shade700)),
-                SizedBox(width: 14),
-                Expanded(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Icon(Icons.cake, color: Colors.grey.shade400),
-                    SizedBox(width: 50),
-                    Icon(FontAwesomeIcons.iceCream,
-                        color: Colors.grey.shade400),
-                    SizedBox(width: 65),
-                    Icon(Icons.cloud, color: Colors.white),
-                  ],
-                ))
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Divider(height: 3),
-          ),
-          SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Total:",
-                    style: TextStyle(
-                        fontFamily: 'Roboto', color: darkBrown, fontSize: 28)),
-                Text("${widget.coffee.price} Da",
-                    style: TextStyle(
-                        fontFamily: 'Roboto',
-                        color: Colors.brown.shade800,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold)),
-              ],
-            ),
-          ),
-          SizedBox(height: 60),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
-                    child: ElevatedButton(
-/*                       padding: EdgeInsets.fromLTRB(55, 15, 55, 15), */
-                      onPressed: () {},
-                      child: Text(
-                        "Add to cart",
-                        style: TextStyle(
-                            fontFamily: 'Roboto', color: Colors.white),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  //primer componente
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 16.0, right: 16.0),
+                            child: ProductListItem(
+                                title: 'Nombre del producto',
+                                subtitle: 'Marca',
+                                date: '7USD',
+                                rating: 3.5,
+                                starCount: 0,
+                                isFavorite: false,
+                                price: const [17, 12]),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(
+                                left: 16, right: 16.0, bottom: 8),
+                            child: Divider(height: 3),
+                          ),
+                        ],
                       ),
-/*                       color: darkBrown, */
-                    )),
+                      AddToCartButton(
+                        initialQuantity: 1,
+                        onQuantityChanged: (newQuantity) {
+                          // Lógica para manejar el cambio en la cantidad
+                          print('Nueva cantidad: $newQuantity');
+                        },
+                      ),
+                    ],
+                  ),
+                  //tab componente
+                  // Nueva sección para el TabBar
+                ],
+              ),
+            ),
+          ];
+        },
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: DefaultTabController(
+            length: 3,
+            child: Column(
+              children: [
+                TabBar(
+                  labelColor: Theme.of(context).primaryColor,
+                  unselectedLabelColor: Colors.black,
+                  indicatorColor: Theme.of(context).primaryColor,
+                  tabs: [
+                    ItemTab_Custom(
+                      title: "Opiniones",
+                      v2: true,
+                    ),
+                    ItemTab_Custom(
+                      title: "Detalles",
+                      v2: true,
+                    ),
+                    ItemTab_Custom(
+                      title: "Ofertas",
+                      v2: true,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: SizedBox(
+                    height: screenHeight -
+                        appBarHeight -
+                        kToolbarHeight, // Resta la altura del appBar
+                    child: TabBarView(children: _tabViews),
+                  ),
+                ),
               ],
             ),
           ),
-        ],
+        ),
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 136,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 48.0, right: 48.0, bottom: 12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Total a pagar:"),
+                  Text("35USD",
+                      style: TextStyle(
+                          fontFamily: 'Roboto',
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 28)),
+                ],
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 32.0, right: 32.0, bottom: 8.0),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 8, // Ajusta el valor según tus necesidades
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: const SizedBox(
+                      height: 64,
+                      child: Center(
+                        child: Text(
+                          "Agregar al carrito",
+                          style: TextStyle(
+                              fontFamily: 'Roboto', color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }

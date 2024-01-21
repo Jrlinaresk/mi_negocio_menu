@@ -5,6 +5,13 @@ class Coffee {
   IconData coffeeIcon;
   String name;
   int price;
+  String moneda;
+  int lastprice;
 
-  Coffee({required this.coffeeIcon, required this.name, required this.price});
+  Coffee(
+      {required this.coffeeIcon,
+      required this.name,
+      required this.price,
+      required this.moneda,
+      required this.lastprice});
 }

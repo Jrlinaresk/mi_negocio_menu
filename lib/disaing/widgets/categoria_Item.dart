@@ -40,7 +40,7 @@ class CategoriaItem extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -50,7 +50,7 @@ class CategoriaItem extends ConsumerWidget {
                                 children: [
                                   Center(
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.all(8.0),
                                       child: SizedBox(
 /*                                         child: Column(
                                           children: [
@@ -76,7 +76,7 @@ class CategoriaItem extends ConsumerWidget {
                                   ),
                                 ],
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 8,
                               ),
                               Column(

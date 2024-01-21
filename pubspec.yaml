@@ -16,6 +16,7 @@ dependencies:
   flutter_svg: ^2.0.9
   cupertino_icons: ^1.0.2
 
+  carousel_slider: ^4.2.1
   shared_preferences: ^2.2.1
   connectivity_plus: ^4.0.2
   salomon_bottom_bar: ^3.3.2
@@ -34,7 +35,17 @@ dependencies:
   modal_progress_hud_nsn: ^0.4.0
   icons_plus: ^4.0.0
   qr_code_scanner: ^1.0.1
-  http: ^0.13.3
+  random_name_generator: ^1.2.0
+  http: ^1.2.0
+  introduction_screen: ^3.1.12
+  flutter_blurhash: ^0.8.2
+  snapping_sheet: ^3.1.0
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.0
+  osrm: ^0.0.5
+  location_picker_flutter_map: ^2.1.0
+  sqflite: ^2.3.0
+  uni_links: ^0.5.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
@@ -56,6 +67,8 @@ flutter:
 
   assets:
     - assets/
+    - assets/categorias/
+    - assets/developed/
 
 fonts:
   - family: Roboto

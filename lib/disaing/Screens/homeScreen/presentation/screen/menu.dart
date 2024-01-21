@@ -1,17 +1,25 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:minegociomenu/const.dart';
+import 'package:minegociomenu/disaing/Screens/Maps/example.dart';
+import 'package:minegociomenu/disaing/Screens/Maps/maps.dart';
+import 'package:minegociomenu/disaing/Screens/bloc/bloc.dart';
 import 'package:minegociomenu/disaing/Screens/homeScreen/presentation/screen/HomeScreen.dart';
 import 'package:minegociomenu/disaing/Screens/homeScreen/presentation/screen/menu_list.dart';
 import 'package:flutter/material.dart';
+import 'package:minegociomenu/disaing/Screens/intro/screen/intro.dart';
 import 'package:minegociomenu/disaing/Screens/notification/presentation/screens/mNotification.dart';
 import 'package:minegociomenu/disaing/Screens/profileScreen/presentation/screens/ProfileScreen.dart';
 import 'package:minegociomenu/disaing/Screens/settingsScreen/presentation/screens/SettingsScreen.dart';
+import 'package:minegociomenu/disaing/widgets/CustomNotificationPromo.dart';
 import 'package:minegociomenu/disaing/widgets/SliderView.dart';
 import 'package:minegociomenu/disaing/widgets/mBottomNavigationBar.dart';
 import 'package:minegociomenu/disaing/widgets/mSalomonBottomBar.dart';
 import 'package:minegociomenu/utils/ui/tools.dart';
+import 'dart:ui' as ui;
 
 class HomeMenu extends StatefulWidget {
   const HomeMenu({Key? key}) : super(key: key);
@@ -40,6 +48,9 @@ class _MyHomePageState extends ConsumerState {
       GlobalKey<SliderDrawerState>();
   late String title;
   var _currentIndex = 0; // Índice seleccionado inicialmente
+  bool notificarionPromoShow = true;
+  late Timer
+      _timer; // Temporizador para cambiar la variable notificarionPromoShow
 
   void updateText_currentIndex(var value) {
     setState(() {
@@ -53,33 +64,49 @@ class _MyHomePageState extends ConsumerState {
     });
   }
 
+  void updateText_notificarionPromoShow(bool value) {
+    setState(() {
+      notificarionPromoShow = value;
+    });
+  }
+
   final List<Widget> _Fragment_screens = [
     // Lista de widgets para mostrar en cada pestaña
     //buttombar
     MenuList(),
 /*     const HomeScreen(), */
-    const ProfileScreen(),
-    const SettingsScreen(),
+    const FlutterMapOsrmExample(), // MapaScreen
+    const MBloc(),
     //drawer
-    const mNotification(),
+    const ProfileScreen(),
   ];
 
   @override
   void initState() {
-    title = "Home";
+    title = "Tu tienda";
     super.initState();
+    // Iniciar el temporizador para cambiar la variable cada 5 segundos
+    _timer = Timer.periodic(const Duration(seconds: 120), (timer) {
+      setState(() {
+        if (notificarionPromoShow == false) {
+          notificarionPromoShow = !notificarionPromoShow;
+        }
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(fontFamily: 'BalsamiqSans'),
-      home: Scaffold(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      body: Scaffold(
+        backgroundColor: Colors.transparent,
         body: SafeArea(
           child: SliderDrawer(
               appBar: SliderAppBar(
                   appBarPadding: const EdgeInsets.only(left: 8),
-                  appBarColor: Colors.white,
+                  appBarColor: const Color(0xff131A22),
+                  drawerIconColor: Colors.white,
                   title: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +117,10 @@ class _MyHomePageState extends ConsumerState {
                           child: Center(
                             child: Text(title,
                                 style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w700)),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                )),
                           ),
                         ),
                       ),
@@ -109,7 +139,7 @@ class _MyHomePageState extends ConsumerState {
                       InkWell(
                         // borrar productdetallesscreen
                         onTap: () {
-                          showToast("Funcion pendiente");
+                          //showToast("Funcion pendiente");
                           /*                         ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Buscar productos')));
@@ -120,16 +150,22 @@ class _MyHomePageState extends ConsumerState {
                             '/searchproductsscreen',
                           ); */ */
                         },
-                        child: const Icon(Icons.search), // Icono de búsqueda ,
+                        child: const Icon(
+                          Icons.search,
+                          color: Color(0xffFFD54B),
+                        ), // Icono de búsqueda ,
                       ),
                       IconButton(
                           onPressed: () {
-                            showToast("Funcion pendiente");
-                            /*                             context.push(
-                              '/favoritosscreen',
-                            ); */
+                            //showToast("Funcion pendiente");
+                            context.push(
+                              '/shopping_cartScreen',
+                            );
                           },
-                          icon: const Icon(Icons.shopping_cart)),
+                          icon: const Icon(
+                            Icons.shopping_cart,
+                            color: Colors.white,
+                          )),
                       const SizedBox(
                         width: 8.0,
                       ),
@@ -151,17 +187,37 @@ class _MyHomePageState extends ConsumerState {
                   });
                 },
               ),
-              child: Scaffold(
-                body: IndexedStack(
-                  index: _currentIndex,
-                  children: _Fragment_screens,
-                ),
-                bottomNavigationBar: mBottomNavigationBar(
-                  updateText_currentIndex,
-                  updateText_title,
-                  items: [],
-                ),
-                //child: AuthorList()
+              child: Stack(
+                children: [
+                  Scaffold(
+                    backgroundColor: Colors.transparent,
+                    appBar: notificarionPromoShow
+                        ? CustomNotificationPromo(
+                            "Oferta especial para ti solo por hoy",
+                            "Entrega gratis con tu primera orden",
+                            (value) {
+                              setState(() {
+                                notificarionPromoShow = value;
+                              });
+                            },
+                          )
+                        : null,
+                    body: Stack(
+                      children: [
+                        IndexedStack(
+                          index: _currentIndex,
+                          children: _Fragment_screens,
+                        ),
+                      ],
+                    ),
+                    bottomNavigationBar: mBottomNavigationBar(
+                      updateText_currentIndex,
+                      updateText_title,
+                      items: [],
+                    ),
+                    //child: AuthorList()
+                  ),
+                ],
               )),
         ),
       ),

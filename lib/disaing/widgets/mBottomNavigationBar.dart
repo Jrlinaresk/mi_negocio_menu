@@ -16,77 +16,98 @@ class _mBottomNavigationBarState extends State<mBottomNavigationBar> {
   late String title;
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() {
-          switch (index) {
-            case 0:
-              widget.update_title("Home");
-              break;
-            case 1:
-              widget.update_title("Ubicacion");
-              break;
-            case 2:
-              widget.update_title("Favoritos");
-              break;
-            case 3:
-              widget.update_title("Propietario");
-              break;
-            default:
-              {
-                widget.update_currentIndex(-1);
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Card(
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              switch (index) {
+                case 0:
+                  widget.update_title("Home");
+                  break;
+                case 1:
+                  widget.update_title("Ubicacion");
+                  break;
+                case 2:
+                  widget.update_title("Favoritos");
+                  break;
+                case 3:
+                  widget.update_title("Propietario");
+                  break;
+                default:
+                  {
+                    widget.update_currentIndex(-1);
+                  }
               }
-          }
-        });
+            });
 
-        setState(() {
-          widget.update_currentIndex(
-              index); // Llama a la función update_currentIndex con el índice
-          _currentIndex = index;
-        });
-      },
-      items: const <BottomNavigationBarItem>[
-        /// Home
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.coffee,
-            color: Colors.brown,
-          ), //restaurant_menu
-          label: "Home",
-        ),
+            setState(() {
+              widget.update_currentIndex(
+                  index); // Llama a la función update_currentIndex con el índice
+              _currentIndex = index;
+            });
+          },
+          items: const <BottomNavigationBarItem>[
+            /// Home
+            BottomNavigationBarItem(
+              activeIcon: Icon(
+                Icons.coffee,
+                color: Color(0xffFFD54B),
+              ),
+              icon: Icon(
+                Icons.coffee,
+                color: Color.fromARGB(81, 255, 255, 255),
+              ), //restaurant_menu
+              label: "Home",
+            ),
 
-        /// Ubicacion
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.location_on,
-            color: Colors.brown,
-          ),
-          label: "Ubicacion", //Ubicacion
-        ),
+            /// Ubicacion
+            BottomNavigationBarItem(
+              activeIcon: Icon(
+                Icons.location_on,
+                color: Color(0xffFFD54B),
+              ),
+              icon: Icon(
+                Icons.location_on,
+                color: Color.fromARGB(81, 255, 255, 255),
+              ),
+              label: "Ubicacion", //Ubicacion
+            ),
 
-        /// Favoritos
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.favorite,
-            color: Colors.brown,
-          ),
-          label: "Favoritos", //Favoritos
-        ),
+            /// Favoritos
+            BottomNavigationBarItem(
+              activeIcon: Icon(
+                Icons.favorite,
+                color: Color(0xffFFD54B),
+              ),
+              icon: Icon(
+                Icons.favorite,
+                color: Color.fromARGB(81, 255, 255, 255),
+              ),
+              label: "Favoritos", //Favoritos
+            ),
 
-        /// Propietario
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.person,
-            color: Colors.brown,
-          ),
-          label: "Propietario",
+            /// Propietario
+            BottomNavigationBarItem(
+              activeIcon: Icon(
+                Icons.person,
+                color: Color(0xffFFD54B),
+              ),
+              icon: Icon(
+                Icons.person,
+                color: Color.fromARGB(81, 255, 255, 255),
+              ),
+              label: "Propietario",
+            ),
+          ],
+          selectedItemColor: const Color(
+              0xffFFD54B), // Color del ícono y del texto seleccionado
+          unselectedItemColor: Colors
+              .grey.shade100, // Color del ícono y del texto no seleccionado
         ),
-      ],
-      selectedItemColor:
-          Colors.brown, // Color del ícono y del texto seleccionado
-      unselectedItemColor:
-          Colors.grey, // Color del ícono y del texto no seleccionado
+      ),
     );
   }
 }

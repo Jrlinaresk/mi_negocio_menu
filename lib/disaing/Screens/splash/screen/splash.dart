@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:minegociomenu/disaing/Screens/homeScreen/presentation/screen/new_home.dart';
+import 'package:minegociomenu/disaing/Screens/intro/screen/intro.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -33,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 3500), () {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return const HomeNew();
+        return const IntroScreen(); //
       }));
     });
   }

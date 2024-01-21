@@ -22,7 +22,7 @@ class _mSalomonBottomBarState extends State<mSalomonBottomBar> {
         setState(() {
           switch (index) {
             case 0:
-              widget.update_title("Home");
+              widget.update_title("Tu tienda");
               break;
             case 1:
               widget.update_title("Perfil");

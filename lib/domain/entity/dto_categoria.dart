@@ -6,6 +6,7 @@ class Categoria {
   final String? icono;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final double? costoxkilometro;
   //recien agregados a la api
   String? background;
 
@@ -18,6 +19,7 @@ class Categoria {
     this.createdAt,
     this.updatedAt,
     this.background,
+    this.costoxkilometro,
   });
 
   factory Categoria.fromJson(Map<String, dynamic> json) {

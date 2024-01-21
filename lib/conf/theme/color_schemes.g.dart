@@ -2,36 +2,53 @@ import 'package:flutter/material.dart';
 
 const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
-  primary: Color(0xFFFFFFFF),
-  onPrimary: Color(0xFFFFFFFF),
-  primaryContainer: Color(0xFFFFDAD6),
-  onPrimaryContainer: Color(0xFF410002),
-  secondary: Color.fromARGB(255, 255, 255, 255),
-  onSecondary: Color(0xFFFFFFFF),
-  secondaryContainer: Color(0xFFFFD9E2),
-  onSecondaryContainer: Color(0xFF3E001D),
-  tertiary: Color(0xFF006875),
-  onTertiary: Color(0xFFFFFFFF),
-  tertiaryContainer: Color(0xFF9BF0FF),
+
+  // Colores principales
+  primary: Color(0xff131a22), // Color principal de la interfaz
+  onPrimary:
+      Color.fromARGB(255, 255, 255, 255), // Texto sobre el color principal
+  primaryContainer:
+      Color(0xffFFD54B), // Contenedor principal (fondos, tarjetas, etc.)
+  onPrimaryContainer: Color(0xFF410002), // Texto sobre el contenedor principal
+
+  // Colores secundarios
+  secondary:
+      Color.fromARGB(255, 144, 0, 255), // Color secundario de la interfaz
+  onSecondary: Color(0xFFFFFFFF), // Texto sobre el color secundario
+  secondaryContainer: Color.fromARGB(
+      255, 255, 0, 221), // Contenedor secundario (fondos, tarjetas, etc.)
+  onSecondaryContainer:
+      Color(0xFF3E001D), // Texto sobre el contenedor secundario
+
+  // Colores terciarios
+  tertiary: Color.fromARGB(255, 255, 0, 242),
+  onTertiary: Color.fromARGB(255, 0, 255, 55),
+  tertiaryContainer: Color.fromARGB(255, 0, 255, 21),
   onTertiaryContainer: Color(0xFF001F24),
+
+  // Colores de error
   error: Color(0xFFBA1A1A),
   errorContainer: Color(0xFFFFDAD6),
   onError: Color(0xFFFFFFFF),
   onErrorContainer: Color(0xFF410002),
-  background: Color(0xFFFFFBFF),
-  onBackground: Color(0xFF201A19),
-  surface: Color(0xFF000000), //color de los botonces
-  onSurface: Color(0xFF201A19),
+
+  // Colores de fondo y superficie
+  background: Color(0xff131a22),
+  onBackground: Color.fromARGB(255, 255, 0, 0), // Texto sobre el fondo
+  surface: Color(0xff131a22), // Color de los botones
+  onSurface: Color(0xff131a22), // Texto sobre la superficie
   surfaceVariant: Color(0xFFF5DDDA),
   onSurfaceVariant: Color(0xFF534341),
-  outline: Color(0xFF857371),
-  onInverseSurface: Color(0xFFFBEEEC),
-  inverseSurface: Color(0xFF362F2E),
-  inversePrimary: Color(0xFFFFB4AB),
-  shadow: Color(0xFF000000),
-  surfaceTint: Color.fromARGB(255, 255, 255, 255),
-  outlineVariant: Color(0xFFD8C2BF),
-  scrim: Color(0xFF000000),
+
+  // Otros colores
+  outline: Color.fromARGB(91, 0, 203, 14),
+  onInverseSurface: Color.fromARGB(255, 255, 0, 0),
+  inverseSurface: Color.fromARGB(255, 255, 145, 0),
+  inversePrimary: Color.fromARGB(255, 4, 255, 0),
+  shadow: Color(0xff131a22),
+  surfaceTint: Color.fromARGB(255, 13, 0, 255),
+  outlineVariant: Color.fromARGB(255, 255, 0, 195),
+  scrim: Color.fromARGB(255, 255, 0, 123),
 );
 
 const darkColorScheme = ColorScheme(

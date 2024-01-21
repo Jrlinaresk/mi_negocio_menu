@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:minegociomenu/conf/config.dart';
-import 'package:minegociomenu/disaing/Screens/Login/Screen/login.dart';
+import 'package:minegociomenu/disaing/Screens/Login/presentation/Screen/login.dart';
+import 'package:minegociomenu/disaing/Screens/Login/presentation/widgets/SocialLoginRow.dart';
+import 'package:minegociomenu/disaing/Screens/Login/presentation/widgets/mTextFormField.dart';
 import 'package:minegociomenu/disaing/widgets/CustomUnderlinedText.dart';
 import 'package:minegociomenu/disaing/widgets/EnterButton.dart';
-import 'package:minegociomenu/disaing/widgets/ProgressIndicator.dart';
-import 'package:minegociomenu/disaing/widgets/SocialLoginRow.dart';
+import 'package:minegociomenu/disaing/widgets/globals/ProgressIndicator.dart';
+
 import 'package:minegociomenu/disaing/widgets/logo.dart';
-import 'package:minegociomenu/disaing/widgets/mTextFormField.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';

@@ -22,52 +22,64 @@ class _LoginState extends State<HomeNew> {
         children: <Widget>[
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 48),
-                child: Container(
-                  height: MediaQuery.of(context).size.height * .45,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/coffeshop.jpg"),
-                      fit: BoxFit.fitWidth,
+              Container(
+                color: Theme.of(context).primaryColor,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 48.0, right: 24.0, top: 24),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * .33,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            "https://medias.treew.com/logos/new_design/supermarket23.png"),
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
                 child: Text(
                   "La Habana:",
                   style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.brown),
+                    fontFamily: 'Roboto',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context).primaryColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 0.0, left: 16.0, right: 16.0),
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 0.0, left: 16.0, right: 16.0),
                 child: Text(
-                  "Caffe Menu",
+                  "Tienda Online",
                   style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 30,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.brown),
+                    fontFamily: 'Roboto',
+                    fontSize: 30,
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context).primaryColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                child: Text(
-                  "Rincón del Sabor Cubano",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Color.fromARGB(255, 86, 61, 51)),
-                  textAlign: TextAlign.center,
+                child: SizedBox(
+                  width: 256,
+                  child: Text(
+                    "Todos los productos hasta la puerta de su casa",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color.fromARGB(255, 86, 61, 51)),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               //
@@ -79,7 +91,7 @@ class _LoginState extends State<HomeNew> {
                       fontFamily: 'Roboto',
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Colors.brown),
+                      color: Theme.of(context).primaryColor,),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -91,7 +103,7 @@ class _LoginState extends State<HomeNew> {
                       fontFamily: 'Roboto',
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Colors.brown),
+                      color: Theme.of(context).primaryColor,),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -103,24 +115,25 @@ class _LoginState extends State<HomeNew> {
                       fontFamily: 'Roboto',
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: Colors.brown),
+                      color: Theme.of(context).primaryColor,),
                   textAlign: TextAlign.center,
                 ),
               ),
              */
             ],
           ),
-          const Column(
+          Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                 child: Text(
                   "Horario",
                   style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.brown),
+                    fontFamily: 'Roboto',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context).primaryColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -129,10 +142,11 @@ class _LoginState extends State<HomeNew> {
                 child: Text(
                   "L/M/M/J/V/S/D",
                   style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.brown),
+                    fontFamily: 'Roboto',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context).primaryColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -141,10 +155,11 @@ class _LoginState extends State<HomeNew> {
                 child: Text(
                   "06:00am - 10:00pm",
                   style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 24,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.brown),
+                    fontFamily: 'Roboto',
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context).primaryColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -159,7 +174,8 @@ class _LoginState extends State<HomeNew> {
                   children: <Widget>[
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.brown, // Cambia el color de fondo aquí
+                        primary: Theme.of(context)
+                            .primaryColor, // Cambia el color de fondo aquí
                         padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
                         // Otros estilos según sea necesario
                       ),
@@ -226,13 +242,16 @@ class SocialMediaButtons extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SocialButton(
-                    icon: Icon(Bootstrap.facebook), color: Colors.white),
+                  icon: Icon(Bootstrap.facebook),
+                ),
                 SocialButton(
-                    icon: Icon(Bootstrap.instagram), color: Colors.white),
+                  icon: Icon(Bootstrap.instagram),
+                ),
 /*                 SocialButton(
-                    icon: Icon(Bootstrap.twitter), color: Colors.white), */
+                    icon: Icon(Bootstrap.twitter), ), */
                 SocialButton(
-                    icon: Icon(Bootstrap.whatsapp), color: Colors.white),
+                  icon: Icon(Bootstrap.whatsapp),
+                ),
               ],
             ),
           ),
@@ -244,20 +263,22 @@ class SocialMediaButtons extends StatelessWidget {
 
 class SocialButton extends StatelessWidget {
   final Icon icon;
-  final Color color;
+  final Color? color; // Ahora es un Color opcional
 
-  const SocialButton({super.key, required this.icon, required this.color});
+  const SocialButton(
+      {Key? key, required this.icon, this.color = Colors.transparent})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
-        color: Colors.brown,
+        color: Theme.of(context).primaryColor,
       ),
       child: IconButton(
         icon: icon,
-        color: color,
+        color: Colors.white,
         onPressed: () {
           // Agrega aquí el comportamiento cuando se presiona el botón.
         },

@@ -64,7 +64,7 @@ class _MyHomePageState extends ConsumerState {
 
   @override
   void initState() {
-    title = "Home";
+    title = "T";
     super.initState();
   }
 
