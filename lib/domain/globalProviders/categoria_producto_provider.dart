@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/conf/Helpers/random_category_generator.dart';
-import 'package:minegociomenu/models/categoria_model.dart';
+import 'package:minegociomenu/core/Helpers/random_category_generator.dart';
+import 'package:minegociomenu/domain/models/categoria_model.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();

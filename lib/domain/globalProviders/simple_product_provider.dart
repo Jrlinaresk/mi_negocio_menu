@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/conf/Helpers/random_product_generator.dart';
-import 'package:minegociomenu/disaing/Screens/products/domain/product_model.dart';
+import 'package:minegociomenu/core/Helpers/random_product_generator.dart';
+import 'package:minegociomenu/presentation/Screens/products/domain/product_model.dart';
 
 final simpleProductProvider = Provider<Product>((ref) {
   return RandomProductGenerator.getRandomProductEz();

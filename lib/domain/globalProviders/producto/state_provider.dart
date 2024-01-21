@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/disaing/Screens/products/domain/product_model.dart';
+import 'package:minegociomenu/presentation/Screens/products/domain/product_model.dart';
 
 final lastView = StateProvider<Product>((ref) {
   return Product(

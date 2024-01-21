@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/disaing/Screens/services/domain/service_model.dart';
+import 'package:minegociomenu/presentation/Screens/services/domain/service_model.dart';
 
 final lastView = StateProvider<Service>((ref) {
   return Service(

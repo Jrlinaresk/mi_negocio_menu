@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/conf/Helpers/random_generator.dart';
-import 'package:minegociomenu/conf/Helpers/random_negocio_generator.dart';
-import 'package:minegociomenu/disaing/Screens/negocio/domain/negocio.dart';
+import 'package:minegociomenu/core/Helpers/random_generator.dart';
+import 'package:minegociomenu/core/Helpers/random_negocio_generator.dart';
+import 'package:minegociomenu/presentation/Screens/negocio/domain/negocio.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();

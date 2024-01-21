@@ -1,4 +1,4 @@
-import 'package:minegociomenu/disaing/Screens/products/domain/product_model.dart';
+import 'package:minegociomenu/presentation/Screens/products/domain/product_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
