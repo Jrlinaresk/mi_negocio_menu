@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:minegociomenu/core/Helpers/random_service_generator.dart';
-import 'package:minegociomenu/presentation/Screens/services/domain/service_model.dart';
+import 'package:minegociomenu/presentation/Screens/particular/presentation/services/domain/service_model.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();

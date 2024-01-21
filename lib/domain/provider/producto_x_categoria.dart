@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:minegociomenu/domain/entity/dto_producto.dart';
+import 'package:minegociomenu/domain/models/dto_producto.dart';
 
 final categoriaIdProvider = StateProvider<int>((ref) {
   return -1;

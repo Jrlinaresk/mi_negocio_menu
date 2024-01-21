@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:minegociomenu/domain/entity/dto_categoria.dart';
+import 'package:minegociomenu/domain/models/dto_categoria.dart';
 
 final clientesProvider = FutureProvider<List<Categoria>>((ref) async {
   final response = await http

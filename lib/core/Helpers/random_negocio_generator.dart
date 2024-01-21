@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:minegociomenu/core/Helpers/random_category_generator.dart';
 import 'package:minegociomenu/core/Helpers/random_generator.dart';
-import 'package:minegociomenu/presentation/Screens/negocio/domain/negocio.dart';
+import 'package:minegociomenu/presentation/Screens/particular/presentation/negocio/domain/negocio.dart';
 import 'package:minegociomenu/core/utils/example_date.dart';
 import 'package:uuid/uuid.dart';
 

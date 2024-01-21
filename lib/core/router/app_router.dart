@@ -1,10 +1,10 @@
-import 'package:minegociomenu/presentation/Screens/Login/presentation/Screen/login.dart';
-import 'package:minegociomenu/presentation/Screens/Login/presentation/Screen/login_screen.dart';
-import 'package:minegociomenu/presentation/Screens/Login/presentation/Screen/register_screen.dart';
-import 'package:minegociomenu/presentation/Screens/dasboard/screens/dasboard.dart';
-import 'package:minegociomenu/presentation/Screens/inicio/presentation/screens/inicio_screen.dart';
-import 'package:minegociomenu/presentation/Screens/shopping_cart/cart.dart';
-import 'package:minegociomenu/presentation/Screens/splash/screen/splash.dart';
+import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/Screen/login.dart';
+import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/Screen/login_screen.dart';
+import 'package:minegociomenu/presentation/Screens/globals/05register/presentation/register_screen.dart';
+import 'package:minegociomenu/presentation/Screens/globals/06dasboard/dashboard_screen.dart';
+import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/Screen/inicio_screen.dart';
+import 'package:minegociomenu/presentation/Screens/globals/07appbar/shopping_cart/cart.dart';
+import 'package:minegociomenu/presentation/Screens/globals/01splash/splash.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

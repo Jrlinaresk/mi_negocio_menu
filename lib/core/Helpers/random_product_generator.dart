@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:minegociomenu/core/Helpers/random_generator.dart';
-import 'package:minegociomenu/presentation/Screens/products/domain/product_model.dart';
+import 'package:minegociomenu/presentation/Screens/particular/presentation/products/domain/product_model.dart';
 import 'package:minegociomenu/core/utils/example_date.dart';
 import 'package:uuid/uuid.dart';
 

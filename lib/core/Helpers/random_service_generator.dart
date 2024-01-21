@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:minegociomenu/presentation/Screens/services/domain/service_model.dart';
+import 'package:minegociomenu/presentation/Screens/particular/presentation/services/domain/service_model.dart';
 import 'package:minegociomenu/core/utils/example_date.dart';
 import 'package:uuid/uuid.dart';
 

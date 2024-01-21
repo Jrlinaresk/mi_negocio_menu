@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/domain/entity/dto_producto.dart';
+import 'package:minegociomenu/domain/models/dto_producto.dart';
 import 'package:minegociomenu/domain/provider/producto_x_categoria.dart';
 
 // import 'package:auto_size_text/auto_size_text.dart';

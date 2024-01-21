@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:minegociomenu/core/Helpers/random_product_generator.dart';
-import 'package:minegociomenu/presentation/Screens/products/domain/product_model.dart';
+import 'package:minegociomenu/presentation/Screens/particular/presentation/products/domain/product_model.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
