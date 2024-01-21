@@ -17,7 +17,7 @@ class _MenuListState extends State<MenuList>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 7, vsync: this);
+    _tabController = TabController(length: 8, vsync: this);
 
     // Agregar un listener para escuchar los cambios en el TabController
     _tabController.addListener(() {

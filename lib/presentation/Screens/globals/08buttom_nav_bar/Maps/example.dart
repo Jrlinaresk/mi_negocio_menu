@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
+import 'package:minegociomenu/domain/models/ubicacion/coordinate.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps/mapom/providers/location_provider_lite.dart';
 import 'package:minegociomenu/domain/models/servicios/solicitud_de_envio.dart';
 import 'package:minegociomenu/presentation/widgets/ProgressIndicator.dart';
@@ -42,8 +42,8 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
   String initialValue = " ";
   late AnimationController _animationController;
   MapController mapController = MapController();
-  var from;
-  var to;
+  late Coordinate from;
+  late Coordinate to;
   var points = <LatLng>[];
 
   @override
@@ -130,7 +130,9 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
     setState(() {
       // Centra la cámara después de cambiar la ruta
       mapController.move(
-          calculateCenter(from, to), calculateDynamicZoom((distance / 1000)));
+          calculateCenter(LatLng(from.latitude, from.longitude),
+              LatLng(to.latitude, to.longitude)),
+          calculateDynamicZoom((distance / 1000)));
     });
   }
 
@@ -180,7 +182,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                   setState(() {});
                   if (to != null) getRoute();
                 }, */
-                initialCenter: from,
+                initialCenter: LatLng(from.latitude, from.longitude),
                 initialZoom: dynamicZoom,
                 maxZoom: 17,
                 minZoom: 13,
@@ -216,7 +218,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                     Marker(
                       width: 80.0,
                       height: 80.0,
-                      point: from,
+                      point: LatLng(from.latitude, from.longitude),
                       child: Icon(
                         Icons.location_on,
                         color: Colors.cyan.shade400,
@@ -227,7 +229,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                       Marker(
                         width: 80.0,
                         height: 80.0,
-                        point: to,
+                        point: LatLng(to.latitude, to.longitude),
                         child: Icon(
                           Icons.location_on,
                           color: const Color(0xffFFD54B),
@@ -294,7 +296,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                           if (envioSolicitadoController.text.isNotEmpty) {
                             response = decodificarDeepLink(
                                 envioSolicitadoController.text);
-                            to = LatLng(
+                            to = Coordinate(
                               response.latitud,
                               response.longitud,
                             );
@@ -478,7 +480,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                                   if (!envioSolicitadoController.text.isEmpty) {
                                     response = decodificarDeepLink(
                                         envioSolicitadoController.text);
-                                    to = LatLng(
+                                    to = Coordinate(
                                       response.latitud,
                                       response.longitud,
                                     );
@@ -511,12 +513,12 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
     double nuevaLatitud = ulat + (desplazamientoMetros / 111111);
     double nuevaLongitud = ulon;
 
-    from = LatLng(
+    from = Coordinate(
       ulat,
       ulon,
     );
 
-    to = LatLng(
+    to = Coordinate(
       nuevaLatitud,
       nuevaLongitud,
     );
