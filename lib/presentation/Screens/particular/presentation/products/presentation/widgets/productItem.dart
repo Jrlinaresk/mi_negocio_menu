@@ -1,19 +1,17 @@
 import 'dart:io';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:minegociomenu/core/Helpers/random_generator.dart';
-import 'package:minegociomenu/presentation/Screens/particular/presentation/products/domain/product_model.dart';
-import 'package:minegociomenu/domain/globalProviders/producto/state_provider.dart';
-import 'package:minegociomenu/domain/globalProviders/simple_product_provider.dart';
+import 'package:minegociomenu/domain/globalProviders/02producto/last_view.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
 import 'package:minegociomenu/core/utils/formaulas.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductItem extends ConsumerStatefulWidget {
-  final Product product;
+  final Producto product;
   final int index;
 
   const ProductItem({super.key, required this.product, required this.index});
@@ -32,9 +30,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
-    final randomIndex = Random().nextInt(widget.product.types.length);
-    isFavorito = widget.product.favorito;
-    final productoAsync = ref.watch(productProvider(widget.product.productId));
+    final randomIndex = Random().nextInt(widget.product.types!.length);
+    isFavorito = widget.product.favorito!;
     return Expanded(
       child: InkWell(
         onTap: () {
@@ -77,7 +74,9 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                                         padding: EdgeInsets.zero,
                                         icon: Image.asset(
                                           RandomGenerator.GeTimageRandom(widget
-                                              .product.types[randomIndex]),
+                                              .product
+                                              .types![randomIndex]
+                                              .nombre),
                                           fit: BoxFit
                                               .cover, // Ajusta la imagen al tamaño especificado
                                         ),
@@ -148,7 +147,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                                       children: [
                                         Text(
                                           //nombre del producto
-                                          widget.product.name,
+                                          widget.product.nombre,
                                           style: const TextStyle(
                                             fontFamily: 'Roboto',
                                             color: Colors.blue, // Color azul
@@ -182,7 +181,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                                       ],
                                     ),
                                     Text(
-                                      '${widget.product.price}',
+                                      '${widget.product.precio}',
                                       style: const TextStyle(
                                         fontFamily:
                                             'Blood', // Nombre de la fuente personalizada Blood
@@ -314,27 +313,9 @@ class _ProductItemState extends ConsumerState<ProductItem> {
   void _toggleFavorito() {
     print(
         "favorito: ${widget.product.favorito}"); // Imprime el valor actual de isFavorito
-
-/*     if (isFavorito) {
-      // El producto ya es un favorito, así que lo eliminamos
-      await widget.favoritosDatabase
-          .eliminarDeFavoritos(widget.product.productId);
-    } else {
-      // El producto no es un favorito, así que lo agregamos
-      await widget.favoritosDatabase.agregarAFavoritos(widget.product);
-    } */
-/*     setState(() {
-      ref
-          .read(ProductoStateNotifierProvider.notifier)
-          .toggleProductoFavorito(widget.index, !widget.product.favorito);
-
-      ref
-          .read(ProductoFavoritoStateNotifierProvider.notifier)
-          .toggleProductoFavorito(widget.index, !widget.product.favorito);
-    }); */
   }
 }
 
-void UpdateProductoLastView(WidgetRef ref, Product p) {
-  ref.read(lastView.notifier).update((state) => p);
+void UpdateProductoLastView(WidgetRef ref, Producto p) {
+  ref.read(plastView.notifier).updateLastView(p);
 }

@@ -4,14 +4,14 @@ class Categoria with ChangeNotifier {
   final int id;
   final String nombre;
   final String? descripcion;
-  final IconData icono;
+  final IconData? icono;
   final double? costoxkilometro;
 
   Categoria({
     required this.id,
     required this.nombre,
     this.descripcion,
-    required this.icono,
+    this.icono,
     this.costoxkilometro,
   });
 

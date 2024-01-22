@@ -3,9 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:minegociomenu/domain/globalProviders/01categoria/categoria.dart';
+
+import 'package:minegociomenu/domain/globalProviders/02producto/last_view.dart';
+import 'package:minegociomenu/domain/globalProviders/02producto/producto.dart';
 import 'package:minegociomenu/domain/models/categoria/categoria.dart';
 import 'package:minegociomenu/domain/provider/categoria_producto.dart/state_provider.dart';
-import 'package:minegociomenu/domain/provider/producto_x_categoria.dart';
 import 'package:minegociomenu/core/utils/ui/tools.dart';
 
 class CategoriaItem extends ConsumerWidget {
@@ -155,7 +158,7 @@ String NombreDeCategoriaFormateado(String nombreCompleto) {
 }
 
 void UpdateCategoriaLastView(WidgetRef ref, Categoria s) {
-  //primero cambiar el valor del numero de la categoria
+  //primero cambiar el valor del numero de la catesgoria
   ref.read(categoriaIdProvider.notifier).update((state) => s.id!);
-  ref.read(lastView.notifier).update((state) => s);
+  ref.read(clastView.notifier).update((state) => s);
 }

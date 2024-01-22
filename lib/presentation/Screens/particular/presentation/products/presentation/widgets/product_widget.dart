@@ -4,10 +4,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:minegociomenu/presentation/Screens/particular/presentation/products/domain/product_model.dart';
+import 'package:minegociomenu/domain/globalProviders/01categoria/categoria.dart';
+
+import 'package:minegociomenu/domain/globalProviders/02producto/last_view.dart';
+import 'package:minegociomenu/domain/globalProviders/02producto/producto.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
+
 import 'package:minegociomenu/presentation/widgets/texto/read_more_text.dart';
-import 'package:minegociomenu/domain/globalProviders/producto/state_provider.dart';
-import 'package:minegociomenu/domain/globalProviders/producto_state_notifier_provider.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductWidget extends ConsumerStatefulWidget {
@@ -19,18 +23,24 @@ class ProductWidget extends ConsumerStatefulWidget {
 
 class _ProductWidgetState extends ConsumerState<ProductWidget> {
   bool toogle = false;
-  late Product product;
-  late List<Product> plist = [];
+  late Producto product;
+  late List<Producto> productListAsyncValue = [];
 
   @override
   Widget build(BuildContext context) {
-    final Productlastview = ref.watch(lastView);
-    plist = ref.watch(ProductoStateNotifierProvider);
-    product = plist
+    final Productlastview = ref.watch(plastView);
+    var productListAsyncValue = ref.watch(productosProvider);
+
+    // Acceder al valor dentro de AsyncValue
+    final productList = productListAsyncValue.value ?? [];
+
+// Ahora puedes usar el método 'where'
+    product = productList
         .where((p) => p.id == Productlastview.id)
-        .toList()[Productlastview.id];
-    late final Product productoAsync = Productlastview;
-    late bool isFavorito = productoAsync.favorito;
+        .toList()[Productlastview.id!];
+
+    late final Producto productoAsync = Productlastview;
+    late bool isFavorito = productoAsync.favorito!;
 
     // Aquí puedes construir la interfaz de usuario que muestre los datos del producto.
     return Card(
@@ -49,7 +59,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(productoAsync.name,
+                      Text(productoAsync.nombre,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.grey.shade800,
@@ -104,7 +114,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                               ),
                               const SizedBox(height: 8),
                               ReadMoreText(
-                                text: productoAsync.description,
+                                text: productoAsync.descripcion!,
                                 maxLines: 32,
                                 textColor: Colors.grey
                                     .shade800, // Color personalizado para el texto principal
@@ -185,7 +195,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${productoAsync.price}',
+                        '${productoAsync.precio}',
                         style: const TextStyle(
                           fontSize: 32,
                           color: Colors.blue,
@@ -245,10 +255,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                   const SizedBox(
                     height: 8.0,
                   ),
-                  _buildInfoRow("Unidad de Medida ID:",
-                      productoAsync.unidadMedidaId.toString()),
-                  _buildInfoRow(
-                      "Estado ID:", productoAsync.estadoId.toString()),
+                  _buildInfoRow("Estado ID:", productoAsync.stado.toString()),
                 ],
               ),
             ),
@@ -274,8 +281,8 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                     height: 8.0,
                   ),
                   _buildInfoRow("Forma de Pago ID:",
-                      productoAsync.formaDePagoId.toString()),
-                  _buildInfoRow("Moneda ID:", productoAsync.monedaId),
+                      productoAsync.formasDePago.toString()),
+                  _buildInfoRow("Moneda ID:", productoAsync.moneda!.first),
                 ],
               ),
             ),
@@ -300,8 +307,6 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                   const SizedBox(
                     height: 8.0,
                   ),
-                  _buildInfoRow(
-                      "Empresa ID:", productoAsync.empresaId.toString()),
                   _buildInfoRow(
                       "Mensajería:", productoAsync.mensajeria.toString()),
                   _buildInfoRow("Link:", "http://www.example.com"),
@@ -329,13 +334,15 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                   const SizedBox(
                     height: 8.0,
                   ),
-                  _buildInfoRow("Creado en:", productoAsync.createdAt),
-                  _buildInfoRow("Actualizado en:", productoAsync.updatedAt),
+                  _buildInfoRow(
+                      "Creado en:", productoAsync.createdAt!.toString()),
+                  _buildInfoRow(
+                      "Actualizado en:", productoAsync.updatedAt!.toString()),
                 ],
               ),
             ),
           ),
-          _buildInfoRow("Notas:", productoAsync.nota),
+          _buildInfoRow("Notas:", productoAsync.nota!),
         ],
       ),
     );
@@ -372,7 +379,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
           .toggleProductoFavorito(index, !product.favorito);
 
       ref
-          .read(ProductoFavoritoStateNotifierProvider.notifier)
+          .read(productoFavoritoStateNotifierProvider.notifier)
           .toggleProductoFavorito(index, !product.favorito);
     }); */
   }

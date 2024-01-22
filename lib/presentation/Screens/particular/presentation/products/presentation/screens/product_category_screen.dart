@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:minegociomenu/domain/globalProviders/02producto/last_view.dart';
+import 'package:minegociomenu/domain/globalProviders/02producto/producto.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/productItem.dart';
 import 'package:minegociomenu/domain/data/db/favoritos_database.dart';
-import 'package:minegociomenu/domain/globalProviders/producto/state_provider.dart';
-import 'package:minegociomenu/domain/globalProviders/producto_state_notifier_provider.dart';
 
+//ver todos los productos de x categoria
 class ProductCategoryScreen extends ConsumerWidget {
   final FavoritosDatabase favoritosDatabase = FavoritosDatabase();
 
@@ -14,12 +15,12 @@ class ProductCategoryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lastview = ref.watch(lastView);
+    final lastview = ref.watch(plastView);
     return Center(
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Text(lastview.name),
+            title: Text(lastview.nombre),
           ),
           body: ProductList(
               favoritosDatabase: favoritosDatabase, lastview: lastview)),
@@ -35,10 +36,16 @@ class ProductList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final plist = ref
-        .watch(ProductoStateNotifierProvider)
-        .where((element) => element.types.contains(lastview.name))
-        .toList();
+    var productListAsyncValue = ref.watch(productosProvider);
+    final Productlastview = ref.watch(plastView);
+
+    // Acceder al valor dentro de AsyncValue
+    final productList = productListAsyncValue.value ?? [];
+
+    // Ahora puedes usar el método 'where'
+    final plist =
+        productList.where((p) => p.types!.contains(lastview.name)).toList();
+
     return ListView.builder(
       itemCount: plist.length, // Cantidad de elementos en la lista
       itemBuilder: (BuildContext context, int index) {

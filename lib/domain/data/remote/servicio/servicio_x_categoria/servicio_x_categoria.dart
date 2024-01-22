@@ -21,10 +21,10 @@ final serviciocategoriasProvider = StreamProvider<List<Service_dto>>((ref) {
   servicioIdController.add(servicioId);
 
   // Devolver el Stream que emite la lista de serviciocategorias
-  return _getProductosStream(servicioId);
+  return _getServiciosStream(servicioId);
 });
 
-Stream<List<Service_dto>> _getProductosStream(int servicioId) async* {
+Stream<List<Service_dto>> _getServiciosStream(int servicioId) async* {
   while (true) {
     try {
       final response = await http.get(Uri.parse(
@@ -53,7 +53,7 @@ Stream<List<Service_dto>> _getProductosStream(int servicioId) async* {
 }
 
 // Proveedor para el último serviciocategoria seleccionado
-final plastView =
+final slastView =
     StateNotifierProvider<LastViewNotifier, ServiceCategoria>((ref) {
   return LastViewNotifier();
 });
@@ -67,13 +67,13 @@ class LastViewNotifier extends StateNotifier<ServiceCategoria> {
   }
 }
 
-class ProductoNotifier extends Notifier<List<Service>> {
+class ServicioNotifier extends Notifier<List<Service>> {
   final AsyncValue<List<Service>> serviciocategorias;
   final String baseUrl;
   final String authToken;
   final LastViewNotifier lastViewNotifier;
 
-  ProductoNotifier(
+  ServicioNotifier(
     this.serviciocategorias,
     this.baseUrl,
     this.authToken,

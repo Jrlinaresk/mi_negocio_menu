@@ -5,11 +5,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:minegociomenu/presentation/Screens/particular/presentation/products/domain/product_model.dart';
+import 'package:minegociomenu/domain/globalProviders/01categoria/categoria.dart';
+
+import 'package:minegociomenu/domain/globalProviders/02producto/last_view.dart';
+import 'package:minegociomenu/domain/globalProviders/02producto/producto.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
+
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/product_widget.dart';
 import 'package:minegociomenu/domain/globalProviders/negocio_state_notifier_provider.dart';
-import 'package:minegociomenu/domain/globalProviders/producto_favorito_state_notifier_provider.dart';
-import 'package:minegociomenu/domain/globalProviders/producto_state_notifier_provider.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class ServiceDetailScreen extends ConsumerStatefulWidget {
@@ -21,26 +25,34 @@ class ServiceDetailScreen extends ConsumerStatefulWidget {
 
 class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
   late int index = 0;
-  late Product product;
-  late List<Product> plist = [];
+  late Producto product;
+  late List<Producto> productListAsyncValue = [];
   final CarouselController _carouselController = CarouselController();
   bool isFavorito = false;
   bool toogle = false;
 
   @override
   Widget build(BuildContext context) {
-    plist = ref.watch(ProductoStateNotifierProvider);
-    product = plist.where((p) => p.id == 0).toList()[index];
+    final Productlastview = ref.watch(plastView);
+    var plist = ref.watch(productosProvider);
+    var productListAsyncValue = plist;
+
+// Acceder al valor dentro de AsyncValue
+    final productList = productListAsyncValue.value ?? [];
+
+// Ahora puedes usar el método 'where'
+    product = productList
+        .where((p) => p.id == Productlastview.id)
+        .toList()[Productlastview.id!];
+
     final nlist = ref.watch(filteredNegociosProvider);
 
-    final Product productoAsync = plist[index];
     var size = MediaQuery.of(context).size;
 
-    isFavorito = productoAsync.favorito;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(productoAsync.name),
+        title: Text(Productlastview.nombre),
       ),
       body: Stack(
         children: [
@@ -77,7 +89,7 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                               return Builder(
                                 builder: (BuildContext context) {
                                   return Image.asset(
-                                    productoAsync.image1,
+                                    Productlastview.imageurl!,
                                     fit: BoxFit.fill,
                                   );
                                 },
@@ -249,17 +261,7 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
     );
   }
 
-  void _toggleFavorito() {
-    setState(() {
-      ref
-          .read(ProductoStateNotifierProvider.notifier)
-          .toggleProductoFavorito(index, !product.favorito);
-
-      ref
-          .read(ProductoFavoritoStateNotifierProvider.notifier)
-          .toggleProductoFavorito(index, !product.favorito);
-    });
-  }
+  void _toggleFavorito() {}
 
   Widget _IconShop() {
     return Positioned(

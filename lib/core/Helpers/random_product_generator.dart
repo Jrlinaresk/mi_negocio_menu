@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:minegociomenu/core/Helpers/random_generator.dart';
-import 'package:minegociomenu/presentation/Screens/particular/presentation/products/domain/product_model.dart';
 import 'package:minegociomenu/core/utils/example_date.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
 import 'package:uuid/uuid.dart';
 
 class RandomProductGenerator {
@@ -68,18 +68,18 @@ class RandomProductGenerator {
     'Libro de historia',
   ];
 
-  static Product getProductById(String productId) {
+  static Producto getProductById(int productId) {
     final product = gerProductListEz().firstWhere(
       (product) =>
-          product.productId ==
+          product.id ==
           productId, // Devolver null si no se encuentra un producto con el ID
     );
 
     return product;
   }
 
-  static List<Product> gerProductList(var type) {
-    List<Product> result = [];
+  static List<Producto> gerProductList(var type) {
+    List<Producto> result = [];
     late int a = 0;
     while (a++ < 100) {
       String s = getRandomNameProducto();
@@ -88,8 +88,8 @@ class RandomProductGenerator {
     return result;
   }
 
-  static List<Product> gerProductListEz() {
-    List<Product> result = [];
+  static List<Producto> gerProductListEz() {
+    List<Producto> result = [];
     late int a = 0;
     while (a++ < 100) {
       String s = getRandomNameProducto();
@@ -104,9 +104,9 @@ class RandomProductGenerator {
     return 'product_${DateTime.now().millisecondsSinceEpoch}';
   }
 
-  static List<Product> gerProductFavoritoList() {
-    late List<Product> fulllist = gerProductListEz();
-    late List<Product> result = [];
+  static List<Producto> gerProductFavoritoList() {
+    late List<Producto> fulllist = gerProductListEz();
+    late List<Producto> result = [];
 
     for (int a = 0; a > fulllist.length; a++) {
       if (fulllist[a].favorito == true) result.add(fulllist[a]);
@@ -134,7 +134,7 @@ class RandomProductGenerator {
     return product;
   }
 
-  static Product getRandomProduct(var Tipy) {
+  static Producto getRandomProduct(var Tipy) {
     final randomProductId = const Uuid().v4();
     var randomType = obtenerCategoriasAleatorias();
     var randomName = generarNombreProductoAleatorio(randomType);
@@ -147,33 +147,12 @@ class RandomProductGenerator {
     var randomProvincia = obtenerProvinciaAleatoria();
     var randomEntregaA = entregaACasaAleatoria();
 
-    return Product(
-      id: 0, // ID debe establecerse adecuadamente si no es cero
-      productId: randomProductId,
-      name: randomName,
-      modelo: 'ds345',
-      price: randomPrice,
-      garantia: randomQuantity,
-      disponibilidad: 0,
-      description: randomDescription,
-      mayorista: 0,
-      nota: 'randomNota',
-      unidadMedidaId: 1,
-      estadoId: 1,
-      formaDePagoId: 1,
-      empresaId: 1,
-      createdAt: FechaActual,
-      updatedAt: FechaActual,
-      monedaId: '1',
-      image1: 'assets/productos/product-01.jpg',
-      image2: 'assets/productos/product-02.jpg',
-      mensajeria: 0,
-      favorito: false,
-      types: randomType,
+    return Producto(
+      id: 0, nombre: '', // ID debe establecerse adecuadamente si no es cero
     );
   }
 
-  static Product getRandomProductEz() {
+  static Producto getRandomProductEz() {
     final randomProductId = const Uuid().v4();
     var randomType = obtenerCategoriasAleatorias();
     var randomName = generarNombreProductoAleatorio(randomType);
@@ -186,29 +165,8 @@ class RandomProductGenerator {
     var randomProvincia = obtenerProvinciaAleatoria();
     var randomEntregaA = entregaACasaAleatoria();
 
-    return Product(
-      id: 0, // ID debe establecerse adecuadamente si no es cero
-      productId: randomProductId,
-      name: randomName,
-      modelo: 'ds345',
-      price: randomPrice,
-      garantia: randomQuantity,
-      disponibilidad: 0,
-      description: randomDescription,
-      mayorista: 0,
-      nota: 'randomNota',
-      unidadMedidaId: 1,
-      estadoId: 1,
-      formaDePagoId: 1,
-      empresaId: 1,
-      createdAt: FechaActual,
-      updatedAt: FechaActual,
-      monedaId: '1',
-      image1: 'assets/productos/product-01.jpg',
-      image2: 'assets/productos/product-02.jpg',
-      mensajeria: 0,
-      favorito: false,
-      types: randomType,
+    return Producto(
+      id: 0, nombre: '', // ID debe establecerse adecuadamente si no es cero
     );
   }
 
@@ -218,7 +176,7 @@ class RandomProductGenerator {
     return randomProductGenerator.getRandomProduct2();
   }
 
-  static Product gerLast_view_Product() {
+  static Producto gerLast_view_Product() {
     return gerProductListEz().first;
   }
 

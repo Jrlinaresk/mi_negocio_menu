@@ -42,8 +42,14 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
   String initialValue = " ";
   late AnimationController _animationController;
   MapController mapController = MapController();
-  late Coordinate from;
-  late Coordinate to;
+  Coordinate from = Coordinate(
+    0,
+    0,
+  );
+  Coordinate to = Coordinate(
+    0,
+    0,
+  );
   var points = <LatLng>[];
 
   @override

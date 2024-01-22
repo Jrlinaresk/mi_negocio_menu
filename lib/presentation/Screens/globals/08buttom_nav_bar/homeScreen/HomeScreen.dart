@@ -77,7 +77,6 @@ class CategoriatListProductos extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categorias = ref.watch(categoriasProvider);
-    final clientes = ref.watch(clientesProvider);
     return categorias.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error: $error')),
