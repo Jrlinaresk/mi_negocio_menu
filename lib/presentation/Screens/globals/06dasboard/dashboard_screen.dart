@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:go_router/go_router.dart';
-import 'package:minegociomenu/core/const.dart';
+import 'package:minegociomenu/core/config/const.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps/example.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps/maps.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/bloc/bloc.dart';
@@ -14,6 +14,7 @@ import 'package:minegociomenu/presentation/Screens/globals/02intro/screen/intro.
 import 'package:minegociomenu/presentation/Screens/globals/07appbar/notification/mNotification.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/profileScreen/presentation/screens/ProfileScreen.dart';
 import 'package:minegociomenu/presentation/Screens/globals/09drawer/SettingsScreen.dart';
+import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/screens/product_category_screen.dart';
 import 'package:minegociomenu/presentation/widgets/notificaciones/CustomNotificationPromo.dart';
 import 'package:minegociomenu/presentation/widgets/SliderView.dart';
 import 'package:minegociomenu/presentation/widgets/navigation/mBottomNavigationBar.dart';
@@ -78,7 +79,8 @@ class _MyHomePageState extends ConsumerState {
     const FlutterMapOsrmExample(), // MapaScreen
     const MBloc(),
     //drawer
-    const ProfileScreen(),
+    ProductCategoryScreen(),
+/*     const ProfileScreen(), */
   ];
 
   @override

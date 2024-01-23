@@ -6,7 +6,7 @@ final plastView = StateNotifierProvider<LastViewNotifier, Producto>((ref) {
 });
 
 class LastViewNotifier extends StateNotifier<Producto> {
-  LastViewNotifier() : super(Producto(id: 0, nombre: ''));
+  LastViewNotifier() : super(Producto(productoID: 0, nombre: ''));
 
   void updateLastView(Producto newProduct) {
     state = newProduct;

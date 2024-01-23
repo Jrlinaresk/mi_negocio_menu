@@ -36,8 +36,8 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
 
 // Ahora puedes usar el método 'where'
     product = productList
-        .where((p) => p.id == Productlastview.id)
-        .toList()[Productlastview.id!];
+        .where((p) => p.productoID == Productlastview.productoID)
+        .toList()[Productlastview.productoID!];
 
     late final Producto productoAsync = Productlastview;
     late bool isFavorito = productoAsync.favorito!;
@@ -255,7 +255,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                   const SizedBox(
                     height: 8.0,
                   ),
-                  _buildInfoRow("Estado ID:", productoAsync.stado.toString()),
+                  _buildInfoRow("Estado ID:", productoAsync.estado.toString()),
                 ],
               ),
             ),

@@ -1,5 +1,5 @@
 import 'package:icons_plus/icons_plus.dart';
-import 'package:minegociomenu/core/const.dart';
+import 'package:minegociomenu/core/config/const.dart';
 import 'package:minegociomenu/presentation/Screens/globals/06dasboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

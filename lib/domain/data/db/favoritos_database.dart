@@ -40,7 +40,8 @@ class FavoritosDatabase {
   }
 
   Future<void> agregarAFavoritos(Producto producto) async {
-    final favoritoExistente = await obtenerFavoritoPorProductId(producto.id!);
+    final favoritoExistente =
+        await obtenerFavoritoPorProductId(producto.productoID!);
     if (favoritoExistente == null) {
 /*       await _database.insert('favoritos', producto.toMap());
  */
@@ -56,7 +57,7 @@ class FavoritosDatabase {
     final List<Map<String, dynamic>> maps = await _database.query('favoritos');
     return List.generate(maps.length, (i) {
       return Producto(
-        id: 0,
+        productoID: 0,
         nombre: 'as',
       );
     });
@@ -71,7 +72,7 @@ class FavoritosDatabase {
 
     if (maps.isNotEmpty) {
       return Producto(
-        id: 0,
+        productoID: 0,
         nombre: 'as',
       );
     } else {

@@ -42,8 +42,8 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
 
 // Ahora puedes usar el método 'where'
     product = productList
-        .where((p) => p.id == Productlastview.id)
-        .toList()[Productlastview.id!];
+        .where((p) => p.productoID == Productlastview.productoID)
+        .toList()[Productlastview.productoID!];
 
     final nlist = ref.watch(filteredNegociosProvider);
 

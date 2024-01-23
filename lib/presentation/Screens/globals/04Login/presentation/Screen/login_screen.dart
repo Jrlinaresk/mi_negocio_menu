@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:minegociomenu/core/config.dart';
+import 'package:minegociomenu/core/config/config.dart';
 import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/Screen/login.dart';
 import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/widgets/RegisterButton.dart';
 import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/widgets/SocialLoginRow.dart';

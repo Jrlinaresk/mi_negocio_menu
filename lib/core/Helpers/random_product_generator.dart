@@ -71,7 +71,7 @@ class RandomProductGenerator {
   static Producto getProductById(int productId) {
     final product = gerProductListEz().firstWhere(
       (product) =>
-          product.id ==
+          product.productoID ==
           productId, // Devolver null si no se encuentra un producto con el ID
     );
 
@@ -148,7 +148,8 @@ class RandomProductGenerator {
     var randomEntregaA = entregaACasaAleatoria();
 
     return Producto(
-      id: 0, nombre: '', // ID debe establecerse adecuadamente si no es cero
+      productoID: 0,
+      nombre: '', // ID debe establecerse adecuadamente si no es cero
     );
   }
 
@@ -166,7 +167,8 @@ class RandomProductGenerator {
     var randomEntregaA = entregaACasaAleatoria();
 
     return Producto(
-      id: 0, nombre: '', // ID debe establecerse adecuadamente si no es cero
+      productoID: 0,
+      nombre: '', // ID debe establecerse adecuadamente si no es cero
     );
   }
 

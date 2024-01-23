@@ -1,4 +1,4 @@
-import 'package:minegociomenu/core/const.dart';
+import 'package:minegociomenu/core/config/const.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/homeScreen/HomeScreen.dart';
 import 'package:minegociomenu/presentation/widgets/shopping_cart/agregar_restar.dart/agregar_restar.dart';
 import 'package:minegociomenu/presentation/widgets/botones/itemTabCustom.dart';

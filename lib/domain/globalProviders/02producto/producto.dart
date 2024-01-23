@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:minegociomenu/core/config/api_config.dart';
 import 'package:minegociomenu/domain/data/remote/servicio/servicio_x_categoria/servicio_x_categoria.dart';
 import 'package:minegociomenu/domain/globalProviders/01categoria/categoria.dart';
 import 'package:minegociomenu/domain/models/producto/producto.dart';
@@ -45,13 +46,15 @@ Stream<List<Producto>> _getProductosStream(int categoriaId) async* {
   while (true) {
     try {
       final response = await http.get(Uri.parse(
-          'https://mipymesdecuba.com/api/productosxcategoria/$categoriaId'));
+          '${ApiConfig.apiUrl}${ApiConfig.productosEndpoint}/$categoriaId'));
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(response.body);
         if (data.containsKey('data') && data['data'] is List) {
           final List<dynamic> listData = data['data'];
-          yield listData.map((json) => Producto.fromJson(json)).toList();
+          final List<Producto> productos =
+              listData.map((json) => Producto.fromJson(json)).toList();
+          yield productos;
         } else {
           print('El JSON no contiene una lista llamada "data".');
           yield [];

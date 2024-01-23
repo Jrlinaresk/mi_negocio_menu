@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minegociomenu/core/config.dart';
+import 'package:minegociomenu/core/config/config.dart';
 import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/Screen/login.dart';
 import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/widgets/SocialLoginRow.dart';
 import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/widgets/mTextFormField.dart';
