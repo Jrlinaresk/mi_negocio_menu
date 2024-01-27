@@ -19,65 +19,6 @@ class MyScreen extends ConsumerStatefulWidget {
 }
 
 class MyScreenState extends ConsumerState<MyScreen> {
-  List<Coffee> productos = [
-    Coffee(
-      coffeeIcon: FontAwesomeIcons.coffee,
-      name: "Nombre",
-      price: 500,
-      moneda: "cup",
-      lastprice: 200,
-    ),
-    Coffee(
-      coffeeIcon: FontAwesomeIcons.coffee,
-      name: "Nombre",
-      price: 600,
-      moneda: "cup",
-      lastprice: 200,
-    ),
-    Coffee(
-      coffeeIcon: FontAwesomeIcons.coffee,
-      name: "Nombre",
-      price: 350,
-      moneda: "cup",
-      lastprice: 200,
-    ),
-    Coffee(
-      coffeeIcon: FontAwesomeIcons.coffee,
-      name: "Nombre",
-      price: 150,
-      moneda: "cup",
-      lastprice: 200,
-    ),
-    Coffee(
-      coffeeIcon: FontAwesomeIcons.coffee,
-      name: "Nombre",
-      price: 500,
-      moneda: "cup",
-      lastprice: 200,
-    ),
-    Coffee(
-      coffeeIcon: FontAwesomeIcons.coffee,
-      name: "Nombre",
-      price: 600,
-      moneda: "cup",
-      lastprice: 200,
-    ),
-    Coffee(
-      coffeeIcon: FontAwesomeIcons.coffee,
-      name: "Nombre",
-      price: 350,
-      moneda: "cup",
-      lastprice: 200,
-    ),
-    Coffee(
-      coffeeIcon: FontAwesomeIcons.coffee,
-      name: "Nombre",
-      price: 150,
-      moneda: "cup",
-      lastprice: 200,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final productosListAsyncValue = ref.watch(productosProvider(3));
@@ -165,8 +106,7 @@ class MyScreenState extends ConsumerState<MyScreen> {
                   linkUrl: "https://example.com",
                 ),
                 List_productos_Widget(
-                  itemCount: 3,
-                  productoList: productos,
+                  itemCount: 6,
                   orientation: Axis.vertical,
                 ),
                 PromoWidget(
@@ -179,18 +119,14 @@ class MyScreenState extends ConsumerState<MyScreen> {
                   linkUrl: "https://example.com",
                 ),
                 List_productos_Widget(
-                    itemCount: 5,
-                    productoList: productos,
-                    orientation: Axis.horizontal),
+                    itemCount: 5, orientation: Axis.horizontal),
                 Title_List_Content(
                   text: "Populares...",
                   linkText: "Ver Todos",
                   linkUrl: "https://example.com",
                 ),
                 List_productos_Widget(
-                    itemCount: 5,
-                    productoList: productos,
-                    orientation: Axis.horizontal),
+                    itemCount: 5, orientation: Axis.horizontal),
                 PromoWidget(
                     'https://medias.treew.com/sliders/yeyashort_spa.jpg',
                     true,
@@ -201,9 +137,7 @@ class MyScreenState extends ConsumerState<MyScreen> {
                   linkUrl: "https://example.com",
                 ),
                 List_productos_Widget(
-                    itemCount: 5,
-                    productoList: productos,
-                    orientation: Axis.horizontal),
+                    itemCount: 5, orientation: Axis.horizontal),
               ],
             ),
           ),

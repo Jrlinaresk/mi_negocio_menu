@@ -1,5 +1,8 @@
 import 'package:minegociomenu/core/config/const.dart';
+import 'package:minegociomenu/core/utils/carrito.dart';
+import 'package:minegociomenu/domain/models/payment/orden/orden_whatsapp.dart';
 import 'package:minegociomenu/domain/models/producto/producto.dart';
+import 'package:minegociomenu/presentation/Screens/globals/07appbar/shopping_cart/cart.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/homeScreen/HomeScreen.dart';
 import 'package:minegociomenu/presentation/widgets/shopping_cart/agregar_restar.dart/agregar_restar.dart';
 import 'package:minegociomenu/presentation/widgets/botones/itemTabCustom.dart';
@@ -18,6 +21,8 @@ class MenuDetail extends StatefulWidget {
 }
 
 class MenuDetailState extends State<MenuDetail> {
+  late OrdenWhatsApp orden;
+  int multiplicador = 0;
   final List<Widget> _tabViews = [
     // Lista de widgets para mostrar en cada pestaña
     const CategoriatListProductos(),
@@ -34,18 +39,39 @@ class MenuDetailState extends State<MenuDetail> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
+              titleTextStyle: TextStyle(
+                  color: Theme.of(context).primaryColor, fontSize: 8.0),
               backgroundColor: Colors.white,
               expandedHeight: 300.0, // Altura expandida de la appbar
               pinned: true, // Permanece visible mientras se hace scroll
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  widget.producto.nombre,
-                  style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-                background: Image.network(
-                  'https://medias.treew.com/imgproducts/thumbs/142688.jpg',
-                  fit: BoxFit.cover,
-                ),
+              flexibleSpace: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  // Verifica si la SliverAppBar está expandida o no
+                  final bool isExpanded = constraints.maxHeight >
+                      300.0; // Ajusta según sea necesario
+
+                  return PreferredSize(
+                    preferredSize: Size.fromHeight(isExpanded
+                        ? 56.0
+                        : 150.0), // Ajusta según sea necesario
+                    child: FlexibleSpaceBar(
+                      titlePadding: isExpanded
+                          ? const EdgeInsets.only(left: 24.0, bottom: 4.0)
+                          : const EdgeInsets.only(left: 48.0, bottom: 16.0),
+                      title: Text(
+                        widget.producto.nombre,
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: isExpanded ? 14.0 : 16.0,
+                        ),
+                      ),
+                      background: Image.network(
+                        'https://medias.treew.com/imgproducts/thumbs/142688.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
               ),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
@@ -54,12 +80,12 @@ class MenuDetailState extends State<MenuDetail> {
                 },
               ),
               actions: [
-                IconButton(
+/*                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
                     // Acción al presionar el icono de buscar
                   },
-                ),
+                ), */
                 IconButton(
                   icon: const Icon(Icons.favorite_border),
                   onPressed: () {
@@ -78,36 +104,48 @@ class MenuDetailState extends State<MenuDetail> {
               delegate: SliverChildListDelegate(
                 [
                   //primer componente
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Stack(
                     children: [
                       Column(
                         children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 16.0, right: 16.0),
-                            child: ProductListItem(
-                                title: 'Nombre del producto',
-                                subtitle: 'Marca',
+                          Positioned(
+                            left: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 16.0, right: 16.0),
+                              child: ProductListItem(
+                                subtitle: widget.producto.marca!,
                                 date: '7USD',
                                 rating: 3.5,
                                 starCount: 0,
                                 isFavorite: false,
-                                price: const [17, 12]),
+                                price: [
+                                  widget.producto.lastprice!,
+                                  widget.producto.precio!
+                                ],
+                              ),
+                            ),
                           ),
                           const Padding(
                             padding: EdgeInsets.only(
                                 left: 16, right: 16.0, bottom: 8),
-                            child: Divider(height: 3),
+                            child: Divider(
+                              height: 30,
+                              color: Colors.white,
+                            ),
                           ),
                         ],
                       ),
-                      AddToCartButton(
-                        initialQuantity: 1,
-                        onQuantityChanged: (newQuantity) {
-                          // Lógica para manejar el cambio en la cantidad
-                          print('Nueva cantidad: $newQuantity');
-                        },
+                      Positioned(
+                        right: 0,
+                        child: AddToCartButton(
+                          initialQuantity: 1,
+                          onQuantityChanged: (newQuantity) {
+                            setState(() {
+                              multiplicador = newQuantity;
+                            });
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -170,7 +208,7 @@ class MenuDetailState extends State<MenuDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text("Total a pagar:"),
-                  Text("35USD",
+                  Text("${multiplicador * widget.producto.precio!}USD",
                       style: TextStyle(
                           fontFamily: 'Roboto',
                           color: Theme.of(context).primaryColor,
@@ -190,7 +228,31 @@ class MenuDetailState extends State<MenuDetail> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      orden = OrdenWhatsApp(
+                        OrdenID: widget.producto
+                            .productoID!, // Asigna el ID de la orden según corresponda
+                        cantidad:
+                            multiplicador, // Asigna la cantidad según corresponda
+                        producto: widget.producto, // Asigna el producto deseado
+                      );
+
+                      // Obtener la lista actual de órdenes del carrito
+                      final List<OrdenWhatsApp> carrito =
+                          []; //obtenerCarritoActual()
+
+                      // Agregar la nueva orden a la lista
+                      carrito.add(orden);
+
+/*                       // Guardar la lista actualizada en el archivo 'carrito'
+                      guardarCarrito(carrito); */
+
+                      //abrir la vista de carrito
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const ShoppingCartScreen();
+                      }));
+                    },
                     child: const SizedBox(
                       height: 64,
                       child: Center(

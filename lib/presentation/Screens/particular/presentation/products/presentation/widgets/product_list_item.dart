@@ -3,7 +3,7 @@ import 'package:minegociomenu/core/utils/math.dart';
 
 class ProductListItem extends StatelessWidget {
   String? imageUrl;
-  final String title;
+  String? title;
   String? subtitle;
   final String date;
   final double rating;
@@ -12,7 +12,7 @@ class ProductListItem extends StatelessWidget {
   final bool isFavorite;
 
   ProductListItem({
-    required this.title,
+    this.title,
     required this.subtitle,
     required this.date,
     required this.rating,
@@ -53,17 +53,18 @@ class ProductListItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff3E91D0),
+                if (title != null)
+                  Text(
+                    title!,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff3E91D0),
+                    ),
                   ),
-                ),
                 if (subtitle != null)
                   Text(
-                    subtitle!,
+                    "Marca: ${subtitle!}",
                     style: const TextStyle(
                       fontSize: 12.0,
                       color: Colors.grey,
@@ -79,7 +80,7 @@ class ProductListItem extends StatelessWidget {
                         color: Colors.green,
                       ),
                     ),
-                    if (price.last == price.first)
+                    if (price.first != -1)
                       Text(
                         '\$ ${(price.first)} USD',
                         style: TextStyle(
@@ -93,31 +94,31 @@ class ProductListItem extends StatelessWidget {
                 ),
                 Row(
                   children: [
-/*                     if (price.first == price.length - 2)
- */
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
-                          decoration: BoxDecoration(
-                            color: Colors.yellow.shade300,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Text(
-                            calculatePercentageChange(price.last, price.first),
-                            style: const TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                    if (price.first == price.length - 2 || price.first != -1)
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(
+                                left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
+                            decoration: BoxDecoration(
+                              color: Colors.yellow.shade300,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Text(
+                              calculatePercentageChange(
+                                  price.last, price.first),
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 8.0,
-                        ),
-                      ],
-                    ),
+                          const SizedBox(
+                            width: 8.0,
+                          ),
+                        ],
+                      ),
                     Text(
                       '\$ ${price.last / 2} USD / lb ',
                       style: TextStyle(
