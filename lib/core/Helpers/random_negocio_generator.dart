@@ -1,8 +1,9 @@
 import 'dart:math';
 import 'package:minegociomenu/core/Helpers/random_category_generator.dart';
 import 'package:minegociomenu/core/Helpers/random_generator.dart';
-import 'package:minegociomenu/presentation/Screens/particular/presentation/negocio/domain/negocio.dart';
+
 import 'package:minegociomenu/core/utils/example_date.dart';
+import 'package:minegociomenu/domain/models/negocios/negocios.dart';
 import 'package:uuid/uuid.dart';
 
 class RandomNegocioGenerator {
@@ -69,16 +70,17 @@ class RandomNegocioGenerator {
     final categoria = c;
 
     return Negocio(
-      id: id,
-      nombre: nombre,
-      descripcion: 'descripciono',
-      direccion: direccion,
-      telefono: telefono,
-      email: email,
-      img1: img1,
-      img2: img2,
-      favorito: false, // Indica si es un negocio favorito
-      categoria: categoria,
+      nombre: RandomGenerator.getRandomName(),
+      descripcion: 'descripcion',
+      direccion: 'direccion',
+      email: 'email@example.com',
+      categoria: "Autos",
+      ImagenUrl: [],
+      LogoUrl: '',
+      WhatsAppLink: '',
+      Provincia: '',
+      DiasLaborables: '',
+      HorarioLaborable: '', estado: '', // Indica si es un negocio favorito
     );
   }
 }

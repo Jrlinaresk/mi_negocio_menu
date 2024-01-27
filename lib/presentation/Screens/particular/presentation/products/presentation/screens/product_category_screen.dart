@@ -16,6 +16,7 @@ class ProductCategoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lastview = ref.watch(plastView);
+
     return Center(
       child: Scaffold(
           appBar: AppBar(
@@ -36,21 +37,33 @@ class ProductList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var productListAsyncValue = ref.watch(productosProvider);
-    final Productlastview = ref.watch(plastView);
-
+    var productListAsyncValue = ref.watch(productosProvider(3));
+    //
     // Acceder al valor dentro de AsyncValue
     final productList = productListAsyncValue.value ?? [];
 
+    if (productListAsyncValue.when(
+      data: (data) => false,
+      loading: () => true,
+      error: (error, stack) => false,
+    )) {
+      // Muestra un indicador de carga
+      return const CircularProgressIndicator();
+    }
+
+    if (productListAsyncValue.hasError) {
+      // Muestra un mensaje de error
+      return Text('Error: ${productListAsyncValue.error}');
+    }
+
     // Ahora puedes usar el método 'where'
-    final plist =
-        productList.where((p) => p.types!.contains(lastview.name)).toList();
+    final plist = productList.where((p) => p.CategoriaID == 1).toList();
 
     return ListView.builder(
-      itemCount: plist.length, // Cantidad de elementos en la lista
+      itemCount: productList.length, // Cantidad de elementos en la lista
       itemBuilder: (BuildContext context, int index) {
         // Construir cada elemento de la lista
-        return ProductItem(product: plist[index], index: index);
+        return ProductItem(product: productList[index], index: index);
       },
     );
   }

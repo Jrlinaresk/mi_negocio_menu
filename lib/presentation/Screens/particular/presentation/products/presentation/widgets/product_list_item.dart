@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:minegociomenu/core/utils/math.dart';
 
 class ProductListItem extends StatelessWidget {
   String? imageUrl;
   final String title;
-  final String subtitle;
+  String? subtitle;
   final String date;
   final double rating;
   final List<double> price;
@@ -60,13 +61,14 @@ class ProductListItem extends StatelessWidget {
                     color: Color(0xff3E91D0),
                   ),
                 ),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey,
+                if (subtitle != null)
+                  Text(
+                    subtitle!,
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -77,37 +79,44 @@ class ProductListItem extends StatelessWidget {
                         color: Colors.green,
                       ),
                     ),
-                    Text(
-                      '\$ ${(price.elementAt(price.length - 2))} USD',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Colors.red.shade200,
-                        decoration: TextDecoration.lineThrough,
-                        decorationColor: Colors.red.shade200,
+                    if (price.last == price.first)
+                      Text(
+                        '\$ ${(price.first)} USD',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.red.shade200,
+                          decoration: TextDecoration.lineThrough,
+                          decorationColor: Colors.red.shade200,
+                        ),
                       ),
-                    ),
                   ],
                 ),
                 Row(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.only(
-                          left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
-                      decoration: BoxDecoration(
-                        color: Colors.yellow.shade300,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: const Text(
-                        '-2%',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+/*                     if (price.first == price.length - 2)
+ */
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
+                          decoration: BoxDecoration(
+                            color: Colors.yellow.shade300,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Text(
+                            calculatePercentageChange(price.last, price.first),
+                            style: const TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8.0,
+                        const SizedBox(
+                          width: 8.0,
+                        ),
+                      ],
                     ),
                     Text(
                       '\$ ${price.last / 2} USD / lb ',

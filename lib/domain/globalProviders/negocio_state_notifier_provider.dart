@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:minegociomenu/core/Helpers/random_generator.dart';
 import 'package:minegociomenu/core/Helpers/random_negocio_generator.dart';
-import 'package:minegociomenu/presentation/Screens/particular/presentation/negocio/domain/negocio.dart';
+import 'package:minegociomenu/domain/models/negocios/negocios.dart';
+
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -28,16 +29,17 @@ class NegocioNotifier extends StateNotifier<List<Negocio>> {
     state = [
       ...state,
       Negocio(
-        id: 'id',
         nombre: RandomGenerator.getRandomName(),
         descripcion: 'descripcion',
         direccion: 'direccion',
-        telefono: 'telefono',
         email: 'email@example.com',
-        favorito: true,
         categoria: "Autos",
-        img1: 'img12',
-        img2: 'img2', // Indica si es un negocio favorito
+        ImagenUrl: [],
+        LogoUrl: '',
+        WhatsAppLink: '',
+        Provincia: '',
+        DiasLaborables: '',
+        HorarioLaborable: '', estado: '', // Indica si es un negocio favorito
       )
     ];
   }
@@ -50,10 +52,6 @@ class NegocioNotifier extends StateNotifier<List<Negocio>> {
         return Negocioo.copyWith(favorito: false);
     }).toList();
   } */
-
-  void toggleNegocioFavorito(int index, bool isFavorito) {
-    state[index] = state[index].copyWith(favorito: isFavorito);
-  }
 }
 
 final NegocioFilterProvider = StateProvider<NegocioFilter>((ref) {

@@ -59,7 +59,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
+/*                                 Container(
                                   padding: const EdgeInsets.only(
                                       top: 10, bottom: 24),
                                   child: ClipRRect(
@@ -73,10 +73,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                                       child: IconButton(
                                         padding: EdgeInsets.zero,
                                         icon: Image.asset(
-                                          RandomGenerator.GeTimageRandom(widget
-                                              .product
-                                              .types![randomIndex]
-                                              .nombre),
+                                          RandomGenerator.GeTimageRandom(
+                                              'widget.product.types'),
                                           fit: BoxFit
                                               .cover, // Ajusta la imagen al tamaño especificado
                                         ),
@@ -91,7 +89,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                                       ),
                                     ),
                                   ),
-                                ),
+                                ), */
                                 const Padding(
                                   padding: EdgeInsets.only(bottom: 16.0),
                                   child: Divider(),

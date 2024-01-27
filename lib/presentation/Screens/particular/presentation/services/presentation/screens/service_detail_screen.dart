@@ -34,7 +34,7 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final Productlastview = ref.watch(plastView);
-    var plist = ref.watch(productosProvider);
+    var plist = ref.watch(productosProvider(3));
     var productListAsyncValue = plist;
 
 // Acceder al valor dentro de AsyncValue
@@ -89,7 +89,7 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                               return Builder(
                                 builder: (BuildContext context) {
                                   return Image.asset(
-                                    Productlastview.imageurl!,
+                                    'Productlastview.ImagenUrl!',
                                     fit: BoxFit.fill,
                                   );
                                 },

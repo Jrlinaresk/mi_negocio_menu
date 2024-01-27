@@ -57,9 +57,12 @@ class FavoritosDatabase {
     final List<Map<String, dynamic>> maps = await _database.query('favoritos');
     return List.generate(maps.length, (i) {
       return Producto(
-        productoID: 0,
-        nombre: 'as',
-      );
+          productoID: 0,
+          nombre: '',
+          CategoriaID: 1,
+          disponibilidad: 1,
+          estado: 'listo para venta',
+          garantia: 'Sin Garantias');
     });
   }
 
@@ -72,9 +75,12 @@ class FavoritosDatabase {
 
     if (maps.isNotEmpty) {
       return Producto(
-        productoID: 0,
-        nombre: 'as',
-      );
+          productoID: 0,
+          nombre: '',
+          CategoriaID: 1,
+          disponibilidad: 1,
+          estado: 'listo para venta',
+          garantia: 'Sin Garantias');
     } else {
       return null;
     }

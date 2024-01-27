@@ -9,9 +9,9 @@ class RandomCategoryGenerator {
     final idAsInt = int.parse(uuid.substring(0, 8), radix: 16);
     final id = idAsInt;
     final name = getRandomNameCategoria();
-    const image = Icons.account_circle_outlined;
+    const image = '';
     const description = 'Descripción aleatoria del producto';
-    const costoxkilometro = 0.60;
+    const costoxkilometro = "0";
 
     return Categoria(
       id: id,
@@ -19,6 +19,7 @@ class RandomCategoryGenerator {
       icono: image,
       descripcion: description,
       costoxkilometro: costoxkilometro,
+      NegocioID: 0,
     );
   }
 

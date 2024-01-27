@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/item_rv_populares.dart';
 import 'package:minegociomenu/domain/models/producto/coffee.dart';
 
 class List_productos_Widget extends StatelessWidget {
   final int itemCount;
-  final List<Coffee> coffeeList;
+  final List<Producto> productoList;
   final Axis orientation;
 
   List_productos_Widget({
     required this.itemCount,
-    required this.coffeeList,
+    required this.productoList,
     required this.orientation,
   });
 
@@ -24,17 +25,17 @@ class List_productos_Widget extends StatelessWidget {
           listWidget = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
-        children: coffeeList.take(itemCount).map((Coffee coffee) {
+        children: productoList.take(itemCount).map((Producto producto) {
           return ItemRvPopulares(
             imageUrl: 'https://medias.treew.com/imgproducts/thumbs/159462.jpg',
-            title: 'Nombre del producto',
-            subtitle: 'Marca',
+            title: producto.nombre,
+            subtitle: producto.marca!,
             date: '7USD',
             rating: 3.5,
             starCount: 0,
             isFavorite: false,
-            price: const [17, 12],
-            coffee: coffee,
+            price: [producto.lastprice!, producto.precio!],
+            producto: producto,
           );
         }).toList(),
       );
@@ -43,7 +44,7 @@ class List_productos_Widget extends StatelessWidget {
       listWidget = Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
-        children: coffeeList.take(itemCount).map((Coffee coffee) {
+        children: productoList.take(itemCount).map((Producto producto) {
           return ItemRvPopulares(
             imageUrl: 'https://medias.treew.com/imgproducts/thumbs/159462.jpg',
             title: 'Nombre del producto',
@@ -53,7 +54,7 @@ class List_productos_Widget extends StatelessWidget {
             starCount: 0,
             isFavorite: false,
             price: const [17, 12],
-            coffee: coffee,
+            producto: producto,
           );
         }).toList(),
       );

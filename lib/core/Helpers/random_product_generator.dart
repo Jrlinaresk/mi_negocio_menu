@@ -148,9 +148,12 @@ class RandomProductGenerator {
     var randomEntregaA = entregaACasaAleatoria();
 
     return Producto(
-      productoID: 0,
-      nombre: '', // ID debe establecerse adecuadamente si no es cero
-    );
+        productoID: 0,
+        nombre: '',
+        CategoriaID: 1,
+        disponibilidad: 1,
+        estado: 'listo para venta',
+        garantia: 'Sin Garantias');
   }
 
   static Producto getRandomProductEz() {
@@ -167,9 +170,12 @@ class RandomProductGenerator {
     var randomEntregaA = entregaACasaAleatoria();
 
     return Producto(
-      productoID: 0,
-      nombre: '', // ID debe establecerse adecuadamente si no es cero
-    );
+        productoID: 0,
+        nombre: '',
+        CategoriaID: 1,
+        disponibilidad: 1,
+        estado: 'listo para venta',
+        garantia: 'Sin Garantias');
   }
 
   static final randomProductGenerator = RandomProductGenerator();

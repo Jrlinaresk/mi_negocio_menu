@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:minegociomenu/domain/globalProviders/01categoria/categoria.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/services/presentation/widgets/categoriaService_Item.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/categorias/presentation/widgets/categoria_Item.dart';
 import 'package:minegociomenu/presentation/widgets/botones/itemTabCustom.dart';
 import 'package:minegociomenu/domain/data/remote/servicio/servicios/servicio_provider.dart';
-import 'package:minegociomenu/domain/provider/categorias/provider.dart';
+
 import 'package:minegociomenu/domain/provider/clientes/clientesProvider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -76,7 +77,7 @@ class CategoriatListProductos extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categorias = ref.watch(categoriasProvider);
+    final categorias = ref.watch(categoriaProvider);
     return categorias.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error: $error')),

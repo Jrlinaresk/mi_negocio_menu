@@ -8,10 +8,10 @@ class Producto with ChangeNotifier {
   final String nombre;
   String? modelo;
   String? marca;
-  final Categoria? categoria;
-  List<SubCategoria>? types;
-  String? imageurl;
-  String? videoUrl;
+  final int CategoriaID;
+  List<int>? types;
+  List<String>? ImagenUrl;
+  List<String>? videoUrl;
   final double? precio;
   bool? favorito;
 
@@ -22,110 +22,108 @@ class Producto with ChangeNotifier {
   String? tamanno;
   double? peso;
   bool? ecoAmigable;
-  String?
+  DateTime?
       fechaVencimiento; // Cambiado a String para ser compatible con Date en el frontend
-  bool? disponibilidad;
-  String?
+  int disponibilidad;
+  String
       estado; // Cambiado a String para ser compatible con estado en el frontend
-  final String?
+  final DateTime?
       createdAt; // Cambiado a String para ser compatible con Date en el frontend
-  final String?
+  final DateTime?
       updatedAt; // Cambiado a String para ser compatible con Date en el frontend
 
   double? calificacionPromedio;
   List<String>? resennas;
 
-  String? lastprice;
-  String? formasDePago;
+  double? lastprice;
+  List<String>? formasDePago;
   List<String>? moneda;
   bool? mayorista;
   double? preciomayorista;
   double? descuento;
   String? tipoDescuento;
   bool? mensajeria;
-  bool? garantia;
+  String garantia;
 
-  Producto({
-    this.productoID,
-    required this.nombre,
-    this.modelo,
-    this.marca,
-    this.categoria,
-    this.types,
-    this.imageurl,
-    this.videoUrl,
-    this.precio,
-    this.favorito,
-    this.origen,
-    this.ingredientes,
-    this.descripcion,
-    this.nota,
-    this.tamanno,
-    this.peso,
-    this.ecoAmigable,
-    this.fechaVencimiento,
-    this.disponibilidad,
-    this.estado,
-    this.createdAt,
-    this.updatedAt,
-    this.garantia,
-    this.calificacionPromedio,
-    this.resennas,
-    this.lastprice,
-    this.formasDePago,
-    this.moneda,
-    this.mayorista,
-    this.preciomayorista,
-    this.descuento,
-    this.tipoDescuento,
-    this.mensajeria,
-  });
+  String? oferta;
+
+  Producto(
+      {this.productoID,
+      required this.nombre,
+      this.modelo,
+      this.marca,
+      required this.CategoriaID,
+      this.types,
+      this.ImagenUrl,
+      this.videoUrl,
+      this.precio,
+      this.favorito,
+      this.origen,
+      this.ingredientes,
+      this.descripcion,
+      this.nota,
+      this.tamanno,
+      this.peso,
+      this.ecoAmigable,
+      this.fechaVencimiento,
+      required this.disponibilidad,
+      required this.estado,
+      this.createdAt,
+      this.updatedAt,
+      required this.garantia,
+      this.calificacionPromedio,
+      this.resennas,
+      this.lastprice,
+      this.formasDePago,
+      this.moneda,
+      this.mayorista,
+      this.preciomayorista,
+      this.descuento,
+      this.tipoDescuento,
+      this.mensajeria,
+      this.oferta});
 
   factory Producto.fromJson(Map<String, dynamic> json) {
     return Producto(
       productoID: json['ProductoID'],
-      nombre: json['nombre'] ?? 'Desconocido',
+      nombre: json['nombre'],
       modelo: json['modelo'] ?? 'Desconocido',
-      marca: json['marca'] ?? 'Desconocido',
-      categoria: Categoria.fromJson(json['categoria']),
-      types: json['types'] != null
-          ? List<SubCategoria>.from(
-              json['types'].map((x) => SubCategoria.fromJson(x)),
-            )
-          : null,
-      imageurl: json['imageurl'] ?? 'Desconocido',
-      videoUrl: json['videoUrl'] ?? 'Desconocido',
-      precio: json['precio'] ?? 'Desconocido',
-      favorito: json['favorito'] ?? 'Desconocido',
+      marca: json['marca'] ?? 'Desconocida',
+      CategoriaID: json['CategoriaID'],
+      types: json['types'] ?? [-1],
+      ImagenUrl: json['ImagenUrl'] ?? [],
+      videoUrl: json['videoUrl'] ?? [],
+      precio: json['precio'] ?? 0,
+      favorito: json['favorito'] ?? false,
       origen: json['origen'] ?? 'Desconocido',
-      ingredientes: json['ingredientes'] != null
-          ? List<String>.from(json['ingredientes'].map((x) => x))
-          : null,
-      descripcion: json['descripcion'] ?? 'Desconocido',
-      nota: json['nota'] ?? 'Desconocido',
+      ingredientes: json['ingredientes'] ?? ['Sin detalles'],
+      descripcion: json['descripcion'] ?? 'Sin más detalles ',
+      nota: json['nota'] ?? 'Sin más detalles',
       tamanno: json['tamanno'] ?? 'Desconocido',
-      peso: json['peso'] ?? 'Desconocido',
-      ecoAmigable: json['ecoAmigable'] ?? 'Desconocido',
-      fechaVencimiento: json['fechaVencimiento'] ?? 'Desconocido',
-      disponibilidad: json['disponibilidad'] ?? 'Desconocido',
-      estado: json['estado'] ?? 'Desconocido',
-      createdAt: json['createdAt'] ?? 'Desconocido',
-      updatedAt: json['updatedAt'] ?? 'Desconocido',
-      garantia: json['garantia'] ?? 'Desconocido',
-      calificacionPromedio: json['calificacionPromedio'] ?? 'Desconocido',
-      resennas: json['resennas'] != null
-          ? List<String>.from(json['resennas'].map((x) => x))
+      peso: json['peso'] ?? 0,
+      ecoAmigable: json['ecoAmigable'] ?? false,
+      fechaVencimiento: json['fechaVencimiento'] != null
+          ? DateTime.parse(json['fechaVencimiento'])
           : null,
-      lastprice: json['lastprice'] ?? 'Desconocido',
-      formasDePago: json['formasDePago'] ?? 'Desconocido',
-      moneda: json['moneda'] != null
-          ? List<String>.from(json['moneda'].map((x) => x))
-          : null,
-      mayorista: json['mayorista'] ?? 'Desconocido',
-      preciomayorista: json['preciomayorista'] ?? 'Desconocido',
-      descuento: json['descuento'] ?? 'Desconocido',
-      tipoDescuento: json['tipoDescuento'] ?? 'Desconocido',
-      mensajeria: json['mensajeria'] ?? 'Desconocido',
+      disponibilidad: json[
+          'disponibilidad'], //valores diferentes para diferentes estados ejemplo 1 disponible
+      estado: json['estado'],
+      createdAt:
+          json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
+      updatedAt:
+          json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
+      calificacionPromedio: json['calificacionPromedio'] ?? 4.5,
+      resennas: json['resennas'] ?? [],
+      lastprice: (json['lastprice'] as num?)?.toDouble() ?? -1.0,
+      formasDePago: json['formasDePago'] ?? ["Efectivo"],
+      moneda: json['moneda'] ?? ["CUP"],
+      mayorista: json['mayorista'] ?? false,
+      preciomayorista: json['preciomayorista'] ?? -1.0,
+      descuento: json['descuento'] ?? -1.0,
+      tipoDescuento: json['tipoDescuento'] ?? "Sin descuentos",
+      mensajeria: json['mensajeria'] ?? false,
+      garantia: json['garantia'] ?? 'Sin Garantias',
+      oferta: json['oferta'] ?? 'Sin Ofertas',
     );
   }
 
@@ -135,11 +133,9 @@ class Producto with ChangeNotifier {
     final lowercaseNombre = nombre.toLowerCase();
     final lowercaseModelo = modelo?.toLowerCase() ?? '';
     final lowercaseMarca = marca?.toLowerCase() ?? '';
-    final lowercaseCategoria = categoria?.nombre.toLowerCase() ?? '';
 
     return lowercaseNombre.contains(lowercaseSearch) ||
         lowercaseModelo.contains(lowercaseSearch) ||
-        lowercaseMarca.contains(lowercaseSearch) ||
-        lowercaseCategoria.contains(lowercaseSearch);
+        lowercaseMarca.contains(lowercaseSearch);
   }
 }

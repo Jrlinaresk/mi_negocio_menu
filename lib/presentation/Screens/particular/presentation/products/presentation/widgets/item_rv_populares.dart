@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/homeScreen/menu_detail.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/product_list_item.dart';
 import 'package:minegociomenu/domain/models/producto/coffee.dart';
@@ -13,7 +14,7 @@ class ItemRvPopulares extends StatelessWidget {
   final int starCount;
   final bool isFavorite;
   //temp
-  final Coffee coffee;
+  final Producto producto;
 
   ItemRvPopulares({
     super.key,
@@ -24,7 +25,7 @@ class ItemRvPopulares extends StatelessWidget {
     required this.starCount,
     required this.isFavorite,
     required this.price,
-    required this.coffee,
+    required this.producto,
     this.imageUrl,
   });
 
@@ -44,8 +45,8 @@ class ItemRvPopulares extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return MenuDetail(
-              coffee:
-                  coffee); // Asegúrate de tener una variable llamada "coffee"
+              producto:
+                  producto); // Asegúrate de tener una variable llamada "coffee"
         }));
       },
     );

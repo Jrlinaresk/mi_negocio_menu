@@ -16,10 +16,10 @@ Widget buildFullscreenImage(
             if (loadingProgress == null) {
               return child;
             } else {
-              return const Center(
+              return Center(
                 child: CircularProgressIndicator(
-                  color: Colors.red,
-                  backgroundColor: Colors.blue,
+                  color: Colors.yellow,
+                  backgroundColor: Theme.of(context).primaryColor,
                 ),
               );
             }

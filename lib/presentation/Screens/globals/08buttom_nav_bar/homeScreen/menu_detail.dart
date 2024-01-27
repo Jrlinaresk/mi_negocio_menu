@@ -1,16 +1,17 @@
 import 'package:minegociomenu/core/config/const.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/homeScreen/HomeScreen.dart';
 import 'package:minegociomenu/presentation/widgets/shopping_cart/agregar_restar.dart/agregar_restar.dart';
 import 'package:minegociomenu/presentation/widgets/botones/itemTabCustom.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/product_list_item.dart';
-import 'package:minegociomenu/domain/models/producto/coffee.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MenuDetail extends StatefulWidget {
-  Coffee coffee;
+  Producto producto;
 
-  MenuDetail({super.key, required this.coffee});
+  MenuDetail({super.key, required this.producto});
 
   @override
   MenuDetailState createState() => MenuDetailState();
@@ -38,7 +39,7 @@ class MenuDetailState extends State<MenuDetail> {
               pinned: true, // Permanece visible mientras se hace scroll
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
-                  widget.coffee.name,
+                  widget.producto.nombre,
                   style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 background: Image.network(

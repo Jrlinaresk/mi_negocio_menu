@@ -29,7 +29,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
   @override
   Widget build(BuildContext context) {
     final Productlastview = ref.watch(plastView);
-    var productListAsyncValue = ref.watch(productosProvider);
+    var productListAsyncValue = ref.watch(productosProvider(3));
 
     // Acceder al valor dentro de AsyncValue
     final productList = productListAsyncValue.value ?? [];

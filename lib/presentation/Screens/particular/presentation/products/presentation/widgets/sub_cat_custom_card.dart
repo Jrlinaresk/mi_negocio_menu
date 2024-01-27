@@ -8,11 +8,12 @@ class Sub_Cat_CustomCard extends StatelessWidget {
   final String text;
   final Color cardColor;
   final double cardSize;
-  final int price;
+  final double price;
   final String moneda;
-  final int lastprice;
+  double lastprice;
 
   Sub_Cat_CustomCard({
+    super.key,
     required this.imageUrl,
     required this.text,
     required this.cardColor,
@@ -24,7 +25,9 @@ class Sub_Cat_CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String descuento = calculatePercentageChange(lastprice, price);
+    if (lastprice == -1) lastprice = price;
+    String descuento =
+        calculatePercentageChange(lastprice, price); //original lastprice, price
     return Card(
       color: cardColor,
       elevation: 0.0,

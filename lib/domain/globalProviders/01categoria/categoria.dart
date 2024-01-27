@@ -1,6 +1,8 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:minegociomenu/core/config/api_config.dart';
 import 'package:minegociomenu/domain/data/remote/servicio/servicio_x_categoria/servicio_x_categoria.dart';
 import 'package:minegociomenu/domain/models/categoria/categoria.dart';
 
@@ -28,14 +30,41 @@ class CategoriaNotifier extends Notifier<List<Categoria>> {
 
   Future<void> actualizarDatosPeriodicamente() async {
     while (true) {
-      categoriaIdController.add(ref.watch(categoriaIdProvider));
-      await Future.delayed(Duration(seconds: 120));
+      await Future.delayed(const Duration(seconds: 120));
     }
   }
 }
 
-final categoriaIdProvider = StateProvider<int>((ref) {
-  return -1;
+final categoriaProvider = StreamProvider.autoDispose<List<Categoria>>((ref) {
+  return _getCategoriasStream();
 });
 
-final categoriaIdController = StreamController<int>();
+Stream<List<Categoria>> _getCategoriasStream() async* {
+  var apiurlfull = '${ApiConfig.apiUrl}${ApiConfig.categoriasEndpoint}';
+  while (true) {
+    try {
+      final response = await http.get(
+        Uri.parse(apiurlfull),
+      );
+      if (response.statusCode == 200) {
+        final String responseBody = response.body;
+        if (responseBody.isNotEmpty) {
+          try {
+            final dynamic data = jsonDecode(responseBody);
+            if (data is List) {
+              final List<Categoria> categorias =
+                  data.map((json) => Categoria.fromJson(json)).toList();
+              yield categorias;
+            }
+          } catch (e) {}
+        } else {}
+      } else {
+        throw Exception('Error al obtener las categorías');
+      }
+    } catch (e) {
+    } finally {
+      yield* const Stream.empty();
+    }
+    await Future.delayed(const Duration(seconds: 120));
+  }
+}

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:minegociomenu/presentation/Screens/particular/presentation/negocio/domain/negocio.dart';
+
 import 'package:minegociomenu/domain/globalProviders/negocio/state_provider.dart';
 import 'package:minegociomenu/domain/globalProviders/negocio_state_notifier_provider.dart';
+import 'package:minegociomenu/domain/models/negocios/negocios.dart';
 
 class NegocioItem extends ConsumerStatefulWidget {
   final Negocio negocio;
@@ -25,7 +26,6 @@ class _NegocioItemState extends ConsumerState<NegocioItem> {
 
   @override
   Widget build(BuildContext cont) {
-    isFavorito = widget.negocio.favorito!;
     final nfilter = ref.watch(NegocioFilterProvider);
     var a = NegocioFilter.all;
     final nlist = ref.watch(NegocioStateNotifierProvider);
@@ -80,7 +80,7 @@ class _NegocioItemState extends ConsumerState<NegocioItem> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              icon: Image.asset(widget.negocio.img1),
+                              icon: Image.asset(widget.negocio.ImagenUrl.first),
                               tooltip: 'Click',
                               onPressed: () {
                                 ScaffoldMessenger.of(cont).showSnackBar(

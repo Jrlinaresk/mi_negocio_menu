@@ -4,8 +4,9 @@ class Categoria with ChangeNotifier {
   final int id;
   final String nombre;
   final String? descripcion;
-  final IconData? icono;
-  final double? costoxkilometro;
+  final String? icono;
+  final String? costoxkilometro;
+  final int NegocioID;
 
   Categoria({
     required this.id,
@@ -13,14 +14,16 @@ class Categoria with ChangeNotifier {
     this.descripcion,
     this.icono,
     this.costoxkilometro,
+    required this.NegocioID,
   });
 
   factory Categoria.fromJson(Map<String, dynamic> json) {
     return Categoria(
-      id: json['id'] ?? 0,
-      nombre: json['nombre'] ?? '',
+      id: json['CategoriaID'] ?? 0,
+      nombre: json['Nombre'] ?? '',
       descripcion: json['descripcion'] ?? '',
       icono: json['icono'] ?? '',
+      NegocioID: json['NegocioID'] ?? 0,
     );
   }
 

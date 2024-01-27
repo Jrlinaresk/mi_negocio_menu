@@ -42,7 +42,7 @@ class _SearchProductsScreenState extends ConsumerState<SearchProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var plist = ref.watch(productosProvider);
+    var plist = ref.watch(productosProvider(3));
     // Accede al valor dentro de AsyncValue usando el método maybeWhen
     var productos = plist.maybeWhen(
       data: (data) => data,

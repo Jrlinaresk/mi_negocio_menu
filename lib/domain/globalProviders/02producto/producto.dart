@@ -22,7 +22,7 @@ class ProductoNotifier extends Notifier<List<Producto>> {
   @override
   List<Producto> build() {
     return productos.when(
-      data: (data) => data ?? [],
+      data: (data) => data,
       loading: () => [],
       error: (error, stack) => [],
     );
@@ -30,42 +30,45 @@ class ProductoNotifier extends Notifier<List<Producto>> {
 
   Future<void> actualizarDatosPeriodicamente() async {
     while (true) {
-      categoriaIdController.add(ref.watch(categoriaIdProvider));
-      await Future.delayed(Duration(seconds: 120));
+      await Future.delayed(const Duration(seconds: 120));
     }
   }
 }
 
-final productosProvider = StreamProvider<List<Producto>>((ref) {
-  final categoriaId = ref.watch(categoriaIdProvider);
-  categoriaIdController.add(categoriaId);
+final productosProvider =
+    StreamProvider.autoDispose.family<List<Producto>, int>((ref, categoriaId) {
   return _getProductosStream(categoriaId);
 });
 
 Stream<List<Producto>> _getProductosStream(int categoriaId) async* {
   while (true) {
     try {
-      final response = await http.get(Uri.parse(
-          '${ApiConfig.apiUrl}${ApiConfig.productosEndpoint}/$categoriaId'));
-
+      final response = await http.get(
+        Uri.parse(
+            '${ApiConfig.apiUrl}${ApiConfig.productos_x_categoria_Endpoint}/$categoriaId'),
+      );
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(response.body);
-        if (data.containsKey('data') && data['data'] is List) {
-          final List<dynamic> listData = data['data'];
-          final List<Producto> productos =
-              listData.map((json) => Producto.fromJson(json)).toList();
-          yield productos;
+        final String responseBody = response.body;
+        if (responseBody.isNotEmpty) {
+          try {
+            final List<dynamic> listData = jsonDecode(responseBody);
+            final List<Producto> productos = listData.map((json) {
+              return Producto.fromJson(json);
+            }).toList();
+            yield productos;
+          } catch (e) {
+            yield [];
+          }
         } else {
-          print('El JSON no contiene una lista llamada "data".');
           yield [];
         }
       } else {
         throw Exception('Error al obtener las categorías');
       }
     } catch (e) {
-      print('Error: $e');
-      yield [];
+    } finally {
+      yield* const Stream.empty();
     }
-    await Future.delayed(Duration(seconds: 120));
+    await Future.delayed(const Duration(seconds: 120));
   }
 }

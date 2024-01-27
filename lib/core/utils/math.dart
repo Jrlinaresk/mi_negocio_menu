@@ -1,5 +1,5 @@
-String calculatePercentageChange(int lastPrice, int currentPrice) {
-  int percentageChange = ((currentPrice - lastPrice) / lastPrice).toInt() * 100;
+String calculatePercentageChange(double lastPrice, double currentPrice) {
+  int percentageChange = ((lastPrice - currentPrice) / lastPrice).toInt() * 100;
 
   if (percentageChange > 0) {
     return '${percentageChange.round()}%';

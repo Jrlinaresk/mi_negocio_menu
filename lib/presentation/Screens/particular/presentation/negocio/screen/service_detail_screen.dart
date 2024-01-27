@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:minegociomenu/presentation/Screens/particular/presentation/negocio/domain/negocio.dart';
+import 'package:minegociomenu/domain/models/negocios/negocios.dart';
+
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/product_widget.dart';
 import 'package:minegociomenu/domain/globalProviders/negocio/state_provider.dart';
 import 'package:minegociomenu/domain/globalProviders/negocio_state_notifier_provider.dart';
@@ -33,7 +34,6 @@ class _NegocioDetailScreenState extends ConsumerState<NegocioDetailScreen> {
     final Negocio negocioAsync = Negociotlastview;
     var size = MediaQuery.of(context).size;
 
-    isFavorito = negocioAsync.favorito!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -74,7 +74,7 @@ class _NegocioDetailScreenState extends ConsumerState<NegocioDetailScreen> {
                               return Builder(
                                 builder: (BuildContext context) {
                                   return Image.asset(
-                                    negocioAsync.img1,
+                                    negocioAsync.ImagenUrl.first,
                                     fit: BoxFit.fill,
                                   );
                                 },

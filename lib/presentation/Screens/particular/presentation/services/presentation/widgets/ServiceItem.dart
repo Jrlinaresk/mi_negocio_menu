@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:minegociomenu/core/Helpers/random_generator.dart';
-import 'package:minegociomenu/presentation/Screens/particular/presentation/negocio/domain/negocio.dart';
+import 'package:minegociomenu/domain/models/negocios/negocios.dart';
+
 import 'package:minegociomenu/presentation/Screens/particular/presentation/services/domain/service_model.dart';
 import 'package:minegociomenu/domain/globalProviders/negocio_state_notifier_provider.dart';
 import 'package:minegociomenu/domain/globalProviders/servicios/state_provider.dart';
@@ -104,7 +105,7 @@ class _ServiceItemState extends ConsumerState<ServiceItem> {
                             ),
                             Row(
                               children: [
-                                Text(serviceAsync[widget.index].categoria)
+                                Text(serviceAsync[widget.index].categoria!)
                               ],
                             ),
                             // Agrega más información y personalización aquí según tus necesidades

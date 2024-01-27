@@ -48,9 +48,6 @@ class ItemProductoSearchDelegate extends SearchDelegate<dynamic> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    plist = ref.watch(productosProvider);
-    // Accede al valor dentro de AsyncValue usando el método maybeWhen
-
     if (query.isEmpty) {
       return Center(
         child: _ListResults(plist),
@@ -118,8 +115,8 @@ class _SuggestionItemProducto extends StatelessWidget {
     return ListTile(
       leading: FadeInImage(
         image: const NetworkImage('https://via.placeholder.com/300x300'),
-        placeholder:
-            AssetImage(itemProducto.imageurl ?? "assets/identidad/icono.jpg"),
+        placeholder: AssetImage(
+            itemProducto.ImagenUrl!.first ?? "assets/identidad/icono.jpg"),
         fit: BoxFit.contain,
         width: 50,
       ),

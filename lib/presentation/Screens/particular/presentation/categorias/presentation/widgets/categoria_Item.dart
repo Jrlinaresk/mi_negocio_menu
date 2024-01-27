@@ -159,6 +159,7 @@ String NombreDeCategoriaFormateado(String nombreCompleto) {
 
 void UpdateCategoriaLastView(WidgetRef ref, Categoria s) {
   //primero cambiar el valor del numero de la catesgoria
-  ref.read(categoriaIdProvider.notifier).update((state) => s.id!);
+/*   ref.read(categoriaProvider.notifier).update((state) => s.id!);
+ */
   ref.read(clastView.notifier).update((state) => s);
 }

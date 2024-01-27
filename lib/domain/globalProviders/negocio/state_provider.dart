@@ -1,15 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/presentation/Screens/particular/presentation/negocio/domain/negocio.dart';
+import 'package:minegociomenu/core/Helpers/random_generator.dart';
+import 'package:minegociomenu/domain/models/negocios/negocios.dart';
 
 final lastView = StateProvider<Negocio>((ref) {
   return Negocio(
-      id: '',
-      nombre: '',
-      descripcion: '',
-      direccion: '',
-      telefono: '',
-      email: '',
-      img1: '',
-      img2: '',
-      categoria: '');
+    nombre: RandomGenerator.getRandomName(),
+    descripcion: 'descripcion',
+    direccion: 'direccion',
+    email: 'email@example.com',
+    categoria: "Autos",
+    ImagenUrl: [],
+    LogoUrl: '',
+    WhatsAppLink: '',
+    Provincia: '',
+    DiasLaborables: '',
+    HorarioLaborable: '', estado: '', // Indica si es un negocio favorito
+  );
 });

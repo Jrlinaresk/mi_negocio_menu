@@ -237,3 +237,26 @@ String generarNombreProductoAleatorio(List<String> categorias) {
 }
 
 var FechaActual = RandomGenerator.getFormattedDateTime();
+
+String getAssetPath(String index) {
+  switch (index) {
+    case "Granos":
+      return 'categorias/ic_granos.png';
+    case 'Carnes':
+      return 'categorias/ic_carnes.png';
+    case "Bebidas":
+      return 'categorias/ic_bebidas.png';
+    case "Dulces":
+      return 'categorias/ic_dulces.png';
+    case "Panaderia":
+      return 'categorias/ic_panaderia.png';
+    case "Lacteos":
+      return 'categorias/ic_lacteos.png';
+    case "Enlatados":
+      return 'categorias/ic_enlatados.png';
+    case "Combos":
+      return 'categorias/ic_combos.png';
+    default:
+      return 'categorias/ic_combos.png';
+  }
+}

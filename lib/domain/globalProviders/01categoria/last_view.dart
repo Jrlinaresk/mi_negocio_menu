@@ -7,7 +7,7 @@ final clastView = StateNotifierProvider<LastViewNotifier, Categoria>((ref) {
 });
 
 class LastViewNotifier extends StateNotifier<Categoria> {
-  LastViewNotifier() : super(Categoria(id: 0, nombre: ''));
+  LastViewNotifier() : super(Categoria(id: 0, nombre: '', NegocioID: 0));
 
   void updateLastView(Categoria newCategoria) {
     state = newCategoria;
