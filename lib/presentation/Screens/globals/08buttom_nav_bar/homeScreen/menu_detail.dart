@@ -1,9 +1,17 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:minegociomenu/core/config/const.dart';
+import 'package:minegociomenu/core/services/carrito_service.dart';
 import 'package:minegociomenu/core/utils/carrito.dart';
+import 'package:minegociomenu/domain/globalProviders/04shoping_car/shoping.dart';
 import 'package:minegociomenu/domain/models/payment/orden/orden_whatsapp.dart';
 import 'package:minegociomenu/domain/models/producto/producto.dart';
+import 'package:minegociomenu/libs/shopping/model/cart_model.dart';
+import 'package:minegociomenu/libs/shopping/persistent_shopping_cart.dart';
 import 'package:minegociomenu/presentation/Screens/globals/07appbar/shopping_cart/cart.dart';
+import 'package:minegociomenu/presentation/Screens/globals/07appbar/shopping_cart/cart_view.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/homeScreen/HomeScreen.dart';
+import 'package:minegociomenu/presentation/widgets/imagenes/build_fullscreen_image.dart';
+import 'package:minegociomenu/presentation/widgets/imagenes/build_image.dart';
 import 'package:minegociomenu/presentation/widgets/shopping_cart/agregar_restar.dart/agregar_restar.dart';
 import 'package:minegociomenu/presentation/widgets/botones/itemTabCustom.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/product_list_item.dart';
@@ -11,23 +19,24 @@ import 'package:minegociomenu/domain/models/producto/producto.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class MenuDetail extends StatefulWidget {
+class MenuDetail extends ConsumerStatefulWidget {
   Producto producto;
+  var imageUrl;
 
-  MenuDetail({super.key, required this.producto});
+  MenuDetail({super.key, required this.producto, this.imageUrl});
 
   @override
   MenuDetailState createState() => MenuDetailState();
 }
 
-class MenuDetailState extends State<MenuDetail> {
+class MenuDetailState extends ConsumerState<MenuDetail> {
   late OrdenWhatsApp orden;
-  int multiplicador = 0;
+  int multiplicador = 1;
   final List<Widget> _tabViews = [
     // Lista de widgets para mostrar en cada pestaña
-    const CategoriatListProductos(),
-    const CategoriatListProductos(),
-    const CategoriatListProductos(),
+    // const CategoriatListProductos(),
+    // const CategoriatListProductos(),
+    // const CategoriatListProductos(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -65,9 +74,10 @@ class MenuDetailState extends State<MenuDetail> {
                           fontSize: isExpanded ? 14.0 : 16.0,
                         ),
                       ),
-                      background: Image.network(
-                        'https://medias.treew.com/imgproducts/thumbs/142688.jpg',
-                        fit: BoxFit.cover,
+                      background: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 32.0, right: 32.0, top: 48.0),
+                        child: buildFullscreenImage(widget.imageUrl, false),
                       ),
                     ),
                   );
@@ -116,7 +126,7 @@ class MenuDetailState extends State<MenuDetail> {
                               child: ProductListItem(
                                 subtitle: widget.producto.marca!,
                                 date: '7USD',
-                                rating: 3.5,
+                                rating: 4.5,
                                 starCount: 0,
                                 isFavorite: false,
                                 price: [
@@ -136,7 +146,7 @@ class MenuDetailState extends State<MenuDetail> {
                           ),
                         ],
                       ),
-                      Positioned(
+                      /* Positioned(
                         right: 0,
                         child: AddToCartButton(
                           initialQuantity: 1,
@@ -145,8 +155,9 @@ class MenuDetailState extends State<MenuDetail> {
                               multiplicador = newQuantity;
                             });
                           },
+                          ProductoID: widget.producto.productoID!,
                         ),
-                      ),
+                      ), */
                     ],
                   ),
                   //tab componente
@@ -208,7 +219,7 @@ class MenuDetailState extends State<MenuDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text("Total a pagar:"),
-                  Text("${multiplicador * widget.producto.precio!}USD",
+                  Text("${widget.producto.precio!}USD",
                       style: TextStyle(
                           fontFamily: 'Roboto',
                           color: Theme.of(context).primaryColor,
@@ -228,7 +239,7 @@ class MenuDetailState extends State<MenuDetail> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       orden = OrdenWhatsApp(
                         OrdenID: widget.producto
                             .productoID!, // Asigna el ID de la orden según corresponda
@@ -237,21 +248,27 @@ class MenuDetailState extends State<MenuDetail> {
                         producto: widget.producto, // Asigna el producto deseado
                       );
 
-                      // Obtener la lista actual de órdenes del carrito
-                      final List<OrdenWhatsApp> carrito =
-                          []; //obtenerCarritoActual()
+                      //alternativa
+                      // Add product to the cart
+                      await PersistentShoppingCart().addToCart(
+                          PersistentShoppingCartItem(
+                              productId: orden.OrdenID.toString(),
+                              productName: orden.producto.nombre,
+                              unitPrice: orden.producto.precio!,
+                              quantity: multiplicador,
+                              productThumbnail: widget.imageUrl
+/*                               orden.producto.ImagenUrl != null
+                                  ? orden.producto.ImagenUrl!.first
+                                  : null */
+                              ));
 
-                      // Agregar la nueva orden a la lista
-                      carrito.add(orden);
-
-/*                       // Guardar la lista actualizada en el archivo 'carrito'
-                      guardarCarrito(carrito); */
-
+                      _obtenerCarrito(ref);
                       //abrir la vista de carrito
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const ShoppingCartScreen();
-                      }));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CartView()),
+                      );
                     },
                     child: const SizedBox(
                       height: 64,
@@ -270,4 +287,25 @@ class MenuDetailState extends State<MenuDetail> {
       ),
     );
   }
+}
+
+Future<List<OrdenWhatsApp>> _obtenerCarrito(ref) async {
+  List<OrdenWhatsApp> carrito = [];
+  Map<String, dynamic> cartData = PersistentShoppingCart().getCartData();
+  List<PersistentShoppingCartItem> cartItems = cartData['cartItems'];
+  double totalPriceFromData = cartData['totalPrice'];
+// También puedes iterar sobre la lista cartItems si es necesario
+  for (PersistentShoppingCartItem cartItem in cartItems) {
+    carrito.add(OrdenWhatsApp(
+        OrdenID: int.parse(cartItem.productId),
+        cantidad: cartItem.quantity,
+        producto: Producto(
+            nombre: cartItem.productName,
+            CategoriaID: 1,
+            disponibilidad: cartItem.quantity,
+            estado: "1",
+            precio: cartItem.unitPrice,
+            garantia: "1anno")));
+  }
+  return carrito;
 }

@@ -1,11 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:minegociomenu/core/services/carrito_service.dart';
+import 'package:minegociomenu/domain/models/payment/orden/orden_whatsapp.dart';
+import 'package:minegociomenu/domain/models/producto/producto.dart';
+import 'package:minegociomenu/libs/shopping/model/cart_model.dart';
+import 'package:minegociomenu/libs/shopping/persistent_shopping_cart.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/item_rv_populares.dart';
 import 'package:minegociomenu/presentation/widgets/shopping_cart/shopping_cart_item.dart';
 import 'package:minegociomenu/domain/models/producto/coffee.dart';
 
-class ShoppingCartScreen extends StatelessWidget {
+class ShoppingCartScreen extends StatefulWidget {
   const ShoppingCartScreen({super.key});
+
+  @override
+  State<ShoppingCartScreen> createState() => _ShoppingCartScreenState();
+}
+
+class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
+  List<OrdenWhatsApp> carrito = [];
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _obtenerCarrito();
+  }
+
+  Future<void> _obtenerCarrito() async {
+    Map<String, dynamic> cartData = PersistentShoppingCart().getCartData();
+    List<PersistentShoppingCartItem> cartItems = cartData['cartItems'];
+    double totalPriceFromData = cartData['totalPrice'];
+// También puedes iterar sobre la lista cartItems si es necesario
+    for (PersistentShoppingCartItem cartItem in cartItems) {
+      carrito.add(OrdenWhatsApp(
+          OrdenID: int.parse(cartItem.productId),
+          cantidad: cartItem.quantity,
+          producto: Producto(
+              nombre: cartItem.productName,
+              CategoriaID: 1,
+              disponibilidad: cartItem.quantity,
+              estado: "1",
+              precio: cartItem.unitPrice,
+              garantia: "1anno")));
+    }
+    int a = 0;
+    setState(() {
+/*       carrito = carritoRecuperado;
+ */
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +65,15 @@ class ShoppingCartScreen extends StatelessWidget {
             // Lista de elementos en el carrito
             Expanded(
               child: ListView.builder(
-                itemCount: 3, // Número de elementos en el carrito
+                itemCount: carrito.length, // Número de elementos en el carrito
                 itemBuilder: (context, index) {
                   return ShoppingCartItem(
-                    productName: 'Producto $index',
-                    price: 20.0, // Precio del producto
-                    quantity: 2, // Cantidad en el carrito
+                    productName: carrito[index].producto.nombre,
+                    price:
+                        carrito[index].producto.precio!, // Precio del producto
+                    quantity: carrito[index]
+                        .producto
+                        .disponibilidad, // Cantidad en el carrito
                   );
                 },
               ),
@@ -123,65 +168,6 @@ class ShoppingCartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Coffee> coffees = [
-      Coffee(
-        coffeeIcon: FontAwesomeIcons.coffee,
-        name: "Clásico",
-        price: 500,
-        moneda: "cup",
-        lastprice: 200,
-      ),
-      Coffee(
-        coffeeIcon: FontAwesomeIcons.coffee,
-        name: "Cortadito",
-        price: 600,
-        moneda: "cup",
-        lastprice: 200,
-      ),
-      Coffee(
-        coffeeIcon: FontAwesomeIcons.coffee,
-        name: "Bombón",
-        price: 350,
-        moneda: "cup",
-        lastprice: 200,
-      ),
-      Coffee(
-        coffeeIcon: FontAwesomeIcons.coffee,
-        name: "ConLeche",
-        price: 150,
-        moneda: "cup",
-        lastprice: 200,
-      ),
-      Coffee(
-        coffeeIcon: FontAwesomeIcons.coffee,
-        name: "Americano con Azúcar",
-        price: 150,
-        moneda: "cup",
-        lastprice: 200,
-      ),
-      Coffee(
-        coffeeIcon: FontAwesomeIcons.coffee,
-        name: "Americano con Azúcar",
-        price: 150,
-        moneda: "cup",
-        lastprice: 200,
-      ),
-      Coffee(
-        coffeeIcon: FontAwesomeIcons.coffee,
-        name: "Americano con Azúcar",
-        price: 150,
-        moneda: "cup",
-        lastprice: 200,
-      ),
-      Coffee(
-        coffeeIcon: FontAwesomeIcons.coffee,
-        name: "Americano con Azúcar",
-        price: 150,
-        moneda: "cup",
-        lastprice: 200,
-      ),
-    ];
-
     return Card(
       color: Colors.white,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -190,8 +176,8 @@ class ShoppingCartItem extends StatelessWidget {
         children: [
           ShoppingCartProductItem(
             imageUrl: 'https://medias.treew.com/imgproducts/thumbs/159462.jpg',
-            title: 'Nombre del Producto',
-            unitPrice: 20.0, date: '14/02/24', // Precio Unitario
+            title: productName,
+            unitPrice: price, date: '14/02/24', // Precio Unitario
             moneda: 'Cup',
           ),
           Padding(

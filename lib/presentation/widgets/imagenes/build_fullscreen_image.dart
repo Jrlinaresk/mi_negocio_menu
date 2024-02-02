@@ -30,6 +30,8 @@ Widget buildFullscreenImage(
           height: double.infinity,
           width: double.infinity,
           alignment: Alignment.center,
-          image: AssetImage('assets/$source'),
+          image: source.contains("assets/")
+              ? AssetImage(source)
+              : AssetImage('assets/$source'),
         );
 }

@@ -1,11 +1,18 @@
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:minegociomenu/core/config/const.dart';
+import 'package:minegociomenu/core/utils/comunicacion.dart';
 import 'package:minegociomenu/domain/globalProviders/03negocio/negocio.dart';
 import 'package:minegociomenu/domain/models/negocios/negocios.dart';
 import 'package:minegociomenu/presentation/Screens/globals/06dasboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:minegociomenu/presentation/widgets/imagenes/build_fullscreen_image.dart';
+import 'package:minegociomenu/presentation/widgets/imagenes/build_image.dart';
+import 'package:uni_links/uni_links.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BienvenidoScreen extends ConsumerStatefulWidget {
   const BienvenidoScreen({super.key});
@@ -16,8 +23,37 @@ class BienvenidoScreen extends ConsumerStatefulWidget {
 
 class LoginState extends ConsumerState<BienvenidoScreen>
     with SingleTickerProviderStateMixin {
+  // Initialize uni_links
+  void initUniLinks() async {
+    try {
+      final initialLink = await getInitialLink();
+      handleLink(initialLink!);
+    } on Exception {
+      // Handle exception
+    }
+
+    getLinksStream().listen((String? link) {
+      if (link != null) {
+        handleLink(link);
+      }
+    });
+  }
+
+// Handle the link
+  void handleLink(String link) async {
+    if (await canLaunch(link)) {
+      await launch(link);
+    } else {
+      print('No se pudo abrir el enlace: $link');
+    }
+  }
+
+  final CarouselController _carouselController = CarouselController();
+
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return Consumer(
       builder: (context, ref, child) {
         final negocioListAsyncValue = ref.watch(negociosProvider);
@@ -39,41 +75,58 @@ class LoginState extends ConsumerState<BienvenidoScreen>
                           padding: const EdgeInsets.only(
                               left: 0.0, right: 0.0, top: 54),
                           child: Center(
-                            child: Image.network(
-                              negocioList.ImagenUrl
-                                  .first, // Puedes ajustar el ancho y el alto según tus necesidades
-                              height: 200,
-                              // Opciones adicionales para personalizar la carga de la imagen
-                              fit: BoxFit
-                                  .fill, // Ajusta el tamaño y el recorte de la imagen
-                              loadingBuilder: (BuildContext context,
-                                  Widget child,
-                                  ImageChunkEvent? loadingProgress) {
-                                if (loadingProgress == null) {
-                                  // La imagen ha cargado completamente
-                                  return child;
-                                } else {
-                                  // Muestra un indicador de carga mientras se carga la imagen
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value:
-                                          loadingProgress.expectedTotalBytes !=
-                                                  null
-                                              ? loadingProgress
-                                                      .cumulativeBytesLoaded /
-                                                  (loadingProgress
-                                                          .expectedTotalBytes ??
-                                                      1)
-                                              : null,
+                            child: Container(
+                              height: size.height / 2 - 256,
+                              color: Colors.grey,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  CarouselSlider.builder(
+                                    carouselController: _carouselController,
+                                    options: CarouselOptions(
+                                      height: size.height - 96,
+                                      aspectRatio: 16 / 9,
+                                      viewportFraction: 1.0,
+                                      autoPlay: true,
+                                      autoPlayInterval:
+                                          const Duration(seconds: 5),
+                                      enlargeCenterPage: false,
+                                      enableInfiniteScroll: true,
+                                      pauseAutoPlayOnTouch: true,
+                                      reverse: false,
+                                      onPageChanged: (index, reason) {
+                                        // Manejar el cambio de página aquí (puede ser útil para los indicadores)
+                                      },
                                     ),
-                                  );
-                                }
-                              },
-                              errorBuilder: (BuildContext context, Object error,
-                                  StackTrace? stackTrace) {
-                                // Manejar el error si la carga de la imagen falla
-                                return const Text('Error al cargar la imagen');
-                              },
+                                    itemCount: 5, //negocioList.ImagenUrl.length
+                                    itemBuilder: (BuildContext context,
+                                        int index, int realIndex) {
+                                      return Builder(
+                                        builder: (BuildContext context) {
+                                          List<String> staticImageUrls = [
+                                            'https://medias.treew.com/sliders/picadilloyeya-pc-spa.jpg',
+                                            'https://medias.treew.com/sliders/pasabahce-pc-spa.jpg',
+                                            'https://medias.treew.com/sliders/chocnut-pc-spa.jpg',
+                                            'https://medias.treew.com/sliders/tommilk-pc-spa.jpg',
+                                            'https://medias.treew.com/sliders/rubis-pc-spa.jpg',
+                                            'https://medias.treew.com/sliders/conformados-pc-spa.jpg',
+                                          ];
+
+                                          // Asegúrate de que el índice esté dentro del rango de la lista
+                                          if (index >= 0 &&
+                                              index < staticImageUrls.length) {
+                                            return buildFullscreenImage(
+                                                staticImageUrls[index], true);
+                                          } else {
+                                            // Manejar casos en los que el índice está fuera de rango
+                                            return Container(); // O cualquier widget predeterminado
+                                          }
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -129,43 +182,46 @@ class LoginState extends ConsumerState<BienvenidoScreen>
                         ),
                       ),
                       //
-                      /*               const Padding(
-                    padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: Text(
-                      "¡Obtén el mejor café de La Habana!",
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Theme.of(context).primaryColor,),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: Text(
-                      "La Habana / Arroyo Naranjo / Fraternidad /",
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Theme.of(context).primaryColor,),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: Text(
-                      "Calle Fernando #785 e/ San Agustin y Concoridia",
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Theme.of(context).primaryColor,),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                 */
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                        child: Text(
+                          "Encuentra facil todo lo que buscas",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+/*                       Padding(
+                        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                        child: Text(
+                          "La Habana / Arroyo Naranjo / Fraternidad /",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                        child: Text(
+                          "Calle Fernando #785 e/ San Agustin y Concoridia",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                     */
                     ],
                   ),
                   Column(
@@ -234,7 +290,7 @@ class LoginState extends ConsumerState<BienvenidoScreen>
                                 }));
                               },
                               child: const Text(
-                                "Menu",
+                                "Comenzar",
                                 style: TextStyle(
                                     fontFamily: 'Roboto', color: Colors.white),
                               ),
@@ -304,14 +360,17 @@ class SocialMediaButtons extends StatelessWidget {
               children: [
                 SocialButton(
                   icon: Icon(Bootstrap.facebook),
+                  url: 'https://www.facebook.com/Supermarket23/',
                 ),
                 SocialButton(
                   icon: Icon(Bootstrap.instagram),
+                  url: 'https://www.instagram.com/supermarket.23/',
                 ),
 /*                 SocialButton(
                     icon: Icon(Bootstrap.twitter), ), */
                 SocialButton(
                   icon: Icon(Bootstrap.whatsapp),
+                  url: '16476940199',
                 ),
               ],
             ),
@@ -325,9 +384,13 @@ class SocialMediaButtons extends StatelessWidget {
 class SocialButton extends StatelessWidget {
   final Icon icon;
   final Color? color; // Ahora es un Color opcional
+  final String url;
 
   const SocialButton(
-      {Key? key, required this.icon, this.color = Colors.transparent})
+      {Key? key,
+      required this.icon,
+      this.color = Colors.transparent,
+      required this.url})
       : super(key: key);
 
   @override
@@ -341,6 +404,7 @@ class SocialButton extends StatelessWidget {
         icon: icon,
         color: Colors.white,
         onPressed: () {
+          openFacebookLink(url);
           // Agrega aquí el comportamiento cuando se presiona el botón.
         },
       ),

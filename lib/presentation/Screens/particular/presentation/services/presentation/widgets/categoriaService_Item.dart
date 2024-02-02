@@ -40,7 +40,7 @@ class CategoriaSericeItem extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -50,7 +50,7 @@ class CategoriaSericeItem extends ConsumerWidget {
                                 children: [
                                   Center(
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.all(8.0),
                                       child: SizedBox(
 /*                                         child: Column(
                                           children: [
@@ -75,7 +75,7 @@ class CategoriaSericeItem extends ConsumerWidget {
                                   ),
                                 ],
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 8,
                               ),
                               Column(
@@ -89,7 +89,7 @@ class CategoriaSericeItem extends ConsumerWidget {
                                       Text(
                                         "Balon de gas",
                                         /* service.nombre!, */
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
                                           fontSize: 18.0,
@@ -99,7 +99,7 @@ class CategoriaSericeItem extends ConsumerWidget {
                                       ),
                                     ],
                                   ),
-                                  const Row(
+                                  Row(
                                     children: [
                                       //Text('Teléfono: '),
                                     ],
@@ -140,7 +140,7 @@ class CategoriaSericeItem extends ConsumerWidget {
     );
   }
 
-  static GeTimageRandom(String nombr) {
+/*   static GeTimageRandom(String nombr) {
     if (nombr == 'Alimentos') {
       var imagenesAlimentos = [
         'assets/icons/alimentos/alimentos-01.png',
@@ -308,7 +308,7 @@ class CategoriaSericeItem extends ConsumerWidget {
     final random = Random();
     final index = random.nextInt(imagenes.length);
     return imagenes[index];
-  }
+  } */
 }
 
 void UpdateServiceLastView(WidgetRef ref, ServiceCategoria s) {

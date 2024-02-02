@@ -62,15 +62,22 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       allowImplicitScrolling: true,
       autoScrollDuration: 3000,
       infiniteAutoScroll: true,
-/*       globalHeader: Align(
+      globalHeader: Align(
         alignment: Alignment.topRight,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(top: 16, right: 16),
-            child: buildImage('logo.png', 100),
+            padding: const EdgeInsets.only(top: 24, right: 0),
+            child: Container(
+                height: 48.0,
+                color: Theme.of(context).primaryColor,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 16.0, right: 8.0, bottom: 4.0),
+                  child: buildImage('full_logo.png', false, 100),
+                )),
           ),
         ),
-      ), */
+      ),
 /*       globalFooter: Padding(
         padding: const EdgeInsets.only(bottom: 8.0, left: 16.0, right: 16.0),
         child: SizedBox(
@@ -90,7 +97,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Exelentes Ofertas",
           body:
-              "Ofertas irresistibles en café de alta calidad. ¡Ahorra sin dejar de disfrutar!",
+              "Ofertas irresistibles en todo tipo de productos de alta calidad.",
           image: Padding(
             padding: const EdgeInsets.only(top: 132.0),
             child: buildImage('logo.png', false),
@@ -100,11 +107,10 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         //entrega a domicilio
         PageViewModel(
           title: "Entrega a Domicilio",
-          body:
-              "Tu café favorito, ahora en tu puerta. ¡Haz tu pedido y disfruta en casa!",
+          body: "Hasta la puerta de tu casa.",
           image: Padding(
             padding: const EdgeInsets.only(top: 132.0),
-            child: buildImage('tack_order.png', false),
+            child: buildImage('entrega_a_domicilio.png', false),
           ),
           decoration: pageDecorationWithColor(Colors.white),
         ),
@@ -115,7 +121,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
               "Agiliza tus transacciones con nuestro sistema de pago en línea. Rapidez y seguridad al alcance de un clic.",
           image: Padding(
             padding: const EdgeInsets.only(top: 132.0),
-            child: buildImage('payment_online.png', false),
+            child: buildImage('ic_payment.png', false),
           ),
           decoration: pageDecorationWithColor(Colors.white),
         ),
@@ -137,7 +143,8 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       controlsPadding: kIsWeb
           ? const EdgeInsets.all(12.0)
           : const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
-      dotsDecorator: dotsDecoratorWithColor(Color.fromARGB(255, 197, 197, 197),
+      dotsDecorator: dotsDecoratorWithColor(
+          const Color.fromARGB(255, 197, 197, 197),
           const Color(0xffFFD54B)), // Cambia el color de los indicadores
       dotsContainerDecorator: const ShapeDecoration(
         shape: RoundedRectangleBorder(

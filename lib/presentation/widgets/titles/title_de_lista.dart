@@ -25,15 +25,6 @@ class Title_List_Content extends StatelessWidget {
             text,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w100),
           ),
-          GestureDetector(
-            onTap: () => {linkUrl},
-            child: Text(
-              linkText,
-              style: const TextStyle(
-                color: Colors.blue,
-              ),
-            ),
-          ),
         ],
       ),
     );

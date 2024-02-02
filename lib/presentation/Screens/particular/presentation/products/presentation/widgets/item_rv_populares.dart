@@ -45,6 +45,7 @@ class ItemRvPopulares extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return MenuDetail(
+              imageUrl: imageUrl,
               producto:
                   producto); // Asegúrate de tener una variable llamada "coffee"
         }));

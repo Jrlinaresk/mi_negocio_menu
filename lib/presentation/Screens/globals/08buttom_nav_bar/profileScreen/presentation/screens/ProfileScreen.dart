@@ -142,26 +142,34 @@ class ProfileScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SocialButton(
-                              icon: Icon(Bootstrap.twitter),
-                              color: Colors.white),
+                            icon: Icon(Bootstrap.twitter),
+                            color: Colors.white,
+                            url: '',
+                          ),
                           SizedBox(
                             width: 4.0,
                           ),
                           SocialButton(
-                              icon: Icon(Bootstrap.facebook),
-                              color: Colors.white),
+                            icon: Icon(Bootstrap.facebook),
+                            color: Colors.white,
+                            url: '',
+                          ),
                           SizedBox(
                             width: 4.0,
                           ),
                           SocialButton(
-                              icon: Icon(Bootstrap.linkedin),
-                              color: Colors.white),
+                            icon: Icon(Bootstrap.linkedin),
+                            color: Colors.white,
+                            url: '',
+                          ),
                           SizedBox(
                             width: 4.0,
                           ),
                           SocialButton(
-                              icon: Icon(Bootstrap.instagram),
-                              color: Colors.white),
+                            icon: Icon(Bootstrap.instagram),
+                            color: Colors.white,
+                            url: '',
+                          ),
                         ],
                       ),
                     ],

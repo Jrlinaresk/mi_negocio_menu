@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:minegociomenu/core/utils/comunicacion.dart';
 import 'package:minegociomenu/domain/models/negocios/negocios.dart';
 
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/product_widget.dart';
@@ -196,8 +197,7 @@ class _NegocioDetailScreenState extends ConsumerState<NegocioDetailScreen> {
                           try {
                             whatsapp(context, "51979128");
                             //_launchWhatsapp(context, negocio.telefono);
-                            _launchURL(
-                                'whatsapp://send?phone=+${"5351979128"}');
+                            launchURL('whatsapp://send?phone=+${"5351979128"}');
                           } catch (e) {
                             print('Error al abrir la URL de WhatsApp: $e');
                           }
@@ -228,7 +228,7 @@ class _NegocioDetailScreenState extends ConsumerState<NegocioDetailScreen> {
                               fontSize: 18.0)),
                       GestureDetector(
                         onTap: () {
-                          _launchURL('tel:${51979128}');
+                          launchURL('tel:${51979128}');
                         },
                         child: const Icon(
                           Icons.phone,
@@ -276,14 +276,6 @@ class _NegocioDetailScreenState extends ConsumerState<NegocioDetailScreen> {
         ),
       ), // El widget que deseas posicionar en la esquina superior derecha
     );
-  }
-
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'No se puede lanzar la URL: $url';
-    }
   }
 
   _launchWhatsapp(BuildContext context, String telefono) async {

@@ -68,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: saving,
         progressIndicator: const mProgressIndicator(),
@@ -103,31 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-
-      // Padding(
-      //   padding: const EdgeInsets.all(16.0),
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     crossAxisAlignment: CrossAxisAlignment.stretch,
-      //     children: <Widget>[
-      //       Positioned.fill(
-      //         child: Align(
-      //           alignment: Alignment.center,
-      //           child: _logo(),
-      //         ),),
-      //       //App version
-      //       Positioned(
-      //           bottom: size.height * 0.01,
-      //           right: 20,
-      //           child: const Text(
-      //             Config.versionApp,
-      //             style: TextStyle(color: Color.fromRGBO(243, 130, 54, 1)),
-      //           )),
-      //       _form(),
-      //
-      //     ],
-      //   ),
-      // ),
     );
   }
 
@@ -248,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
               top: size.height / 8, left: 8.0, right: 8.0, bottom: 8.0),
           child: const Column(
             children: [
-              SocialLoginRow(),
+              //SocialLoginRow(),
               SizedBox(
                 height: 16,
               ),
@@ -268,8 +244,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _handleLogin() async {
-    showToast("Inicio de sesión exitoso!");
-    context.push('/dasboardscreen');
+    String username = _email;
+    String password = _password;
+
+    if (username == 'admin' && password == 'admin') {
+      // Éxito en el inicio de sesión
+      showToast("Inicio de sesión exitoso!");
+      context.push('/dasboardscreen');
+    } else {
+      // Error en el inicio de sesión
+      showToast("Error en el inicio de sesión");
+      // Puedes mostrar un mensaje de error o manejarlo de otra manera
+    }
+
 /*     AuthService authService = AuthService("http://62.72.6.126/api");
     // Datos de ejemplo (puedes obtener estos datos del usuario)
     String username = _email;
@@ -304,7 +291,7 @@ class _LoginScreenState extends State<LoginScreen> {
         style: ElevatedButton.styleFrom(
           shadowColor: Colors.grey.shade100,
           elevation: 8.0,
-          backgroundColor: const Color(0xFF2c2c2c),
+          backgroundColor: Theme.of(context).primaryColor,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16.0),
@@ -319,6 +306,7 @@ class _LoginScreenState extends State<LoginScreen> {
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 14.0,
+            color: Colors.white
           ),
         ),
       ),

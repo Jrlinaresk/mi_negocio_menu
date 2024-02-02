@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:minegociomenu/core/router/app_router.dart';
 import 'package:minegociomenu/core/theme/color_schemes.g.dart';
 import 'package:minegociomenu/core/utils/app_preferences.dart';
-
+import 'package:minegociomenu/libs/shopping/persistent_shopping_cart.dart';
 /* void main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -14,6 +14,7 @@ import 'package:minegociomenu/core/utils/app_preferences.dart';
 void main() async {
   runApp(const ProviderScope(child: MyApp()));
   WidgetsFlutterBinding.ensureInitialized();
+  await PersistentShoppingCart().init();
   await AppPreferences.init();
 } //ver
 

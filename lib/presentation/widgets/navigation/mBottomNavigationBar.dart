@@ -30,12 +30,12 @@ class _mBottomNavigationBarState extends State<mBottomNavigationBar> {
                 case 1:
                   widget.update_title("Ubicacion");
                   break;
-                case 2:
-                  widget.update_title("Favoritos");
-                  break;
-                case 3:
-                  widget.update_title("Propietario");
-                  break;
+                // case 2:
+                //   widget.update_title("Favoritos");
+                //   break;
+                // case 3:
+                //   widget.update_title("Propietario");
+                //   break;
                 default:
                   {
                     widget.update_currentIndex(-1);
@@ -76,31 +76,31 @@ class _mBottomNavigationBarState extends State<mBottomNavigationBar> {
               label: "Ubicacion", //Ubicacion
             ),
 
-            /// Favoritos
-            BottomNavigationBarItem(
-              activeIcon: Icon(
-                Icons.favorite,
-                color: Color(0xffFFD54B),
-              ),
-              icon: Icon(
-                Icons.favorite,
-                color: Color.fromARGB(81, 255, 255, 255),
-              ),
-              label: "Favoritos", //Favoritos
-            ),
+            // /// Favoritos
+            // BottomNavigationBarItem(
+            //   activeIcon: Icon(
+            //     Icons.favorite,
+            //     color: Color(0xffFFD54B),
+            //   ),
+            //   icon: Icon(
+            //     Icons.favorite,
+            //     color: Color.fromARGB(81, 255, 255, 255),
+            //   ),
+            //   label: "Favoritos", //Favoritos
+            // ),
 
-            /// Propietario
-            BottomNavigationBarItem(
-              activeIcon: Icon(
-                Icons.person,
-                color: Color(0xffFFD54B),
-              ),
-              icon: Icon(
-                Icons.person,
-                color: Color.fromARGB(81, 255, 255, 255),
-              ),
-              label: "Propietario",
-            ),
+            // /// Propietario
+            // BottomNavigationBarItem(
+            //   activeIcon: Icon(
+            //     Icons.person,
+            //     color: Color(0xffFFD54B),
+            //   ),
+            //   icon: Icon(
+            //     Icons.person,
+            //     color: Color.fromARGB(81, 255, 255, 255),
+            //   ),
+            //   label: "Propietario",
+            // ),
           ],
           selectedItemColor: const Color(
               0xffFFD54B), // Color del ícono y del texto seleccionado

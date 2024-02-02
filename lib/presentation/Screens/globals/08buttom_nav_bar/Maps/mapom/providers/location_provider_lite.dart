@@ -52,8 +52,8 @@ final updatedLocationProviderClient = FutureProvider<Ubicacion>((ref) async {
         print('Error: La respuesta no es un mapa.');
         ufinal = Ubicacion(
           id: 0,
-          longitud: 0,
-          latitud: 0,
+          longitud: '',
+          latitud: '',
         );
       }
 

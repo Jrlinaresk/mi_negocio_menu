@@ -207,7 +207,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                       Polyline(
                         points: points,
                         strokeWidth: 4.0,
-                        color: Colors.cyan.shade400,
+                        color: Theme.of(context).primaryColor,
                       ),
                       // Polilínea animada en verde
 /*                     Polyline(
@@ -227,7 +227,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                       point: LatLng(from.latitude, from.longitude),
                       child: Icon(
                         Icons.location_on,
-                        color: Colors.cyan.shade400,
+                        color: Theme.of(context).primaryColor,
                         size: dynamicZoom * 3,
                       ),
                     ),
@@ -337,7 +337,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        color: Colors.yellow.shade100,
+                        color: Colors.white,
                         child: Text(
                           // km and hour
                           'Tiempo Aproximado de entrega: ${((formatDuration(duration)))}',
@@ -347,7 +347,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                         ),
                       ),
                       Container(
-                        color: Colors.yellow.shade100,
+                        color: Colors.white,
                         child: Text(
                           // km and hour
                           'Distancia del trayecto: ${(distance / 1000).toStringAsFixed(2)} km',
@@ -357,7 +357,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                         ),
                       ),
                       Container(
-                        color: Colors.yellow.shade100,
+                        color: Colors.white,
                         child: Text(
                           // km and hour
                           'Servicio: ${(CalcularCostoDelServicio(response.monto, (distance / 1000))).toStringAsFixed(2)} USD',
@@ -376,7 +376,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    color: Colors.yellow.shade100,
+                    color: Colors.white,
                     child: const Text(
                       // km and hour
                       'Seleccione metodo de confirmacion',
@@ -400,7 +400,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                       ElevatedButton.icon(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.cyan.shade400,
+                            Theme.of(context).primaryColor,
                           ), // Cambia a tu color deseado
                         ),
                         icon: const Icon(
@@ -421,7 +421,7 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
                       ElevatedButton.icon(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.cyan.shade400,
+                            Theme.of(context).primaryColor,
                           ), // Cambia a tu color deseado
                         ),
                         icon: const Icon(
@@ -511,12 +511,12 @@ class _FlutterMapOsrmExampleState extends ConsumerState<FlutterMapOsrmExample> {
   }
 
   Future<void> realizarDesplazamiento(Ubicacion ubicacion) async {
-    double ulat = ubicacion.latitud;
-    double ulon = ubicacion.longitud;
+    double ulat = double.parse(ubicacion.latitud);
+    double ulon = double.parse(ubicacion.longitud);
 
-    double desplazamientoMetros = 200;
+    double desplazamientoMetros = 200 / 111111;
 
-    double nuevaLatitud = ulat + (desplazamientoMetros / 111111);
+    double nuevaLatitud = (ulat + desplazamientoMetros);
     double nuevaLongitud = ulon;
 
     from = Coordinate(
@@ -779,7 +779,7 @@ String formatDuration(durationInMinutes) {
     child: ElevatedButton.icon(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
-          Colors.cyan.shade400,
+          Theme.of(context).primaryColor,
         ), // Cambia a tu color deseado
       ),
       icon: const Icon(

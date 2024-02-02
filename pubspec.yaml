@@ -46,10 +46,17 @@ dependencies:
   location_picker_flutter_map: ^2.1.0
   sqflite: ^2.3.0
   uni_links: ^0.5.1
+  path_provider: ^2.1.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  cached_network_image: ^3.3.1
+  path: ^1.8.3
+  google_sign_in: ^6.2.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   build_runner: ^2.4.6
+  hive_generator: ^2.0.1
   custom_lint: ^0.5.3
   flutter_lints: ^2.0.0
   flutter_test:
@@ -68,7 +75,19 @@ flutter:
   assets:
     - assets/
     - assets/categorias/
-    - assets/developed/
+    - assets/productos/aceite/
+    - assets/productos/bebidas/
+    - assets/productos/carnes/
+    - assets/productos/cereales/
+    - assets/productos/condimentos/
+    - assets/productos/confituras/
+    - assets/productos/enlatados/
+    - assets/productos/granos/
+    - assets/productos/lacteos/
+    - assets/productos/panaderia/
+    - assets/productos/pastas/
+    - assets/productos/refrescos/
+    - assets/productos/viandas/
 
 fonts:
   - family: Roboto

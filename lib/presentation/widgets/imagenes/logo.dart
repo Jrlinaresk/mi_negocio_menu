@@ -19,7 +19,7 @@ class LogoWidget extends StatelessWidget {
             width: 212,
             child: Image(
               height: 96.0,
-              image: AssetImage('assets/icon/icon_apk.png'),
+              image: AssetImage('assets/logo.png'),
               fit: BoxFit.contain,
             ),
           ),
@@ -36,7 +36,7 @@ class LogoWidget extends StatelessWidget {
               color: Color(0xFF2c2c2c)),
         ),
         const Text(
-          'Mensajero',
+          'Super Market 23',
           style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.bold,

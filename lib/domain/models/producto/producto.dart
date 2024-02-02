@@ -90,9 +90,11 @@ class Producto with ChangeNotifier {
       modelo: json['modelo'] ?? 'Desconocido',
       marca: json['marca'] ?? 'Desconocida',
       CategoriaID: json['CategoriaID'],
-      types: json['types'] ?? [-1],
-      ImagenUrl: json['ImagenUrl'] ?? [],
-      videoUrl: json['videoUrl'] ?? [],
+      types: (json['types'] as List<dynamic>?)
+          ?.cast<int>(), // Asegura que se convierta a List<int> correctamente
+/*       ImagenUrl: json['ImagenUrl'] ?? [],
+ */
+/*       videoUrl: json['videoUrl'] ?? [], */
       precio: json['precio'] ?? 0,
       favorito: json['favorito'] ?? false,
       origen: json['origen'] ?? 'Desconocido',
@@ -137,5 +139,44 @@ class Producto with ChangeNotifier {
     return lowercaseNombre.contains(lowercaseSearch) ||
         lowercaseModelo.contains(lowercaseSearch) ||
         lowercaseMarca.contains(lowercaseSearch);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'ProductoID': productoID,
+      'nombre': nombre,
+      'modelo': modelo,
+      'marca': marca,
+      'CategoriaID': CategoriaID,
+      'types': types,
+      'ImagenUrl': ImagenUrl,
+      'videoUrl': videoUrl,
+      'precio': precio,
+      'favorito': favorito,
+      'origen': origen,
+      'ingredientes': ingredientes,
+      'descripcion': descripcion,
+      'nota': nota,
+      'tamanno': tamanno,
+      'peso': peso,
+      'ecoAmigable': ecoAmigable,
+      'fechaVencimiento': fechaVencimiento?.toIso8601String(),
+      'disponibilidad': disponibilidad,
+      'estado': estado,
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
+      'calificacionPromedio': calificacionPromedio,
+      'resennas': resennas,
+      'lastprice': lastprice,
+      'formasDePago': formasDePago,
+      'moneda': moneda,
+      'mayorista': mayorista,
+      'preciomayorista': preciomayorista,
+      'descuento': descuento,
+      'tipoDescuento': tipoDescuento,
+      'mensajeria': mensajeria,
+      'garantia': garantia,
+      'oferta': oferta,
+    };
   }
 }

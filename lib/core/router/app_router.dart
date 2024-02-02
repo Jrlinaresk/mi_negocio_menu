@@ -8,6 +8,8 @@ import 'package:minegociomenu/presentation/Screens/globals/01splash/splash.dart'
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../presentation/Screens/globals/11administracion/administracion_screen.dart';
+
 part 'app_router.g.dart';
 
 @riverpod
@@ -41,7 +43,11 @@ GoRouter goRouter(GoRouterRef ref) {
       ),
       GoRoute(
         path: '/shopping_cartScreen',
-        builder: (context, state) => const ShoppingCartScreen(),
+        builder: (context, state) => const ShoppingCartScreen(), //
+      ),
+      GoRoute(
+        path: '/administracion_screen',
+        builder: (context, state) => const AdministracionScreen(),
       ),
     ],
 /*     redirect: (context, state) {

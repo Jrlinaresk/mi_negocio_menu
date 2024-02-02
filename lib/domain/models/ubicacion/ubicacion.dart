@@ -3,8 +3,8 @@ import 'package:latlong2/latlong.dart';
 class Ubicacion {
   final int id;
   String? display_name;
-  final double longitud;
-  final double latitud;
+  final String longitud;
+  final String latitud;
   String? city;
   String? road;
   String? country;
@@ -69,8 +69,8 @@ class Ubicacion {
 
   Ubicacion copyWith(
       {int? id,
-      double? longitud,
-      double? latitud,
+      String? longitud,
+      String? latitud,
       String? display_name,
       String? city,
       String? road,
@@ -144,8 +144,8 @@ class Ubicacion {
     if (partes.length == 4) {
       Ubicacion s = Ubicacion(
         display_name: partes[0],
-        latitud: double.parse(partes[1]),
-        longitud: double.parse(partes[2]),
+        latitud: partes[1],
+        longitud: (partes[2]),
         id: 0,
       );
       return s;

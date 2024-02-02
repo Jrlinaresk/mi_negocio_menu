@@ -283,8 +283,8 @@ class _mSearchBarState extends ConsumerState<mSearchBar> {
                 .toList()[0]; */
             _searchController.text = '';
             _searchController.text = _options[index].display_name!;
-            LatLng center =
-                LatLng(_options[index].latitud, _options[index].longitud);
+            LatLng center = LatLng(double.parse(_options[index].latitud),
+                double.parse(_options[index].longitud));
 /*             _animatedMapMove(center.toLatLng(), 18.0);
             onLocationChanged(center); */
             _focusNode.unfocus();

@@ -3,24 +3,23 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:go_router/go_router.dart';
-import 'package:minegociomenu/core/config/const.dart';
+import 'package:minegociomenu/libs/shopping/persistent_shopping_cart.dart';
+import 'package:minegociomenu/presentation/Screens/globals/07appbar/shopping_cart/cart_view.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps/example.dart';
-import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/Maps/maps.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/bloc/bloc.dart';
-import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/homeScreen/HomeScreen.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/homeScreen/menu_list.dart';
 import 'package:flutter/material.dart';
-import 'package:minegociomenu/presentation/Screens/globals/02intro/screen/intro.dart';
-import 'package:minegociomenu/presentation/Screens/globals/07appbar/notification/mNotification.dart';
 import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/profileScreen/presentation/screens/ProfileScreen.dart';
-import 'package:minegociomenu/presentation/Screens/globals/09drawer/SettingsScreen.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/screens/product_category_screen.dart';
 import 'package:minegociomenu/presentation/widgets/notificaciones/CustomNotificationPromo.dart';
 import 'package:minegociomenu/presentation/widgets/SliderView.dart';
 import 'package:minegociomenu/presentation/widgets/navigation/mBottomNavigationBar.dart';
-import 'package:minegociomenu/presentation/widgets/navigation/mSalomonBottomBar.dart';
-import 'package:minegociomenu/core/utils/ui/tools.dart';
 import 'dart:ui' as ui;
+
+import '../../../../delegates/search/search_delegate.dart';
+import '../04Login/presentation/Screen/signIn_demo.dart';
+import '../10notificaciones/notificaciones_screen.dart';
+import '../11administracion/administracion_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -77,15 +76,17 @@ class _MyHomePageState extends ConsumerState {
     MenuList(),
 /*     const HomeScreen(), */
     const FlutterMapOsrmExample(), // MapaScreen
-    const MBloc(),
+    //const MBloc(),
     //drawer
-    ProductCategoryScreen(),
-/*     const ProfileScreen(), */
+    const ProfileScreen(),
+    const NotificacionesScreen(),
+    const AdministracionScreen(),
+    const SignInDemo(),
   ];
 
   @override
   void initState() {
-    title = "Tu tienda";
+    title = "Super Market 23";
     super.initState();
     // Iniciar el temporizador para cambiar la variable cada 5 segundos
     _timer = Timer.periodic(const Duration(seconds: 120), (timer) {
@@ -142,22 +143,40 @@ class _MyHomePageState extends ConsumerState {
                         // borrar productdetallesscreen
                         onTap: () {
                           //showToast("Funcion pendiente");
-                          /*                         ScaffoldMessenger.of(context).showSnackBar(
+                                                   ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Buscar productos')));
                           showSearch(
                               context: context,
                               delegate: ItemProductoSearchDelegate(ref));
-                  /*                           context.push(
+                                             context.push(
                             '/searchproductsscreen',
-                          ); */ */
+                          );
                         },
                         child: const Icon(
                           Icons.search,
                           color: Color(0xffFFD54B),
                         ), // Icono de búsqueda ,
                       ),
-                      IconButton(
+                      PersistentShoppingCart().showCartItemCountWidget(
+                        cartItemCountWidgetBuilder: (itemCount) => IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CartView()),
+                            );
+                          },
+                          icon: Badge(
+                            label: Text(itemCount.toString()),
+                            child: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.grey.shade500,
+                            ),
+                          ),
+                        ),
+                      ),
+/*                       IconButton(
                           onPressed: () {
                             //showToast("Funcion pendiente");
                             context.push(
@@ -167,14 +186,14 @@ class _MyHomePageState extends ConsumerState {
                           icon: const Icon(
                             Icons.shopping_cart,
                             color: Colors.white,
-                          )),
+                          )), */
                       const SizedBox(
                         width: 8.0,
                       ),
                     ],
                   )),
               key: _sliderDrawerKey,
-              sliderOpenSize: 179,
+              sliderOpenSize: 200,
               slider: SliderView(
                 onItemClick: (title) {
                   _sliderDrawerKey.currentState!.closeSlider();
@@ -185,6 +204,8 @@ class _MyHomePageState extends ConsumerState {
                       _currentIndex = 4;
                     } else if (title == "LogOut") {
                       context.push('/login');
+                    } else if (title == "Configuraciones") {
+                      context.push('/administracion_screen');
                     }
                   });
                 },

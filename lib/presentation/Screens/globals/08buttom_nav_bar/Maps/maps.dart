@@ -27,8 +27,8 @@ class MapaScreenState extends ConsumerState<MapaScreen> {
         ref.watch(updatedLocationProviderClient);
 
     //boorrar en la version final esto
-    double originalLat = ubicacionProvider.value!.latitud;
-    double originalLng = ubicacionProvider.value!.longitud;
+    double originalLat = double.parse(ubicacionProvider.value!.latitud);
+    double originalLng = double.parse(ubicacionProvider.value!.longitud);
 
     double desplazamientoMetros = 200;
 

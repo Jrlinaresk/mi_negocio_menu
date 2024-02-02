@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:minegociomenu/domain/globalProviders/04shoping_car/shoping.dart';
+import 'package:minegociomenu/libs/shopping/persistent_shopping_cart.dart';
 
-class AddToCartButton extends StatefulWidget {
-  final int initialQuantity;
-  final Function(int) onQuantityChanged;
+class AddToCartButton extends ConsumerStatefulWidget {
+  final String ProductoID;
+  final int onQuantityChanged;
 
-  const AddToCartButton(
-      {super.key,
-      required this.initialQuantity,
-      required this.onQuantityChanged});
+  AddToCartButton({
+    super.key,
+    required this.onQuantityChanged,
+    required this.ProductoID,
+  });
 
   @override
   AddToCartButtonState createState() => AddToCartButtonState();
 }
 
-class AddToCartButtonState extends State<AddToCartButton> {
-  late int quantity;
-
+class AddToCartButtonState extends ConsumerState<AddToCartButton> {
   @override
   void initState() {
     super.initState();
-    quantity = widget.initialQuantity;
   }
 
   @override
   Widget build(BuildContext context) {
+    final shoppingCart = ref.watch(shoppingCartProvider);
+
     return Padding(
       padding: const EdgeInsets.only(right: 16),
       child: Column(
@@ -53,14 +56,10 @@ class AddToCartButtonState extends State<AddToCartButton> {
                         children: [
                           InkWell(
                             onTap: () {
-                              if (quantity > 1) {
-                                setState(() {
-                                  quantity--;
-                                  widget.onQuantityChanged(quantity);
-                                });
-                              }
+                              shoppingCart
+                                  .decrementCartItemQuantity(widget.ProductoID);
                             },
-                            child: quantity > 1
+                            child: shoppingCart.getCartItemCount() > 1
                                 ? Card(
                                     elevation: 0,
                                     color: Colors.transparent,
@@ -75,7 +74,9 @@ class AddToCartButtonState extends State<AddToCartButton> {
                                               left: 8, right: 8),
                                           child: Icon(
                                             Icons.remove,
-                                            color: quantity > 1
+                                            color: shoppingCart
+                                                        .getCartItemCount() >
+                                                    1
                                                 ? Colors.black
                                                 : Colors.grey,
                                             size: 14,
@@ -88,11 +89,11 @@ class AddToCartButtonState extends State<AddToCartButton> {
                           ),
                           /* quantity > 1 ? const VerticalDivider() : Container(), */
                           Padding(
-                            padding: quantity > 1
+                            padding: shoppingCart.getCartItemCount() > 1
                                 ? const EdgeInsets.symmetric(horizontal: 8.0)
                                 : const EdgeInsets.only(left: 16, right: 8.0),
                             child: Text(
-                              quantity.toString(),
+                              "3",
                               style: const TextStyle(fontSize: 16),
                             ),
                           ),
@@ -101,9 +102,9 @@ class AddToCartButtonState extends State<AddToCartButton> {
                     ),
                     InkWell(
                       onTap: () {
-                        setState(() {
-                          quantity++;
-                          widget.onQuantityChanged(quantity);
+                        setState(() async {
+                          shoppingCart
+                              .incrementCartItemQuantity(widget.ProductoID);
                         });
                       },
                       child: Card(

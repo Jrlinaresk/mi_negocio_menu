@@ -28,53 +28,76 @@ class Sub_Cat_CustomCard extends StatelessWidget {
     if (lastprice == -1) lastprice = price;
     String descuento =
         calculatePercentageChange(lastprice, price); //original lastprice, price
-    return Card(
-      color: cardColor,
-      elevation: 0.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: SizedBox(
-        width: cardSize,
-        height: cardSize,
+    return SizedBox(
+      width: cardSize,
+      height: cardSize,
+      child: Card(
+        color: cardColor,
+        elevation: 1.0,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+            bottomLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
+          ),
+        ),
         child: Stack(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 0.0),
-              child: buildFullscreenImage(imageUrl, true),
+              child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
+                      bottomLeft: Radius.circular(20.0),
+                      bottomRight: Radius.circular(20.0),
+                    ),
+                  ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                    bottomLeft: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0),
+                  ),
+                  child: buildFullscreenImage(imageUrl, false),
+                ),)
             ),
             descuento != "0%"
                 ? Positioned(
-                    top: 10.0,
-                    left: 10.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.red.shade500,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(0.0),
-                          bottomLeft: Radius.circular(0.0),
-                          bottomRight: Radius.circular(20.0),
-                        ),
+                top: 0.0,
+                left: 0.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade500,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(0.0),
+                      bottomLeft: Radius.circular(0.0),
+                      bottomRight: Radius.circular(20.0),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 4.0),
+                    child: Text(
+                      descuento,
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors
+                            .white, // Cambia el color del texto si es necesario
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
-                        child: Text(
-                          descuento,
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors
-                                .white, // Cambia el color del texto si es necesario
-                          ),
-                        ),
-                      ),
-                    ))
+                    ),
+                  ),
+                ))
                 : Container(),
             Positioned(
-                bottom: 10.0,
-                right: 10.0,
+                bottom: 0.0,
+                right: 0.0,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.green.shade500,

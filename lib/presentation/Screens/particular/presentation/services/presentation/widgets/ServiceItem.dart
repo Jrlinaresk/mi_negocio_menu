@@ -77,8 +77,7 @@ class _ServiceItemState extends ConsumerState<ServiceItem> {
                           children: [
                             IconButton(
                               icon: Image.asset(
-                                RandomGenerator.GeTimageRandom(
-                                    servicelastview.name!),
+                                '',
                                 height: 32,
                               ),
                               tooltip: 'Click',
