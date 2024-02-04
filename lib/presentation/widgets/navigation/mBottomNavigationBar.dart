@@ -4,8 +4,9 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 class mBottomNavigationBar extends StatefulWidget {
   final Function(int) update_currentIndex; // Función para actualizar el texto
   final Function(String) update_title;
+  final bool isUserLoggedIn;
   const mBottomNavigationBar(this.update_currentIndex, this.update_title,
-      {super.key, required List<mBottomNavigationBar> items});
+      {super.key, required List<mBottomNavigationBar> items, required this.isUserLoggedIn});
 
   @override
   State<mBottomNavigationBar> createState() => _mBottomNavigationBarState();
@@ -53,11 +54,11 @@ class _mBottomNavigationBarState extends State<mBottomNavigationBar> {
             /// Home
             BottomNavigationBarItem(
               activeIcon: Icon(
-                Icons.coffee,
+                Icons.home,
                 color: Color(0xffFFD54B),
               ),
               icon: Icon(
-                Icons.coffee,
+                Icons.home,
                 color: Color.fromARGB(81, 255, 255, 255),
               ), //restaurant_menu
               label: "Home",

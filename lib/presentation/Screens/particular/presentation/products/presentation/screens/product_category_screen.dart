@@ -5,6 +5,8 @@ import 'package:minegociomenu/domain/globalProviders/02producto/producto.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/productItem.dart';
 import 'package:minegociomenu/domain/data/db/favoritos_database.dart';
 
+import '../../../../../../widgets/cargas/mcircular_progress_indicator.dart';
+
 //ver todos los productos de x categoria
 class ProductCategoryScreen extends ConsumerWidget {
   final FavoritosDatabase favoritosDatabase = FavoritosDatabase();
@@ -48,7 +50,7 @@ class ProductList extends ConsumerWidget {
       error: (error, stack) => false,
     )) {
       // Muestra un indicador de carga
-      return const CircularProgressIndicator();
+      return CustomLoadingIndicator();
     }
 
     if (productListAsyncValue.hasError) {

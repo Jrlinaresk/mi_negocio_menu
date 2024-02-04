@@ -4,12 +4,16 @@ import 'package:minegociomenu/core/router/app_router.dart';
 import 'package:minegociomenu/core/theme/color_schemes.g.dart';
 import 'package:minegociomenu/core/utils/app_preferences.dart';
 import 'package:minegociomenu/libs/shopping/persistent_shopping_cart.dart';
+
+import 'domain/models/producto/producto.dart';
 /* void main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: SplashScreen(), //SplashScreen(),
   ));
 } */
+
+final isUserLoggedInProvider = StateProvider<bool>((ref) => false);
 
 void main() async {
   runApp(const ProviderScope(child: MyApp()));

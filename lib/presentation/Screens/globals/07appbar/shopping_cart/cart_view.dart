@@ -5,6 +5,7 @@ import 'package:minegociomenu/libs/shopping/model/cart_model.dart';
 import 'package:minegociomenu/libs/shopping/persistent_shopping_cart.dart';
 import 'package:minegociomenu/presentation/Screens/globals/07appbar/shopping_cart/components/cart_tile_widget.dart';
 import 'package:minegociomenu/presentation/Screens/globals/07appbar/shopping_cart/components/empty_cart_msg_widget.dart';
+import 'package:minegociomenu/presentation/widgets/dialogos/confirmation_code_dialog.dart';
 
 class CartView extends StatefulWidget {
   const CartView({Key? key}) : super(key: key);
@@ -153,13 +154,15 @@ class _CartViewState extends State<CartView> {
                                   cartData['cartItems'];
                               double totalPrice = cartData['totalPrice'];
 
-                              generarInforme(cartItems, context);
+                              solicitar_mensaje_de_confirmacion(cartItems, context);
+
+
                             },
                             child: const SizedBox(
                               height: 64,
                               child: Center(
                                 child: Text(
-                                  "Agregar al carrito",
+                                  "Pagar y Solicitar",
                                   style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Colors.white),
@@ -175,29 +178,13 @@ class _CartViewState extends State<CartView> {
   }
 }
 
-void generarInforme(cartItems, context) {
-  String informe = '';
-  String informefinal = '=== Informe de su Orden ===\n';
-
-  for (var item in cartItems) {
-    final productName = item.productName;
-    final unitPrice = item.unitPrice;
-    final quantity = item.quantity;
-    final totalPrice = unitPrice * quantity;
-
-    informe =
-        '$productName a \$$unitPrice, con un costo de \$$totalPrice por $quantity unidades \n';
-    informefinal += informe;
-  }
-
-  // Puedes agregar cualquier otra información adicional que desees
-  double total = cartItems.fold(0, (sum, item) => sum + item.totalPrice);
-  informefinal += '-------------------------------------------\n';
-  informefinal += 'Sub total a pagar: \$$total\n';
-  informefinal += 'Costo de la mensajeria: \$${5}\n';
-  informefinal += 'Total a pagar: \$${total + 5}\n';
-  print(informefinal);
-
-  EnviarOrden_whatsapp(context, "51979128", informefinal);
-  Navigator.pop(context);
+Widget solicitar_mensaje_de_confirmacion(cartItems, BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return ConfirmationCodeDialog(cartItems: cartItems, context: context);
+    },
+  );
+  // Asegúrate de devolver algo al final
+  return Container(); // Puedes devolver cualquier widget aquí
 }

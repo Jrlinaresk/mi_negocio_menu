@@ -14,6 +14,8 @@ import 'package:minegociomenu/presentation/widgets/imagenes/build_image.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../widgets/cargas/mcircular_progress_indicator.dart';
+
 class BienvenidoScreen extends ConsumerStatefulWidget {
   const BienvenidoScreen({super.key});
 
@@ -312,9 +314,9 @@ class LoginState extends ConsumerState<BienvenidoScreen>
           },
           loading: () {
             // Aquí se muestra el CircularProgressIndicator mientras se carga la información
-            return const Scaffold(
+            return Scaffold(
                 backgroundColor: Colors.white,
-                body: Center(child: CircularProgressIndicator()));
+                body: Center(child: CustomLoadingIndicator()));
           },
           error: (error, stack) {
             // Manejo de errores si ocurre alguno

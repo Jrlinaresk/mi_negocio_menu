@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minegociomenu/domain/models/producto/producto.dart';
-import 'package:minegociomenu/domain/globalProviders/01categoria/categoria.dart';
-
-import 'package:minegociomenu/domain/globalProviders/02producto/last_view.dart';
-import 'package:minegociomenu/domain/globalProviders/02producto/producto.dart';
+import '../../../../../domain/globalProviders/02producto/producto.dart';
+import '../../../../../domain/models/producto/producto.dart';
 
 class SearchProductsScreen extends ConsumerStatefulWidget {
   const SearchProductsScreen({Key? key}) : super(key: key);
@@ -14,15 +11,15 @@ class SearchProductsScreen extends ConsumerStatefulWidget {
 }
 
 class _SearchProductsScreenState extends ConsumerState<SearchProductsScreen> {
-  late List<Producto> productos = [];
+
+  List<Producto> productos = [];
   final TextEditingController _searchController = TextEditingController();
   List<Producto> _filteredProducts =
-      []; // Lista para almacenar los productos filtrados
+  []; // Lista para almacenar los productos filtrados
 
   @override
   void initState() {
     super.initState();
-    //plist = ref.watch(ProductoStateNotifierProvider);
     // Inicializa _filteredProducts con todos los productos al principio
     _filteredProducts = [];
   }
@@ -42,14 +39,16 @@ class _SearchProductsScreenState extends ConsumerState<SearchProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var plist = ref.watch(productosProvider(3));
-    // Accede al valor dentro de AsyncValue usando el método maybeWhen
-    var productos = plist.maybeWhen(
-      data: (data) => data,
-      orElse: () => [], // Devuelve una lista vacía si no hay datos
-    );
+    //var plist = ref.watch(productosProvider(-1));
+
+    // // Accede al valor dentro de AsyncValue usando el método maybeWhen
+    // var productos = plist.maybeWhen(
+    //   data: (data) => data,
+    //   orElse: () => [], // Devuelve una lista vacía si no hay datos
+    // );
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Buscar Productos'),
       ),

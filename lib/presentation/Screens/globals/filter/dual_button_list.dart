@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 
 class DualButtonList extends StatefulWidget {
-  const DualButtonList({super.key});
+  final List<String> filters;
+  const DualButtonList({super.key, required this.filters});
 
   @override
   _DualButtonListState createState() => _DualButtonListState();
 }
 
 class _DualButtonListState extends State<DualButtonList> {
-  List<String> filters = [
-    'Nuevos',
-    'Ofertas',
-    'Descuentos',
-    'Otros...',
-  ];
+
   Set<int> selectedFilterIndices = Set();
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: filters.asMap().entries.map((MapEntry<int, String> entry) {
+      children: widget.filters.asMap().entries.map((MapEntry<int, String> entry) {
         final int index = entry.key;
         final String filter = entry.value;
 

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:minegociomenu/core/Helpers/login_manager.dart';
 import 'package:minegociomenu/core/config/config.dart';
 import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/Screen/login.dart';
 import 'package:minegociomenu/presentation/Screens/globals/04Login/presentation/widgets/RegisterButton.dart';
@@ -15,14 +17,16 @@ import 'package:minegociomenu/core/utils/ui/tools.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-class LoginScreen extends StatefulWidget {
+import '../../../../../../main.dart';
+
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends ConsumerState {
   bool loginResult = false;
   bool showUsertext = true;
   late Size size;
@@ -247,9 +251,12 @@ class _LoginScreenState extends State<LoginScreen> {
     String username = _email;
     String password = _password;
 
+
     if (username == 'admin' && password == 'admin') {
       // Éxito en el inicio de sesión
       showToast("Inicio de sesión exitoso!");
+      bool isUserLoggedIn = changeLoginState(ref); // Cambia el estado de inicio de sesión a true
+      print('Usuario Logeado: $isUserLoggedIn');
       context.push('/dasboardscreen');
     } else {
       // Error en el inicio de sesión

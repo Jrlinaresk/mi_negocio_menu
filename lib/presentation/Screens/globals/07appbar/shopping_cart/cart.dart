@@ -113,7 +113,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Total a pagar:"),
+                  const Text("Total a pagar ss:"),
                   Text("35USD",
                       style: TextStyle(
                           fontFamily: 'Roboto',

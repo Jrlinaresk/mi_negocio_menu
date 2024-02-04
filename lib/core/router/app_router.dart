@@ -8,7 +8,14 @@ import 'package:minegociomenu/presentation/Screens/globals/01splash/splash.dart'
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../presentation/Screens/globals/11administracion/administracion_screen.dart';
+import '../../presentation/Screens/globals/00administracion/11administracion/administracion_categorias_screen.dart';
+import '../../presentation/Screens/globals/00administracion/11administracion/administracion_clientes_screen.dart';
+import '../../presentation/Screens/globals/00administracion/11administracion/administracion_mensajes_screen.dart';
+import '../../presentation/Screens/globals/00administracion/11administracion/administracion_negocios_screen.dart';
+import '../../presentation/Screens/globals/00administracion/11administracion/administracion_productos_screen.dart';
+import '../../presentation/Screens/globals/00administracion/11administracion/administracion_screen.dart';
+import '../../presentation/Screens/globals/00administracion/11administracion/administracion_ventas_screen.dart';
+import '../../presentation/Screens/globals/07appbar/searchProductsScreen/search_products_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -42,12 +49,45 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state) => const DashboardScreen(),
       ),
       GoRoute(
+        path: '/searchproductsscreen',
+        builder: (context, state) => const SearchProductsScreen(),
+      ),
+      GoRoute(
         path: '/shopping_cartScreen',
         builder: (context, state) => const ShoppingCartScreen(), //
       ),
+      //
+      //
+      // administracion
+      //
+      //
       GoRoute(
         path: '/administracion_screen',
         builder: (context, state) => const AdministracionScreen(),
+      ),
+      GoRoute(
+        path: '/config_datos_del_negocio',
+        builder: (context, state) => const AdministracionNegociosScreen(),
+      ),
+      GoRoute(
+        path: '/config_clientes',
+        builder: (context, state) => const AdministracionClientesScreen(),
+      ),
+      GoRoute(
+        path: '/config_productos',
+        builder: (context, state) => const AdministracionProductosScreen(),
+      ),
+      GoRoute(
+        path: '/config_categoria',
+        builder: (context, state) => const AdministracionCategoriasScreen(),
+      ),
+      GoRoute(
+        path: '/config_ventas',
+        builder: (context, state) => const AdministracionVentasScreen(),
+      ),
+      GoRoute(
+        path: '/config_mensajes',
+        builder: (context, state) => const AdministracionMensajesScreen(),
       ),
     ],
 /*     redirect: (context, state) {

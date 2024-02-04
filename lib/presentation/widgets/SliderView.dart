@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:minegociomenu/presentation/Screens/globals/11administracion/administracion_screen.dart';
 
 class SliderView extends StatefulWidget {
   final Function(String)? onItemClick;
+  final bool isUserLoggedIn;
 
-  const SliderView({Key? key, this.onItemClick}) : super(key: key);
+  const SliderView({Key? key, this.onItemClick, required this.isUserLoggedIn}) : super(key: key);
 
   @override
   State<SliderView> createState() => _SliderViewState();
@@ -43,7 +43,7 @@ class _SliderViewState extends State<SliderView> {
                             ),
                           ),
                         ),
-                        Positioned(
+                        widget.isUserLoggedIn! ? Positioned(
                             top: 8,
                             right: 16.0,
                             child:
@@ -58,7 +58,23 @@ class _SliderViewState extends State<SliderView> {
                                 },
                               child: const Icon(Icons.settings, color: Colors.white, size: 22.0), // Icono de búsqueda ,
                             ),
-                            ), //'Configuraciones'
+                            ) :
+                        Positioned(
+                          top: 8,
+                          right: 16.0,
+                          child:
+                          InkWell(
+                            // borrar productdetallesscreen
+                            onTap: () {
+                              //showToast("Funcion pendiente");
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Configuraciones')));
+                              widget.onItemClick?.call('exit');
+                            },
+                            child: const Icon(Icons.exit_to_app, color: Colors.white, size: 22.0), // Icono de búsqueda ,
+                          ),
+                        ),//'Configuraciones'
                         const Positioned(
                             top: 8,
                             left: 16.0,
@@ -118,45 +134,51 @@ class _SliderViewState extends State<SliderView> {
                             iconData: menu.iconData,
                             onTap: widget.onItemClick))
                         .toList(),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12.0,right: 12.0, bottom: 8.0, top: 12.0),
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Container(
-                              color: Colors.grey.shade50,
-                              height: 0.2,
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                              color: Theme.of(context).primaryColor,
-                              child: const Text(
-                                'Informacion',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w100,
-                                  fontSize: 10,
+
+                    widget.isUserLoggedIn! ? Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12.0,right: 12.0, bottom: 8.0, top: 12.0),
+                          child: Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Container(
+                                  color: Colors.grey.shade50,
+                                  height: 0.2,
                                 ),
                               ),
-                            ),
+                              Center(
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  color: Theme.of(context).primaryColor,
+                                  child: const Text(
+                                    'Informacion',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    ...[
-                      Menu(Icons.info_outline, 'Quienes somos'),
-                      Menu(Icons.import_contacts_outlined, 'Que debes saber!'),
-                      Menu(Icons.handshake_outlined, 'Vende con nosotros'),
-                    ]
-                        .map((menu) => _SliderMenuItem(
-                        title: menu.title,
-                        iconData: menu.iconData,
-                        onTap: widget.onItemClick))
-                        .toList(),
+                        ),
+                        ...[
+                          Menu(Icons.info_outline, 'Quienes somos'),
+                          Menu(Icons.import_contacts_outlined, 'Que debes saber!'),
+                          Menu(Icons.handshake_outlined, 'Vende con nosotros'),
+                        ]
+                            .map((menu) => _SliderMenuItem(
+                            title: menu.title,
+                            iconData: menu.iconData,
+                            onTap: widget.onItemClick))
+                            .toList(),
+                      ],
+                    ) : Container(),
+
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0,right: 12.0, bottom: 8.0, top: 12.0),
                       child: Stack(

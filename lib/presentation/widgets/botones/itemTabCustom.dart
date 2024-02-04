@@ -39,7 +39,7 @@ class _ItemTab_CustomState extends State<ItemTab_Custom> {
             widget.assetPath != null
                 ? buildImage(widget.assetPath!, false, alto, true)
                 : Container(),
-            const SizedBox(width: 8.0), // Espacio entre el ícono y el texto
+              const SizedBox(width: 8.0), // Espacio entre el ícono y el texto
             Align(
               alignment: Alignment.center,
               child: Text(widget.title,

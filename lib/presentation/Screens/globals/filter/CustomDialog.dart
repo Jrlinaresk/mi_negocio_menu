@@ -7,6 +7,8 @@ class CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
@@ -18,6 +20,19 @@ class CustomDialog extends StatelessWidget {
   }
 
   contentBox(context) {
+    List<String> filters = [
+      'Nuevos',
+      'Ofertas',
+      'Descuentos',
+      'Otros...',
+    ];
+    List<String> filters_tipo_de_pago = [
+      'Efectivo',
+      'Transferencia',
+      'CUP',
+      'MLC',
+      'USD',
+    ];
     return Stack(
       children: <Widget>[
         Container(
@@ -49,6 +64,23 @@ class CustomDialog extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(left: 16.0, bottom: 8.0, top: 32),
                 child: Text(
+                  'Tipo de pago:',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DualButtonList(filters: filters_tipo_de_pago,),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 16.0, bottom: 8.0, top: 32),
+                child: Text(
                   'Categorías Disponibles:',
                   style: TextStyle(
                     fontSize: 14.0,
@@ -56,11 +88,11 @@ class CustomDialog extends StatelessWidget {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 16.0, right: 16.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: DualButtonList(),
+                  child: DualButtonList(filters: filters,),
                 ),
               ),
               const Padding(

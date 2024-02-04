@@ -16,10 +16,13 @@ import 'package:minegociomenu/presentation/widgets/SliderView.dart';
 import 'package:minegociomenu/presentation/widgets/navigation/mBottomNavigationBar.dart';
 import 'dart:ui' as ui;
 
+import '../../../../core/Helpers/login_manager.dart';
 import '../../../../delegates/search/search_delegate.dart';
+import '../../../../domain/globalProviders/02producto/producto.dart';
+import '../../../../main.dart';
 import '../04Login/presentation/Screen/signIn_demo.dart';
 import '../10notificaciones/notificaciones_screen.dart';
-import '../11administracion/administracion_screen.dart';
+import '../00administracion/11administracion/administracion_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -84,6 +87,10 @@ class _MyHomePageState extends ConsumerState {
     const SignInDemo(),
   ];
 
+  final List<Widget> _Fragment_screens_admins = [
+    const AdministracionScreen(),
+  ];
+
   @override
   void initState() {
     title = "Super Market 23";
@@ -100,11 +107,17 @@ class _MyHomePageState extends ConsumerState {
 
   @override
   Widget build(BuildContext context) {
+    bool isUserLoggedIn = ref.watch(isUserLoggedInProvider) ?? false;
+    var plist = ref.watch(fullproductosProvider);
+
+
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SafeArea(
+        body:
+        SafeArea(
           child: SliderDrawer(
               appBar: SliderAppBar(
                   appBarPadding: const EdgeInsets.only(left: 8),
@@ -148,17 +161,17 @@ class _MyHomePageState extends ConsumerState {
                                   content: Text('Buscar productos')));
                           showSearch(
                               context: context,
-                              delegate: ItemProductoSearchDelegate(ref));
-                                             context.push(
-                            '/searchproductsscreen',
-                          );
+                              delegate: ItemProductoSearchDelegate(ref, plist));
+                          //                    context.push(
+                          //   '/searchproductsscreen',
+                          // );
                         },
                         child: const Icon(
                           Icons.search,
                           color: Color(0xffFFD54B),
                         ), // Icono de búsqueda ,
                       ),
-                      PersistentShoppingCart().showCartItemCountWidget(
+                      isUserLoggedIn ? PersistentShoppingCart().showCartItemCountWidget(
                         cartItemCountWidgetBuilder: (itemCount) => IconButton(
                           onPressed: () {
                             Navigator.push(
@@ -175,7 +188,7 @@ class _MyHomePageState extends ConsumerState {
                             ),
                           ),
                         ),
-                      ),
+                      ): Container(),
 /*                       IconButton(
                           onPressed: () {
                             //showToast("Funcion pendiente");
@@ -191,10 +204,11 @@ class _MyHomePageState extends ConsumerState {
                         width: 8.0,
                       ),
                     ],
-                  )),
+                  ) ),
               key: _sliderDrawerKey,
               sliderOpenSize: 200,
               slider: SliderView(
+                  isUserLoggedIn: isUserLoggedIn,
                 onItemClick: (title) {
                   _sliderDrawerKey.currentState!.closeSlider();
                   setState(() {
@@ -205,7 +219,9 @@ class _MyHomePageState extends ConsumerState {
                     } else if (title == "LogOut") {
                       context.push('/login');
                     } else if (title == "Configuraciones") {
-                      context.push('/administracion_screen');
+                      context.push('/login');
+                    } else if (title == "exit") {
+                     isUserLoggedIn = changeLoginState(ref);
                     }
                   });
                 },
@@ -214,7 +230,7 @@ class _MyHomePageState extends ConsumerState {
                 children: [
                   Scaffold(
                     backgroundColor: Colors.transparent,
-                    appBar: notificarionPromoShow
+                    appBar: isUserLoggedIn ? notificarionPromoShow
                         ? CustomNotificationPromo(
                             "Oferta especial para ti solo por hoy",
                             "Entrega gratis con tu primera orden",
@@ -224,20 +240,22 @@ class _MyHomePageState extends ConsumerState {
                               });
                             },
                           )
-                        : null,
+                        : null : null,
                     body: Stack(
                       children: [
                         IndexedStack(
                           index: _currentIndex,
-                          children: _Fragment_screens,
+                          children: isUserLoggedIn! ?  _Fragment_screens : _Fragment_screens_admins,
                         ),
                       ],
                     ),
-                    bottomNavigationBar: mBottomNavigationBar(
+                    bottomNavigationBar: isUserLoggedIn! ?
+                    mBottomNavigationBar(
                       updateText_currentIndex,
                       updateText_title,
                       items: [],
-                    ),
+                        isUserLoggedIn: isUserLoggedIn,
+                    ) : null,
                     //child: AuthorList()
                   ),
                 ],

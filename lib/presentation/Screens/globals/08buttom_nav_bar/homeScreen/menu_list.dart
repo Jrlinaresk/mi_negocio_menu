@@ -11,6 +11,9 @@ import 'package:minegociomenu/presentation/Screens/particular/presentation/produ
 import 'package:minegociomenu/presentation/widgets/botones/itemTabCustom.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../domain/globalProviders/location/state_provider.dart';
+import '../../../../../domain/models/ubicacion/ubicacion.dart';
+import '../../../../widgets/cargas/mcircular_progress_indicator.dart';
 import '../../filter/CustomDialog.dart';
 
 class MenuList extends ConsumerStatefulWidget {
@@ -65,7 +68,10 @@ class MenuListState extends ConsumerState<MenuList>
   @override
   Widget build(BuildContext context) {
     final categoriaListAsyncValue = ref.watch(categoriaProvider);
-    var b = 0;
+    AsyncValue<Ubicacion> ubicacionProvider =
+    ref.watch(updatedLocationProviderClient);
+
+    var basudir = ubicacionProvider.value;
     // Acceder al valor dentro de AsyncValue
     return categoriaListAsyncValue.when(
       data: (categoriaList) {
@@ -104,22 +110,25 @@ class MenuListState extends ConsumerState<MenuList>
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Row(
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.location_pin),
-                      iconSize: 24,
-                      color: Colors.grey,
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const CustomDialog();
-                          },
-                        );
-                      },
+                    SizedBox(
+                      width: 34.0,
+                      child: IconButton(
+                        icon: const Icon(Icons.location_pin),
+                        iconSize: 24,
+                        color: Colors.grey,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const CustomDialog();
+                            },
+                          );
+                        },
+                      ),
                     ),
-                    const Text(
-                        "La Habana, Arroyo Naranjo", //${categoriaListAsyncValue.value!.length}
-                        style: TextStyle(
+                    Text(
+                        "La Habana, ${basudir!.county}, ${basudir!.suburb},", //${categoriaListAsyncValue.value!.length}
+                        style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w200)),
                   ],
                 ),
@@ -162,9 +171,9 @@ class MenuListState extends ConsumerState<MenuList>
       },
       loading: () {
         // Aquí se muestra el CircularProgressIndicator mientras se carga la información
-        return const Scaffold(
+        return Scaffold(
             backgroundColor: Colors.white,
-            body: Center(child: CircularProgressIndicator()));
+            body: Center(child: CustomLoadingIndicator()));
       },
       error: (error, stack) {
         // Manejo de errores si ocurre alguno

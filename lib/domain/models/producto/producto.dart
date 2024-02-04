@@ -89,7 +89,7 @@ class Producto with ChangeNotifier {
       nombre: json['nombre'],
       modelo: json['modelo'] ?? 'Desconocido',
       marca: json['marca'] ?? 'Desconocida',
-      CategoriaID: json['CategoriaID'],
+      CategoriaID: json['CategoriaID'] ?? -1,
       types: (json['types'] as List<dynamic>?)
           ?.cast<int>(), // Asegura que se convierta a List<int> correctamente
 /*       ImagenUrl: json['ImagenUrl'] ?? [],

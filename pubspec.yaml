@@ -75,6 +75,8 @@ flutter:
   assets:
     - assets/
     - assets/categorias/
+    - assets/administracion/
+    - assets/developed/
     - assets/productos/aceite/
     - assets/productos/bebidas/
     - assets/productos/carnes/

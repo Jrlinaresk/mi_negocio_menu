@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 
+import '../../../../../../widgets/cargas/mcircular_progress_indicator.dart';
+
 class mCustomMapConfig {
   final String? urlTemplate;
   final double? stepZoom;
@@ -41,5 +43,5 @@ class mCustomMapConfig {
     this.showLocationController = true, //unimplement
     this.showCurrentLocationPointer = true,
     Widget? loadingWidget,
-  }) : loadingWidget = loadingWidget ?? const CircularProgressIndicator();
+  }) : loadingWidget = loadingWidget ?? CustomLoadingIndicator();
 }

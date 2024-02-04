@@ -54,7 +54,7 @@ class List_productos_WidgetState extends ConsumerState<List_productos_Widget> {
                       height: 160,
                       child: Center(
                           child: buildImage('loading.gif',
-                              false)), //CircularProgressIndicator()
+                              false)), //CustomLoadingIndicator()
                     );
                   } else if (snapshot.hasError) {
                     // Manejar error si ocurre
@@ -83,7 +83,7 @@ class List_productos_WidgetState extends ConsumerState<List_productos_Widget> {
                   backgroundColor: Colors.white,
                   body: Center(
                       child: buildImage(
-                          'loading.gif', false))); //CircularProgressIndicator()
+                          'loading.gif', false))); //CustomLoadingIndicator()
             },
             error: (error, stack) {
               // Manejo de errores si ocurre alguno
@@ -111,7 +111,7 @@ class List_productos_WidgetState extends ConsumerState<List_productos_Widget> {
                       height: 160,
                       child: Center(
                           child: buildImage('loading.gif',
-                              false)), //CircularProgressIndicator()
+                              false)), //CustomLoadingIndicator()
                     );
                   } else if (snapshot.hasError) {
                     // Manejar error si ocurre
@@ -141,7 +141,7 @@ class List_productos_WidgetState extends ConsumerState<List_productos_Widget> {
                   body: Center(
                       child: Center(
                           child: buildImage('loading.gif',
-                              false) //CircularProgressIndicator()
+                              false) //CustomLoadingIndicator()
                           )));
             },
             error: (error, stack) {

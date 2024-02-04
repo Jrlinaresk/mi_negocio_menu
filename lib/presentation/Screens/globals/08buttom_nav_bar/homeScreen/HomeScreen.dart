@@ -8,6 +8,8 @@ import 'package:minegociomenu/domain/data/remote/servicio/servicios/servicio_pro
 
 import 'package:minegociomenu/domain/provider/clientes/clientesProvider.dart';
 
+import '../../../../widgets/cargas/mcircular_progress_indicator.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -79,7 +81,7 @@ class CategoriatListProductos extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final categorias = ref.watch(categoriaProvider);
     return categorias.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => Center(child: CustomLoadingIndicator()),
         error: (error, stack) => Center(child: Text('Error: $error')),
         data: (categoriasapi) => ListView.builder(
               itemCount:
@@ -100,7 +102,7 @@ class CategoriatListServicio extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final plist = ref.watch(serviciosProvider);
     return plist.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => Center(child: CustomLoadingIndicator()),
         error: (error, stack) => Center(child: Text('Error: $error')),
         data: (plist) => ListView.builder(
               itemCount: plist.length, // Cantidad de elementos en la lista

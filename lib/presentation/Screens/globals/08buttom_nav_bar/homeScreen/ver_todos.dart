@@ -11,9 +11,12 @@ import 'package:minegociomenu/presentation/Screens/globals/08buttom_nav_bar/home
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/sub_cat_custom_card.dart';
 import 'package:minegociomenu/presentation/Screens/particular/presentation/products/presentation/widgets/list_productos.dart';
 import 'package:minegociomenu/presentation/widgets/imagenes/build_fullscreen_image.dart';
+import 'package:minegociomenu/presentation/widgets/imagenes/build_image.dart';
 import 'package:minegociomenu/presentation/widgets/promos/simple_promo.dart';
 import 'package:minegociomenu/presentation/widgets/titles/title_de_lista.dart';
 import 'package:minegociomenu/domain/models/producto/coffee.dart';
+
+import '../../../../widgets/cargas/mcircular_progress_indicator.dart';
 
 class MyScreen_ver_todo extends ConsumerStatefulWidget {
   final int index; // id de categoria
@@ -54,19 +57,59 @@ class MyScreen_ver_todoState extends ConsumerState<MyScreen_ver_todo> {
                           Text(widget.texto,
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w100)),
-                          IconButton(
-                            icon: const Icon(Icons.tune),
-                            iconSize: 24,
-                            color: Theme.of(context).primaryColor,
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const CustomDialog();
-                                },
-                              );
-                            },
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 0.0),
+                                child: IconButton(
+                                  icon: buildImage('assets/3x3.png', false),
+                                  iconSize: 24,
+                                  color: Theme.of(context).primaryColor,
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return const CustomDialog();
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 0.0),
+                                child: IconButton(
+                                  icon: const Icon(Icons.filter_list_outlined),
+                                  iconSize: 24,
+                                  color: Theme.of(context).primaryColor,
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return const CustomDialog();
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: IconButton(
+                                  icon: const Icon(Icons.filter_list_outlined),
+                                  iconSize: 24,
+                                  color: Theme.of(context).primaryColor,
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return const CustomDialog();
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
+
                         ],
                       ),
                       List_productos_Widget(
@@ -94,9 +137,9 @@ class MyScreen_ver_todoState extends ConsumerState<MyScreen_ver_todo> {
       },
       loading: () {
         // Aquí se muestra el CircularProgressIndicator mientras se carga la información
-        return const Scaffold(
+        return Scaffold(
             backgroundColor: Colors.white,
-            body: Center(child: CircularProgressIndicator()));
+            body: Center(child: CustomLoadingIndicator()));
       },
       error: (error, stack) {
         // Manejo de errores si ocurre alguno
