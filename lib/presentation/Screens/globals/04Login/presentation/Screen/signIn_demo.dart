@@ -1,186 +1,159 @@
 import 'dart:async';
 import 'dart:convert' show json;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:icons_plus/icons_plus.dart';
 
-/// The scopes required by this application.
-// #docregion Initialize
 const List<String> scopes = <String>[
   'email',
   'https://www.googleapis.com/auth/contacts.readonly',
 ];
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  // Optional clientId
-  // clientId: 'your-client_id.apps.googleusercontent.com',
-  scopes: scopes,
-);
-
-/// The SignInDemo app.
 class SignInDemo extends StatefulWidget {
-  ///
   const SignInDemo({super.key});
 
   @override
-  State createState() => _SignInDemoState();
+  State<SignInDemo> createState() => _SignInDemoState();
 }
 
 class _SignInDemoState extends State<SignInDemo> {
   GoogleSignInAccount? _currentUser;
-  bool _isAuthorized = false; // has granted permissions?
+  bool _isAuthorized = false;
   String _contactText = '';
 
   @override
   void initState() {
     super.initState();
 
-    _googleSignIn.onCurrentUserChanged
-        .listen((GoogleSignInAccount? account) async {
-      // #docregion CanAccessScopes
-      // In mobile, being authenticated means being authorized...
-      bool isAuthorized = account != null;
-      // However, on web...
-      if (kIsWeb && account != null) {
-        isAuthorized = await _googleSignIn.canAccessScopes(scopes);
-      }
-      // #enddocregion CanAccessScopes
-
-      setState(() {
-        _currentUser = account;
-        _isAuthorized = isAuthorized;
-      });
-
-      // Now that we know that the user can access the required scopes, the app
-      // can call the REST API.
-      if (isAuthorized) {
-        unawaited(_handleGetContact(account!));
-      }
-    });
-
-    // In the web, _googleSignIn.signInSilently() triggers the One Tap UX.
-    //
-    // It is recommended by Google Identity Services to render both the One Tap UX
-    // and the Google Sign In button together to "reduce friction and improve
-    // sign-in rates" ([docs](https://developers.google.com/identity/gsi/web/guides/display-button#html)).
-    _googleSignIn.signInSilently();
+    final GoogleSignIn signIn = GoogleSignIn.instance;
+    unawaited(
+      signIn.initialize().then((_) {
+        signIn.authenticationEvents.listen(_handleAuthenticationEvent);
+        signIn.attemptLightweightAuthentication();
+      }),
+    );
   }
 
-  // Calls the People API REST endpoint for the signed-in user to retrieve information.
+  Future<void> _handleAuthenticationEvent(
+    GoogleSignInAuthenticationEvent event,
+  ) async {
+    final GoogleSignInAccount? user = switch (event) {
+      GoogleSignInAuthenticationEventSignIn() => event.user,
+      GoogleSignInAuthenticationEventSignOut() => null,
+    };
+
+    final authorization = await user?.authorizationClient.authorizationForScopes(
+      scopes,
+    );
+
+    setState(() {
+      _currentUser = user;
+      _isAuthorized = authorization != null;
+    });
+
+    if (user != null && authorization != null) {
+      unawaited(_handleGetContact(user));
+    }
+  }
+
   Future<void> _handleGetContact(GoogleSignInAccount user) async {
     setState(() {
       _contactText = 'Loading contact info...';
     });
+
+    final headers = await user.authorizationClient.authorizationHeaders(scopes);
+    if (headers == null) {
+      setState(() {
+        _contactText = 'No autorizado para leer contactos.';
+      });
+      return;
+    }
+
     final http.Response response = await http.get(
       Uri.parse('https://people.googleapis.com/v1/people/me/connections'
           '?requestMask.includeField=person.names'),
-      headers: await user.authHeaders,
+      headers: headers,
     );
+
     if (response.statusCode != 200) {
       setState(() {
-        _contactText = 'People API gave a ${response.statusCode} '
-            'response. Check logs for details.';
+        _contactText =
+            'People API devolvio ${response.statusCode}. Revisa permisos.';
       });
-      print('People API ${response.statusCode} response: ${response.body}');
       return;
     }
+
     final Map<String, dynamic> data =
-    json.decode(response.body) as Map<String, dynamic>;
+        json.decode(response.body) as Map<String, dynamic>;
     final String? namedContact = _pickFirstNamedContact(data);
+
     setState(() {
-      if (namedContact != null) {
-        _contactText = 'I see you know $namedContact!';
-      } else {
-        _contactText = 'No contacts to display.';
-      }
+      _contactText =
+          namedContact != null ? 'I see you know $namedContact!' : 'No contacts to display.';
     });
   }
 
   String? _pickFirstNamedContact(Map<String, dynamic> data) {
     final List<dynamic>? connections = data['connections'] as List<dynamic>?;
-    final Map<String, dynamic>? contact = connections?.firstWhere(
-          (dynamic contact) => (contact as Map<Object?, dynamic>)['names'] != null,
-      orElse: () => null,
-    ) as Map<String, dynamic>?;
-    if (contact != null) {
-      final List<dynamic> names = contact['names'] as List<dynamic>;
-      final Map<String, dynamic>? name = names.firstWhere(
-            (dynamic name) =>
-        (name as Map<Object?, dynamic>)['displayName'] != null,
-        orElse: () => null,
-      ) as Map<String, dynamic>?;
-      if (name != null) {
-        return name['displayName'] as String?;
-      }
-    }
-    return null;
+    final Map<String, dynamic>? contact = connections
+        ?.cast<Map<String, dynamic>>()
+        .firstWhere((c) => c['names'] != null, orElse: () => <String, dynamic>{});
+
+    final List<dynamic>? names = contact?['names'] as List<dynamic>?;
+    if (names == null || names.isEmpty) return null;
+
+    final Map<String, dynamic>? name = names
+        .cast<Map<String, dynamic>>()
+        .firstWhere((n) => n['displayName'] != null, orElse: () => <String, dynamic>{});
+
+    return name?['displayName'] as String?;
   }
 
-  // This is the on-click handler for the Sign In button that is rendered by Flutter.
-  //
-  // On the web, the on-click handler of the Sign In button is owned by the JS
-  // SDK, so this method can be considered mobile only.
-  // #docregion SignIn
   Future<void> _handleSignIn() async {
     try {
-      await _googleSignIn.signIn();
-    } catch (error) {
-      print(error);
-    }
+      if (GoogleSignIn.instance.supportsAuthenticate()) {
+        await GoogleSignIn.instance.authenticate();
+      }
+    } catch (_) {}
   }
-  // #enddocregion SignIn
 
-  // Prompts the user to authorize `scopes`.
-  //
-  // This action is **required** in platforms that don't perform Authentication
-  // and Authorization at the same time (like the web).
-  //
-  // On the web, this must be called from an user interaction (button click).
-  // #docregion RequestScopes
   Future<void> _handleAuthorizeScopes() async {
-    final bool isAuthorized = await _googleSignIn.requestScopes(scopes);
-    // #enddocregion RequestScopes
-    setState(() {
-      _isAuthorized = isAuthorized;
-    });
-    // #docregion RequestScopes
-    if (isAuthorized) {
-      unawaited(_handleGetContact(_currentUser!));
-    }
-    // #enddocregion RequestScopes
+    final GoogleSignInAccount? user = _currentUser;
+    if (user == null) return;
+
+    try {
+      await user.authorizationClient.authorizeScopes(scopes);
+      setState(() {
+        _isAuthorized = true;
+      });
+      unawaited(_handleGetContact(user));
+    } catch (_) {}
   }
 
-  Future<void> _handleSignOut() => _googleSignIn.disconnect();
+  Future<void> _handleSignOut() => GoogleSignIn.instance.disconnect();
 
   Widget _buildBody() {
     final GoogleSignInAccount? user = _currentUser;
     if (user != null) {
-      // The user is Authenticated
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           ListTile(
-            leading: GoogleUserCircleAvatar(
-              identity: user,
-            ),
+            leading: GoogleUserCircleAvatar(identity: user),
             title: Text(user.displayName ?? ''),
             subtitle: Text(user.email),
           ),
           const Text('Signed in successfully.'),
           if (_isAuthorized) ...<Widget>[
-            // The user has Authorized all required scopes
             Text(_contactText),
             ElevatedButton(
-              child: const Text('REFRESH'),
               onPressed: () => _handleGetContact(user),
+              child: const Text('REFRESH'),
             ),
           ],
           if (!_isAuthorized) ...<Widget>[
-            // The user has NOT Authorized all required scopes.
-            // (Mobile users may never see this button!)
             const Text('Additional permissions needed to read your contacts.'),
             ElevatedButton(
               onPressed: _handleAuthorizeScopes,
@@ -193,55 +166,50 @@ class _SignInDemoState extends State<SignInDemo> {
           ),
         ],
       );
-    } else {
-      // The user is NOT Authenticated
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          const Text('You are not currently signed in.'),
-          // This method is used to separate mobile from web code with conditional exports.
-          // See: src/sign_in_button.dart
-          SignInButton(
-            onPressed: _handleSignIn,
-          ),
-        ],
-      );
     }
-  }
 
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        const Text('You are not currently signed in.'),
+        SignInButton(onPressed: _handleSignIn),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Text('Google Sign In'),
-        ),
-        body: ConstrainedBox(
-          constraints: const BoxConstraints.expand(),
-          child: _buildBody(),
-        ));
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text('Google Sign In'),
+      ),
+      body: ConstrainedBox(
+        constraints: const BoxConstraints.expand(),
+        child: _buildBody(),
+      ),
+    );
   }
 }
 
 class SignInButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  const SignInButton({super.key, required this.onPressed});
 
-  SignInButton({required this.onPressed});
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        primary: Colors.red, // Color de fondo del botón
-        onPrimary: Colors.white, // Color del texto del botón
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.red,
       ),
       child: const Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const  Icon(Bootstrap.google),
+          Icon(Bootstrap.google),
           SizedBox(width: 12.0),
           Text('Sign In with Google'),
         ],

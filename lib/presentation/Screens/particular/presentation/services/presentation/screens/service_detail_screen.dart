@@ -27,7 +27,7 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
   late int index = 0;
   late Producto product;
   late List<Producto> productListAsyncValue = [];
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController = CarouselSliderController();
   bool isFavorito = false;
   bool toogle = false;
 

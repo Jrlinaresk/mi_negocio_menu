@@ -22,7 +22,7 @@ class NegocioDetailScreen extends ConsumerStatefulWidget {
 class _NegocioDetailScreenState extends ConsumerState<NegocioDetailScreen> {
   late Negocio negocio;
   late List<Negocio> nlist = [];
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController = CarouselSliderController();
   bool isFavorito = false;
   bool toogle = false;
 

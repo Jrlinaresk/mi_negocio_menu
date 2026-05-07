@@ -20,9 +20,12 @@ import 'dart:math' as math;
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter/animation.dart';
 import 'package:http/http.dart' as http;
-import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
+
+Stream<Uri?> getUriLinksStream() => const Stream<Uri?>.empty();
+Future<Uri?> getInitialUri() async => null;
+Future<String?> getInitialLink() async => null;
 
 class FlutterMapOsrmExample extends ConsumerStatefulWidget {
   const FlutterMapOsrmExample({

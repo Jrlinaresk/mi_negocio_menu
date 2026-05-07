@@ -11,10 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:minegociomenu/presentation/widgets/imagenes/build_fullscreen_image.dart';
 import 'package:minegociomenu/presentation/widgets/imagenes/build_image.dart';
-import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../widgets/cargas/mcircular_progress_indicator.dart';
+
+Future<String?> getInitialLink() async => null;
+Stream<String?> getLinksStream() => const Stream<String?>.empty();
 
 class BienvenidoScreen extends ConsumerStatefulWidget {
   const BienvenidoScreen({super.key});
@@ -50,7 +52,7 @@ class LoginState extends ConsumerState<BienvenidoScreen>
     }
   }
 
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController = CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {
